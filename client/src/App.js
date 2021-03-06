@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch} from "react-router-dom";
 import UserHomepage from "./components/UserHomepage";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./components/Landing";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
