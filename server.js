@@ -27,7 +27,7 @@ mongoose.connect(
 // Use apiRoutes
 app.use("/api", apiRoutes);
 
-app.use(cors());
+//app.use(cors());
 
 // app.use(passport.initialize());
 // app.use(passport.session());
