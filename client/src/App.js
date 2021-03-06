@@ -3,12 +3,12 @@ import './App.css';
 import { BrowserRouter, Route, Switch} from "react-router-dom";
 import UserHomepage from "./components/UserHomepage";
 import PodDisplay from "./components/PodDisplay";
+import Landing from "./components/Landing";
 
 function App() {
   return (
     <BrowserRouter>
       <div>
-        <Nav/>
           <Switch>
               <Route exact path="/">
                 <Landing />
@@ -20,7 +20,7 @@ function App() {
                 <PodDisplay />
               </Route>
               <Route path="*">
-                <NoMatch />
+                <Landing />
               </Route>
           </Switch>
         </div>
