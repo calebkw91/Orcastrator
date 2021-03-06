@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
@@ -7,10 +8,11 @@ const mongoose = require("mongoose");
 
 
 
-const app = require('http').createServer(express);
+const app = http.createServer(express);
 const PORT = process.env.PORT || 8080;
 const apiRoutes = require("./routes");
-
+//create socket server to listen on our http server
+const io = require('socket.io').listen(app);
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -18,7 +20,11 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
-const io = require('socket.io')();
+//notes
+io.on('connection',function (socket){
+    console.log("connected succesfully to socket");
+})
+
 // Connect to the Mongo DB
 mongoose.connect(
     process.env.MONGODB_URI || "mongodb://localhost/orcastrator",
