@@ -6,7 +6,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 
 
-const app = express();
+
+const app = require('http').createServer(express);
 const PORT = process.env.PORT || 8080;
 const apiRoutes = require("./routes");
 
@@ -17,7 +18,7 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
-
+const io = require('socket.io')();
 // Connect to the Mongo DB
 mongoose.connect(
     process.env.MONGODB_URI || "mongodb://localhost/orcastrator",
