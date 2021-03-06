@@ -14,10 +14,10 @@ function App() {
               <Route exact path="/">
                 <Landing />
               </Route>
-              <Route exact path="/User">
+              <Route exact path="/User/:userID">
                 <UserHomepage />
               </Route>
-              <Route exact path="/Pod/:id">
+              <Route exact path="/Pod/:PodID">
                 <PodDisplay />
               </Route>
               <Route path="*">
