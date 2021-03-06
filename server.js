@@ -1,14 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
-// const passport = require("./OAuthConfig/passport");
+//const passport = require("./OAuthConfig/passport");
 const path = require("path");
 const mongoose = require("mongoose");
 
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-const apiRoutes = require("./routes/apiRoutes");
+const apiRoutes = require("./routes");
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
