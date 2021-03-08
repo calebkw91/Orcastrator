@@ -1,6 +1,10 @@
 const http = require('http');
 const express = require("express");
 const cors = require("cors");
+const corsOptions = {
+    origin:['https://orcastrator.herokuapp.com/','http://localhost:3000'],
+    optionsSuccessStatus:200
+}
 const session = require("express-session");
 //const passport = require("./OAuthConfig/passport");
 const path = require("path");
@@ -12,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 8080;
 //create socket server to listen on our http server
-const io = socketio(server);
+const io = socketio(server,{cors:{corsOptions}});
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));

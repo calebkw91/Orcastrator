@@ -15,9 +15,9 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.socket.io/3.1.1/socket.io.min.js" integrity="sha384-gDaozqUvc4HTgo8iZjwth73C6dDDeOJsAgpxBcMpZYztUfjHXpzrpdrHRdVp8ySO" crossorigin="anonymous"></script>
     <script>
-      let socket = io();
+      let socket = io('http://localhost:8080');
     </script>
   </body>
 
