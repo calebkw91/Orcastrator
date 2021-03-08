@@ -5,8 +5,8 @@ const corsOptions = {
     origin:['https://orcastrator.herokuapp.com/','http://localhost:3000'],
     optionsSuccessStatus:200
 }
+const passport = require("passport");
 const session = require("express-session");
-//const passport = require("./OAuthConfig/passport");
 const path = require("path");
 const mongoose = require("mongoose");
 const socketio = require('socket.io');
@@ -21,6 +21,17 @@ const io = socketio(server,{cors:{corsOptions}});
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());// need to add cors options here, need to modify options for authentication requests*********************
+app.use(
+    session({
+        secret: "supersecret",
+        resave: true,
+        saveUninitialized: true
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
@@ -33,16 +44,10 @@ mongoose.connect(
 );
 
 const apiRoutes = require("./routes");
+const PASSPORTroutes = require("./routes/api/passport");
 // Use apiRoutes
 app.use("/api", apiRoutes);
-
-// app.use(cors());
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(
-//     session({ secret: "ssshhhh its a secret", resave: true, saveUninitialized: true })
-// );
+app.use(PASSPORTroutes);
 
 // Send every request to the React app
 // Define any API routes before this runs
