@@ -5,14 +5,18 @@ const session = require("express-session");
 //const passport = require("./OAuthConfig/passport");
 const path = require("path");
 const mongoose = require("mongoose");
-
-
-
+const socketio = require('socket.io');
+// create an http server with express
 const app = http.createServer(express);
 const PORT = process.env.PORT || 8080;
 const apiRoutes = require("./routes");
 //create socket server to listen on our http server
-const io = require('socket.io').listen(app);
+const io = socketio(app);
+//notes
+io.on('connection',(socket) =>{
+    console.log("connected succesfully to socket");
+})
+
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,10 +24,6 @@ app.use(express.json());
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
-//notes
-io.on('connection',function (socket){
-    console.log("connected succesfully to socket");
-})
 
 // Connect to the Mongo DB
 mongoose.connect(
