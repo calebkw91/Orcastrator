@@ -51,7 +51,7 @@ app.get("*", function (req, res) {
 });
 // what socketio should do once connected
 io.on('connection',(socket) =>{
-    console.log("a user has connected to socket");
+    console.log('a user has connected to socket :_'+socket.id);
 })
 
 // start the http server
