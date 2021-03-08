@@ -6,16 +6,13 @@ const session = require("express-session");
 const path = require("path");
 const mongoose = require("mongoose");
 const socketio = require('socket.io');
-// create an http server with express
-const app = http.createServer(express);
+// create a variable equal to an express instance.
+const app = express();
+//create a node.js http server using express
+const server = http.createServer(app);
 const PORT = process.env.PORT || 8080;
-const apiRoutes = require("./routes");
 //create socket server to listen on our http server
-const io = socketio(app);
-//notes
-io.on('connection',(socket) =>{
-    console.log("connected succesfully to socket");
-})
+const io = socketio(server);
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -31,10 +28,11 @@ mongoose.connect(
     { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
 );
 
+const apiRoutes = require("./routes");
 // Use apiRoutes
 app.use("/api", apiRoutes);
 
-app.use(cors());
+// app.use(cors());
 
 // app.use(passport.initialize());
 // app.use(passport.session());
@@ -47,7 +45,12 @@ app.use(cors());
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
+// what socketio should do once connected
+io.on('connection',(socket) =>{
+    console.log("a user has connected to socket");
+})
 
-app.listen(PORT, () => {
+// start the http server
+server.listen(PORT, () => {
     console.log("app running on:", PORT);
 });
