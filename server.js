@@ -17,6 +17,14 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 8080;
 //create socket server to listen on our http server
 const io = socketio(server,{cors:{corsOptions}});
+io.use((socket, next)=>{
+    const username = socket.handshake.auth.username;
+    if(!username){
+        return next(new Error("invalid username"));
+    }
+    socket.username = username;
+    next();
+})
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
@@ -56,7 +64,7 @@ app.get("*", function (req, res) {
 });
 // what socketio should do once connected
 io.on('connection',(socket) =>{
-    console.log('a user has connected to socket :_'+socket.id);
+    console.log('a user has connected to socket :_'+socket.id + 'username:_'+socket.username);
 })
 
 // start the http server

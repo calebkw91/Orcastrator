@@ -1,9 +1,9 @@
-import react,{useEffect} from "react";
+import {useEffect} from "react";
 import socketConnection from "../../utils/socket"
 
 function ChatWindow(){
     useEffect(() => {
-        socketConnection();
+        socketConnection("haventDoneAnythingYet");
       });
 
     return (
