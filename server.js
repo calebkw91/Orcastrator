@@ -2,7 +2,7 @@ const http = require('http');
 const express = require("express");
 const cors = require("cors");
 const corsOptions = {
-    origin:['https://orcastrator.herokuapp.com/','http://localhost:3000'],
+    origin:['https://orcastrator.herokuapp.com/','http://localhost:3000','http://localhost/8000/auth/google/callback','http://localhost/8000/auth/github/callback'],
     optionsSuccessStatus:200
 }
 const passport = require("passport");
@@ -29,7 +29,7 @@ io.use((socket, next)=>{
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());// need to add cors options here, need to modify options for authentication requests*********************
+app.use(cors(corsOptions));
 app.use(
     session({
         secret: "supersecret",
