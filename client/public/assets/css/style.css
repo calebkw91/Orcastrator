@@ -1,0 +1,8 @@
+@font-face {
+    font-family: Mulish;
+    src: url(./Mulish/Mulish-Italic-VariableFont_wght.ttf);
+ }
+ 
+ * {
+    font-family: Mulish;
+ }
