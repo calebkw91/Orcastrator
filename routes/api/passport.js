@@ -1,5 +1,6 @@
 const passportRouter = require("express").Router()
 const passport = require("../../OAuthConfig/passport");
+const isAuthenticated = require("../../OAuthConfig/isAuthenticated")
 
 passportRouter.get('/auth/google',
     passport.authenticate('google', { scope: ['profile'] })
@@ -10,7 +11,6 @@ passportRouter.get('/auth/google/callback',
     function (req, res) {
         // Successful authentication, redirect home.
         res.redirect("http://localhost:3000/User");
-        // window.location.href="/"
 });
 
 passportRouter.get("/auth/github",
@@ -23,5 +23,9 @@ passportRouter.get("/auth/github/callback",
         res.redirect("http://localhost:3000/User");
     }
 );
+passportRouter.get("/User",isAuthenticated, (req, res) => {
+    console.log("weeeeeeeeeeeeeeeeeee madddddddddddddddeeeeeeeeeeeeeee ittttttttttttttttttttttt", req.user);
+    res.json(req.user);
+});
 
-module.exports = passportRouter
+module.exports = passportRouter;

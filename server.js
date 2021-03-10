@@ -11,6 +11,7 @@ const apiRoutes = require("./routes");
 const PASSPORTroutes = require("./routes/api/passport");
 
 // Define middleware here
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
