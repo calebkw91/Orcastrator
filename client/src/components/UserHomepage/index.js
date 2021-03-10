@@ -18,7 +18,6 @@ function UserHomepage(props) {
     return (
         <div>
         <h1>UserHomepage Page</h1>
-        {/* <h1>{user.data.displayName}</h1> */}
         </div>
     )
 

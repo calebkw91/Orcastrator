@@ -38,6 +38,6 @@ passport.use(new GithubStrategy({
         console.log(profile);
         cb(null, profile);
     }
-))
+));
 
 module.exports = passport

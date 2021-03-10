@@ -27,6 +27,7 @@ io.use((socket, next)=>{
 })
 
 // Define middleware here
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors(corsOptions));
