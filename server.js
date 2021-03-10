@@ -1,18 +1,30 @@
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
-//const passport = require("./OAuthConfig/passport");
 const path = require("path");
 const mongoose = require("mongoose");
-
+const passport = require("passport")
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 const apiRoutes = require("./routes");
+const PASSPORTroutes = require("./routes/api/passport");
 
 // Define middleware here
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors());
+app.use(
+    session({
+        secret: "supersecret",
+        resave: true,
+        saveUninitialized: true
+    })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
@@ -26,17 +38,8 @@ mongoose.connect(
 
 // Use apiRoutes
 app.use("/api", apiRoutes);
+app.use(PASSPORTroutes);
 
-//app.use(cors());
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-// app.use(
-//     session({ secret: "ssshhhh its a secret", resave: true, saveUninitialized: true })
-// );
-
-// Send every request to the React app
-// Define any API routes before this runs
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
