@@ -1,45 +1,27 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useContext } from "react";
 import UserContext from "../../utils/userContext";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import PodDisplay from "../PodDisplay/index";
 
 
 
 function UserHomepage(props) {
-
-    const [user, setUser] = useState({
-        id: "",
-        firstName: "",
-        lastName: "",
-        portrait: ""
-    });
-
+    
     useEffect(() => {
-        axios.get("/User")
-            .then((res) => {
-                console.log(res);
-                setUser(...user, {
-                    id: res.data.id,
-                    firstName: res.data.givenName,
-                    lastName: res.data.name.familyName,
-                    portrait: res.data.photos[0].value
-                });
-                console.log(user);
-                console.log(res.data.givenName)
-            })
-            .catch(err => console.log(err))
-    }, []);
+        props.setUser();
+    },[])
+
+    const { id, firstName, lastName, portrait } = useContext(UserContext);
+    
+    console.log(" id ",id," firstName ",firstName, " lastName ",lastName," portrait ",portrait);
 
     return (
-        <UserContext.Provider value={user}>
-                <div>
-                    <h1>UserHomepage Page</h1>
-                    <h1>{user.firstName}</h1>
-                </div>
-        </UserContext.Provider>
+        <div>
+            <h1>UserHomepage Page</h1>
+            <h1>ID:{id}</h1>
+            <h1>FirstName:{firstName}</h1>
+            <h1>LastName:{lastName}</h1>
+            <h1>Portrait:{portrait}</h1>
+        </div>
     )
-
 }
 
 
