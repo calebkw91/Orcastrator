@@ -4,16 +4,11 @@ import axios from "axios"
 
 function UserHomepage(props) {
 
-    const [user, setUser] = useState({});
+    
 
     useEffect(() => {
-        axios.get("/User")
-            .then((res) => {
-                console.log(res);
-                setUser(res);
-            })
-            .catch(err => console.log(err))
-    }, []);
+       
+    });
 
     return (
         <div>

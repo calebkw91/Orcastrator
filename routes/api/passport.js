@@ -9,7 +9,8 @@ passportRouter.get('/auth/google',
 passportRouter.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     function (req, res) {
-        // Successful authentication, redirect home.
+     
+        console.log(res);
         res.redirect("http://localhost:3000/User");
 });
 

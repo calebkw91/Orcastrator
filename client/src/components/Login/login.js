@@ -1,7 +1,7 @@
 import React from "react"
 
 function login() {
-
+     
     const googleLogin = () => {
         window.open("http://localhost:8080/auth/google", "_self");
     }

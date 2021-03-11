@@ -1,5 +1,5 @@
 import {useEffect} from "react";
-import socketConnection from "../../utils/socket"
+import socketConnection from "../../utils/ClientSocket"
 
 function ChatWindow(){
     useEffect(() => {
