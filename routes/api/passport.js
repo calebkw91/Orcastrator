@@ -12,6 +12,7 @@ passportRouter.get('/auth/google/callback',
      
         console.log(res);
         res.redirect("http://localhost:3000/User");
+        // dashboard instead of /User
 });
 
 passportRouter.get("/auth/github",
@@ -24,6 +25,7 @@ passportRouter.get("/auth/github/callback",
         res.redirect("http://localhost:3000/User");
     }
 );
+
 passportRouter.get("/User",isAuthenticated, (req, res) => {
     console.log("weeeeeeeeeeeeeeeeeee madddddddddddddddeeeeeeeeeeeeeee ittttttttttttttttttttttt", req.user);
     res.json(req.user);

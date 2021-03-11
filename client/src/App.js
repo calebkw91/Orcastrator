@@ -1,63 +1,88 @@
-import React, { useState, useEffect } from "react";
-import "./App.css";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import './App.css';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import UserHomepage from "./components/UserHomepage";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./components/Landing";
-import Login from "./components/Login/login";
+import Login from "./components/Login/login"
+import UserContext from "./utils/userContext";
 import axios from "axios";
-import { UserProvider, useUserContext } from "./utils/GlobalUserState";
 
 function App() {
-  const [state, dispatch] = useUserContext;
 
+  const [userState, setUserState] = useState({
+    id: "",
+    firstName: "",
+    lastName: "",
+    portrait: ""
+  })
+
+  console.log(userState);
   useEffect(() => {
-    axios.get(window.location + "/User").then((res) => {
-      if (res.data.id !== undefined) {
-        dispatch({
-          type: "add",
-          id: res.data.id,
-          firstName: res.data.name.givenName,
-          lastName: res.data.name.familyName,
-          email: res.data.email,
-          portrait: res.data.photos[0],
-        })
-          .then(() => {
-            if (state.id !== "") {
-              window.open(window.location + "/User", "_self");
-            }
-          })
-          .catch((err) => {
-            console.log(err);
+    axios.get("/User")
+      .then((res) => {
+        if (res.data.id !== undefined) {
+          console.log(res);
+          setUserState({
+            ...userState,
+            id: res.data.id,
+            firstName: res.data.name.givenName,
+            lastName: res.data.name.familyName,
+            portrait: res.data.photos[0].value
           });
-      }
-    });
-  });
-  if (state.id === "") {
-    return <Login />;
-  }
+        }
+        else {
+          return;
+        }
+      })
+
+      .catch(err => console.log(err))
+  }, []);
+
+  const settingUser = () => {
+    axios.get("/User")
+      .then((res) => {
+        if (res.data.id !== undefined) {
+          console.log(res);
+          setUserState({
+            ...userState,
+            id: res.data.id,
+            firstName: res.data.name.givenName,
+            lastName: res.data.name.familyName,
+            portrait: res.data.photos[0].value
+          })
+          console.log("we are in setting user function at app.js");
+        }
+        else {
+          return;
+        }})
+      .catch(err => console.log(err))
+  };
+
   return (
-    <UserProvider>
+    <UserContext.Provider value={userState}>
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            <Landing />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/User">
-            <UserHomepage />
-          </Route>
-          <Route exact path="/Pod/:id">
-            <PodDisplay />
-          </Route>
-          <Route path="*">
-            <Landing />
-          </Route>
-        </Switch>
+        <div>
+          <Switch>
+            <Route exact path="/">
+              <Landing />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/User">
+              <UserHomepage setUser={settingUser} />
+            </Route>
+            <Route exact path="/Pod/:id">
+              <PodDisplay />
+            </Route>
+            <Route path="*">
+              <Landing />
+            </Route>
+          </Switch>
+        </div>
       </BrowserRouter>
-    </UserProvider>
+    </UserContext.Provider>
   );
 }
 
