@@ -12,10 +12,10 @@ function App() {
 
   const [userState, setUserState] = useState({
     id: "",
-    firstName: "",
-    lastName: "",
+    name: "",
     portrait: ""
   });
+
   // let notLoggedIn = true;
 
   console.log(userState);
@@ -27,15 +27,24 @@ function App() {
     axios.get("/User")
       .then((res) => {
         if (res.data.id !== undefined) {
+          if (res.data.provider === "google"){
           console.log(res);
           setUserState({
             ...userState,
             id: res.data.id,
-            firstName: res.data.name.givenName,
-            lastName: res.data.name.familyName,
+            name: res.data._json.name,
             portrait: res.data.photos[0].value
           })
-          console.log("we are in setting user function at app.js");
+        }
+        else if(res.data.provider === "github"){
+          console.log(res);
+          setUserState({
+            ...userState,
+            id: res.data.id,
+            name: res.data._json.name,
+            portrait: res.data._json.avatar_url
+          })
+        }
         }
         else {
           return;
