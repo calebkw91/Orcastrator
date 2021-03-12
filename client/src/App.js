@@ -51,8 +51,14 @@ function App() {
             name: "Not Logged In",
             portrait: "Not Logged In"
           })
+          return;
         }})
       .catch(err => console.log(err));
+  };
+
+  const logout = () => {
+    console.log("logging out");
+    window.open("http:/localhost:3000/logout")
   };
 
   return (
@@ -67,7 +73,7 @@ function App() {
               <Login />
             </Route>
             <Route exact path="/User">
-              <UserHomepage setUser={settingUser}/>
+              <UserHomepage setUser={settingUser} logout={logout}/>
             </Route>
             <Route exact path="/Pod/:id">
               <PodDisplay />
