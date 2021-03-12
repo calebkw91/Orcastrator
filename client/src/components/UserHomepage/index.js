@@ -7,7 +7,7 @@ function UserHomepage(props) {
     
     useEffect(() => {
         props.setUser();
-    },[])
+    },[]);
 
     const { id, firstName, lastName, portrait } = useContext(UserContext);
     
@@ -21,8 +21,8 @@ function UserHomepage(props) {
             <h1>LastName:{lastName}</h1>
             <h1>Portrait:{portrait}</h1>
         </div>
-    )
-}
+    );
+};
 
 
 export default UserHomepage;
