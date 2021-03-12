@@ -5,8 +5,8 @@ import UserHomepage from "./components/UserHomepage";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./pages/Landing";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Landing from "./components/Landing";
 import Login from "./components/Login/login"
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -21,6 +21,9 @@ function App() {
           </Route>
           <Route exact path="/User">
             <UserHomepage />
+          </Route>
+          <Route exact path="/Dashboard">
+            <Dashboard />
           </Route>
           <Route exact path="/Pod/:id">
             <PodDisplay />
