@@ -4,14 +4,17 @@ import UserContext from "../../utils/userContext";
 
 
 function UserHomepage(props) {
-    
-    useEffect(() => {
-        props.setUser();
-    },[]);
-
     const { id, name, portrait } = useContext(UserContext);
-    
-    console.log(" id ",id," name ",name," portrait ",portrait);
+   
+    useEffect(() => {
+        if(id === "Not Logged In"){
+       window.open("http://localhost:3000/login", "_self")
+        };
+    },[id])
+
+    useEffect(() => {
+         props.setUser()
+    }, []);
 
     return (
         <div>
