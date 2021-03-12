@@ -4,7 +4,6 @@ const UserContext = React.createContext({
     id: "",
     firstName: "",
     lastName: "",
-    email: "",
     portrait: ""
 });
 
