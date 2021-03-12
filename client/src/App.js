@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import UserHomepage from "./components/UserHomepage";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./pages/Landing";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from "./components/Login";
 import UserContext from "./utils/userContext";
 import axios from "axios";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
 
@@ -54,7 +53,7 @@ function App() {
               <Landing />
             </Route>
             <Route exact path="/User">
-              <UserHomepage setUser={settingUser}/>
+              <Dashboard setUser={settingUser}/>
             </Route>
             <Route exact path="/Pod/:id">
               <PodDisplay />
