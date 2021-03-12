@@ -1,15 +1,14 @@
-import React, { useContext } from "react";
-import userContext from "../../utils/userContext"
+import React from "react";
+import ChatWindow from "../ChatStuffs/ChatWindow";
 
-function PodDisplay(props){
-    const user = useContext(userContext);
-    return(
-        <div>
+function PodDisplay(props) {
+ 
+  return (
+    <>
         <h1>PodDisplay Page</h1>
-        <h1>{user.firstName}</h1>
-        </div>
-    )
+        <ChatWindow/>
+    </>
+  )
 }
-
 
 export default PodDisplay;
