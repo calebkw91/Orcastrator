@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import userContext from "../../utils/userContext"
+import userContext from "../../utils/UserContext"
 import ChatWindow from "../ChatStuffs/ChatWindow";
 
-function PodDisplay(props){
+function PodDisplay(){
     const user = useContext(userContext);
     return(
         <div>

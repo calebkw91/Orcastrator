@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import UserHomepage from "./components/UserHomepage";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./components/Landing";
 import Login from "./components/Login/login"
-import UserContext from "./utils/userContext";
+import UserContext from "./utils/UserContext";
 import axios from "axios";
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
     axios.get("/User")
       .then((res) => {
         if (res.data.id !== undefined) {
-          console.log(res);
+          // console.log(res);
           setUserState({
             ...userState,
             id: res.data.id,
@@ -32,6 +32,7 @@ function App() {
           });
         }
         else {
+          // console.log(res);
           return;
         }
       })
@@ -54,6 +55,7 @@ function App() {
           console.log("we are in setting user function at app.js");
         }
         else {
+          console.log(res);
           return;
         }})
       .catch(err => console.log(err))
@@ -71,7 +73,7 @@ function App() {
               <Login />
             </Route>
             <Route exact path="/User">
-              <UserHomepage setUser={settingUser} />
+              <UserHomepage />
             </Route>
             <Route exact path="/Pod/:id">
               <PodDisplay />

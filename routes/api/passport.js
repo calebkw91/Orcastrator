@@ -10,7 +10,7 @@ passportRouter.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     function (req, res) {
      
-        console.log(res);
+        // console.log(res);
         res.redirect("http://localhost:3000/User");
         // dashboard instead of /User
 });

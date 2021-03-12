@@ -16,16 +16,22 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 8080;
 //create socket server to listen on our http server
-const io = socketio(server,{cors:{corsOptions}});
-io.use((socket, next)=>{
-    const username = socket.handshake.auth.username;
-    if(!username){
-        return next(new Error("invalid username"));
-    }
-    socket.username = username;
-    next();
-})
-
+const io = socketio(server);//,{cors:{corsOptions}}
+// io.use((socket, next)=>{
+//     let username = socket.username;
+//     if(!username){
+//         return next(new Error("invalid username"));
+//     }
+//     next();
+// });
+// what socketio should do once connected
+io.on('connection',(socket) =>{
+    let x = socket.pod;
+    // console.log(typeof(x));
+    // socket.join(socket.pod);
+    console.log('a user has connected to socket :_'+socket.id + ' username:_'+socket.username + 'room:_'+socket.pod);
+    // io.to(socket.pod).emit(socket.message);
+});
 // Define middleware here
 
 app.use(express.urlencoded({ extended: true }));
@@ -63,10 +69,27 @@ app.use(PASSPORTroutes);
 app.get("*", function (req, res) {
     res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
-// what socketio should do once connected
-io.on('connection',(socket) =>{
-    console.log('a user has connected to socket :_'+socket.id + 'username:_'+socket.username);
-})
+
+// const namespace = io.of()
+
+
+    // const users = [];
+    // for (let [id, socket] of io.of("/").sockets) {
+    //   users.push({
+    //     userID: id,
+    //     username: socket.username,
+    //   });
+    // }
+    // socket.emit("users", users);
+
+
+// io.on("connection", (socket) => {
+//     // notify existing users
+//     socket.broadcast.emit("user connected", {
+//       userID: socket.id,
+//       username: socket.username,
+//     });
+//   });
 
 // start the http server
 server.listen(PORT, () => {
