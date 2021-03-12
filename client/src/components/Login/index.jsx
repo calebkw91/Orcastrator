@@ -13,7 +13,7 @@ function Login() {
 
     return(
     <div className="mx-auto row justify-content-center align-self-center">
-        <h1 className="title-header">OrcaStrate</h1>
+        <h1 className="title-header">Orcastrate</h1>
         <h3 className="title-subheader">Orchestrate your group</h3>
         <div className="col-12">
             <div className="justify-content-center">
