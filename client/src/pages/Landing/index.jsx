@@ -1,16 +1,12 @@
 import React from "react";
+import LoginHeader from "../../components/LoginHeader";
 import Login from "../../components/Login";
+import "./style.css";
 
 function Landing(props){
     return(
-        <div className="container">
-            <div className="row">
-                <div className="col-12 mx-auto"></div>
-                <h1>OrcaStrator</h1>
-            </div>
-            <div className="row">
-                <h3>Orchestrate your team</h3>
-            </div>
+        <div className="container d-flex h-100">
+
             <Login />
         </div>
         

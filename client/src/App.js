@@ -5,7 +5,7 @@ import UserHomepage from "./components/UserHomepage";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./pages/Landing";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from "./components/Login/login"
+import Login from "./components/Login";
 import UserContext from "./utils/userContext";
 import axios from "axios";
 
@@ -49,13 +49,9 @@ function App() {
   return (
     <UserContext.Provider value={userState}>
       <BrowserRouter>
-        <div>
           <Switch>
             <Route exact path="/">
               <Landing />
-            </Route>
-            <Route exact path="/login">
-              <Login />
             </Route>
             <Route exact path="/User">
               <UserHomepage setUser={settingUser}/>
@@ -67,7 +63,6 @@ function App() {
               <Landing />
             </Route>
           </Switch>
-        </div>
       </BrowserRouter>
     </UserContext.Provider>
   );
