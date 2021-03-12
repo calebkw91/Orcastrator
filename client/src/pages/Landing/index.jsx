@@ -1,5 +1,4 @@
 import React from "react";
-import LoginHeader from "../../components/LoginHeader";
 import Login from "../../components/Login";
 import "./style.css";
 
