@@ -10,82 +10,78 @@ import axios from "axios";
 
 function App() {
 
-  const [userState, setUserState] = useState({
-    id: "",
-    name: "",
-    portrait: ""
-  });
+    const [userState, setUserState] = useState({
+        id: "",
+        name: "",
+        portrait: "",
+        loggedIn: false
+    });
 
-  console.log(userState);
-  useEffect(() => {
-    settingUser();
-  }, []);
+    console.log(userState.loggedIn);
+    useEffect(() => {
+        axios.get("/User")
+            .then((res) => {
+                if (res.data.id !== undefined) {
+                    if (res.data.provider === "google") {
+                        console.log(res);
+                        setUserState({
+                            ...userState,
+                            id: res.data.id,
+                            name: res.data._json.name,
+                            portrait: res.data.photos[0].value,
+                            loggedIn: true
+                        });
+                    } else if (res.data.provider === "github") {
+                        console.log(res);
+                        setUserState({
+                            ...userState,
+                            id: res.data.id,
+                            name: res.data._json.name,
+                            portrait: res.data._json.avatar_url,
+                            loggedIn: true
+                        });
+                    }
+                } else {
+                    return;
+                }
+            })
+            .catch(err => console.log(err));
+    }, []);
 
-  const settingUser = () => {
-    axios.get("/User")
-      .then((res) => {
-        if (res.data.id !== undefined) {
-          if (res.data.provider === "google"){
-          console.log(res);
-          setUserState({
+    const logout = () => {
+        console.log("logging out");
+        setUserState({
             ...userState,
-            id: res.data.id,
-            name: res.data._json.name,
-            portrait: res.data.photos[0].value
-          })
-        }
-        else if(res.data.provider === "github"){
-          console.log(res);
-          setUserState({
-            ...userState,
-            id: res.data.id,
-            name: res.data._json.name,
-            portrait: res.data._json.avatar_url
-          })
-        }
-        }
-        else {
-          setUserState({
-            ...userState,
-            id: "Not Logged In",
-            name: "Not Logged In",
-            portrait: "Not Logged In"
-          })
-          return;
-        }})
-      .catch(err => console.log(err));
-  };
+            id: "",
+            name: "",
+            portrait: "",
+            loggedIn: false
+        });
+        window.open("http://localhost:8080/logout", "_self");
+    };
 
-  const logout = () => {
-    console.log("logging out");
-    window.open("http:/localhost:3000/logout")
-  };
-
-  return (
-    <UserContext.Provider value={userState}>
-      <BrowserRouter>
-        <div>
-          <Switch>
-            <Route exact path="/">
-              <Landing />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/User">
-              <UserHomepage setUser={settingUser} logout={logout}/>
-            </Route>
-            <Route exact path="/Pod/:id">
-              <PodDisplay />
-            </Route>
-            <Route path="*">
-              <Landing />
-            </Route>
-          </Switch>
-        </div>
-      </BrowserRouter>
-    </UserContext.Provider>
-  );
+    return (
+        <UserContext.Provider value={userState}>
+            <BrowserRouter>
+                <div>
+                    <Switch>
+                        <Route exact path="/">
+                            {userState.loggedIn ? <UserHomepage logout={logout} /> : <Landing />}
+                        </Route>
+                        <Route exact path="/login">
+                            <Login />
+                        </Route>
+                        <Route exact path="/Pod/:id">
+                            <PodDisplay />
+                        </Route>
+                        <Route path="*">
+                            <Landing />
+                        </Route>
+                    </Switch>
+                </div>
+            </BrowserRouter>
+        </UserContext.Provider>
+    );
 }
 
 export default App;
