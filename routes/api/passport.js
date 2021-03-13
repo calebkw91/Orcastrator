@@ -30,4 +30,10 @@ passportRouter.get("/User",isAuthenticated, (req, res) => {
     res.json(req.user);
 });
 
+passportRouter.get("/logout", (req, res) => {
+    console.log("we are in logout");
+    req.logout();
+    res.redirect("http://localhost:3000/");
+  });
+
 module.exports = passportRouter;
