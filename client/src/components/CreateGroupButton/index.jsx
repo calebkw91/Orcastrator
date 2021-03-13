@@ -1,19 +1,26 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import Button from "react-bootstrap/Button"
 import GroupAdd from "../GroupAdd";
 import API from "../../utils/API";
+import UserContext from "../../utils/userContext";
+
 
 
 // button prompts a modal to show up to create a new group
 function CreateGroupButton(props){
-    const [modalShow, setModalShow] = React.useState(false);
+    const { id, name, portrait } = useContext(UserContext);
+
+
+    const [modalShow, setModalShow] = useState(false);
 
     const handleFormSubmit = (event) => {
       event.preventDefault();
   
       let newGroup = {
         name: event.target.form[0].value,
-        members: [event.target.form[2].value],
+        admin: id,
+        description: event.target.form[1].value,
+        members: [{name: event.target.form[2].value, role: event.target.form[3].value}]
       };
   
       API.saveGroup(newGroup)
