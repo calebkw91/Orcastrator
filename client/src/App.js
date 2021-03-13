@@ -49,19 +49,6 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-<<<<<<< HEAD
-  const logout = () => {
-    console.log("logging out");
-    setUserState({
-      ...userState,
-      id: "",
-      name: "",
-      portrait: "",
-      loggedIn: false,
-    });
-    window.open("http://localhost:8080/logout", "_self");
-  };
-=======
     const logout = () => {
         console.log("logging out");
         setUserState({
@@ -73,7 +60,6 @@ function App() {
         });
         window.open(process.env.LOGOUT_URL || "http://localhost:8080/logout", "_self");
     };
->>>>>>> 93405f8df987a83ad590ed1aad65e95e90448427
 
   return (
     <UserContext.Provider value={userState}>
