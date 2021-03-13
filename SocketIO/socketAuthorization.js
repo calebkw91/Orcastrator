@@ -8,10 +8,11 @@ function socketAuthorization (socket){
     .then(dbModel => {
         // console.log(dbModel);
         if(!dbModel){
-            return console.log("UnAuthorized #SA1");
+            console.log("UnAuthorized #SA1");
+            return false 
         }
         console.log("found a match on socket Authorization");
-        return dbModel;
+        return true;
 
     })
     .catch(err => console.log(err));

@@ -1,16 +1,18 @@
 const http = require('http');
 const express = require("express");
 const cors = require("cors");
-const corsOptions = {
-    origin:['https://orcastrator.herokuapp.com/','http://localhost:3000','http://localhost/8000/auth/google/callback','http://localhost/8000/auth/github/callback'],
-    methods:['GET','PUT','POST'],
-    optionsSuccessStatus:200
-}
 const passport = require("passport");
 const session = require("express-session");
 const path = require("path");
 const mongoose = require("mongoose");
 const socketio = require('socket.io');
+const socketAuthorization = require("./SocketIO/socketAuthorization");
+const corsOptions = {
+    origin:['https://orcastrator.herokuapp.com/','http://localhost:3000','http://localhost/8000/auth/google/callback','http://localhost/8000/auth/github/callback'],
+    methods:['GET','PUT','POST'],
+    optionsSuccessStatus:200
+}
+
 // create a variable equal to an express instance.
 const app = express();
 //create a node.js http server using express
@@ -18,13 +20,17 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 8080;
 //create socket server to listen on our http server
 const io = socketio(server,{cors:corsOptions});
-const socketAuthorization = require("./SocketIO/socketAuthorization"); 
+//crun socket connections through middleware to authenticate
 io.use((socket, next)=>{
     let username = socket.username;
     if(!username){
         return next(new Error("invalid username"));
     }
-    socketAuthorization(socket)
+    let auth = socketAuthorization(socket);
+    if(auth===false){
+        console.log("calling socket disconnect");
+        socket.disconnect(true);
+    }
     
     next();
 });
