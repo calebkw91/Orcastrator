@@ -1,6 +1,5 @@
-import {React, useContext} from "react";
+import React from "react";
 import CreateGroupForm from "../../components/CreateGroupForm";
-import UserContext from "../../utils/userContext";
 import Footer from "../../components/Footer";
 import GroupInfo from "../../components/GroupInfo";
 import UserInfo from "../../components/UserInfo";
