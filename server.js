@@ -22,7 +22,7 @@ const corsOptions = {
 const app = express();
 //create a node.js http server using express
 const server = http.createServer(app);
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;1
 //create socket server to listen on our http server
 const io = socketio(server, { cors: corsOptions });
 //crun socket connections through middleware to authenticate

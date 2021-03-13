@@ -1,88 +1,80 @@
 import React, { useEffect, useState } from "react";
-import './App.css';
+import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import UserHomepage from "./components/UserHomepage";
+import Dashboard from "./pages/Dashboard";
 import PodDisplay from "./components/PodDisplay";
-import Landing from "./components/Landing";
-import Login from "./components/Login/login"
-import UserContext from "./utils/UserContext";
+import Landing from "./pages/Landing";
+import "bootstrap/dist/css/bootstrap.min.css";
+import UserContext from "./utils/userContext";
 import axios from "axios";
+require("dotenv").config();
 
 function App() {
-
   const [userState, setUserState] = useState({
     id: "",
-    firstName: "",
-    lastName: "",
-    portrait: ""
-  })
+    name: "",
+    portrait: "",
+    loggedIn: false,
+  });
 
-  
+  console.log(userState.loggedIn);
   useEffect(() => {
-    axios.get("/User")
+    axios
+      .get("/User")
       .then((res) => {
         if (res.data.id !== undefined) {
-          
-          setUserState({
-            ...userState,
-            id: res.data.id,
-            firstName: res.data.name.givenName,
-            lastName: res.data.name.familyName,
-            portrait: res.data.photos[0].value
-          });
-        }
-        else {
-          
+          if (res.data.provider === "google") {
+            console.log(res);
+            setUserState({
+              ...userState,
+              id: res.data.id,
+              name: res.data._json.name,
+              portrait: res.data.photos[0].value,
+              loggedIn: true,
+            });
+          } else if (res.data.provider === "github") {
+            console.log(res);
+            setUserState({
+              ...userState,
+              id: res.data.id,
+              name: res.data._json.name,
+              portrait: res.data._json.avatar_url,
+              loggedIn: true,
+            });
+          }
+        } else {
           return;
         }
       })
-
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   }, []);
 
-  // const settingUser = () => {
-  //   axios.get("/User")
-  //     .then((res) => {
-  //       if (res.data.id !== undefined) {
-  //         // console.log(res);
-  //         setUserState({
-  //           ...userState,
-  //           id: res.data.id,
-  //           firstName: res.data.name.givenName,
-  //           lastName: res.data.name.familyName,
-  //           portrait: res.data.photos[0].value
-  //         })
-          
-  //       }
-  //       else {
-         
-  //         return;
-  //       }})
-  //     .catch(err => console.log(err))
-  // };
+    const logout = () => {
+        console.log("logging out");
+        setUserState({
+            ...userState,
+            id: "",
+            name: "",
+            portrait: "",
+            loggedIn: false
+        });
+        window.open(process.env.LOGOUT_URL || "http://localhost:8080/logout", "_self");
+    };
 
   return (
     <UserContext.Provider value={userState}>
       <BrowserRouter>
-        <div>
-          <Switch>
-            <Route exact path="/">
-              <Landing />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/User">
-              <UserHomepage />
-            </Route>
-            <Route exact path="/Pod/:id">
-              <PodDisplay />
-            </Route>
-            <Route path="*">
-              <Landing />
-            </Route>
-          </Switch>
-        </div>
+        <Switch>
+          <Route exact path="/">
+            {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
+          </Route>
+          <Route exact path="/Pod/:id">
+            <PodDisplay />
+          </Route>
+          <Route path="*">
+            <Landing />
+          </Route>
+        </Switch>
       </BrowserRouter>
     </UserContext.Provider>
   );

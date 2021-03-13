@@ -7,11 +7,10 @@ passportRouter.get('/auth/google',
 );
 
 passportRouter.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { failureRedirect: '/' }),
     function (req, res) {
-     
-        // console.log(res);
-        res.redirect("http://localhost:3000/User");
+        // Successful authentication, redirect home.
+        res.redirect("http://localhost:3000/");
         // dashboard instead of /User
 });
 
@@ -21,8 +20,8 @@ passportRouter.get("/auth/github",
 
 // if github login fails return to "/login" otherwise if login succeeds go to "/"
 passportRouter.get("/auth/github/callback",
-    passport.authenticate("github", { failureRedirect: "/login" }), (req, res) => {
-        res.redirect("http://localhost:3000/User");
+    passport.authenticate("github", { failureRedirect: "/" }), (req, res) => {
+        res.redirect("http://localhost:3000/");
     }
 );
 
@@ -30,5 +29,11 @@ passportRouter.get("/User",isAuthenticated, (req, res) => {
     console.log("weeeeeeeeeeeeeeeeeee madddddddddddddddeeeeeeeeeeeeeee ittttttttttttttttttttttt");
     res.json(req.user);
 });
+
+passportRouter.get("/logout", (req, res) => {
+    console.log("we are in logout");
+    req.logout();
+    res.redirect("http://localhost:3000/");
+  });
 
 module.exports = passportRouter;

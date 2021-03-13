@@ -16,6 +16,7 @@ export default {
   },
   // Saves a book to the database
   saveGroup: function(groupData) {
+    console.log(groupData);
     return axios.post("/api/groups", groupData);
   }
 };
