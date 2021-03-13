@@ -60,27 +60,6 @@ function App() {
     window.open("http://localhost:8080/logout", "_self");
   };
 
-<<<<<<< HEAD
-    return (
-        <UserContext.Provider value={userState}>
-            <BrowserRouter>
-                <div>
-                    <Switch>
-                        <Route exact path="/">
-                            {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
-                        </Route>
-                        <Route exact path="/Pod/:id">
-                            <PodDisplay />
-                        </Route>
-                        <Route path="*">
-                          {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
-                        </Route>
-                    </Switch>
-                </div>
-            </BrowserRouter>
-        </UserContext.Provider>
-    );
-=======
   return (
     <UserContext.Provider value={userState}>
       <BrowserRouter>
@@ -98,7 +77,6 @@ function App() {
       </BrowserRouter>
     </UserContext.Provider>
   );
->>>>>>> origin/design
 }
 
 export default App;

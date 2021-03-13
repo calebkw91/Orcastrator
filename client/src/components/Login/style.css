@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-.title-header{
-    position: absolute;
-    top: 10%;
-}
-
-.title-subheader{
-    position: absolute;
-    top: 20%;
-=======
 .card-position {
   position: relative;
   bottom: 50%;
@@ -23,5 +13,4 @@
   position: absolute;
   top: 30%;
   color: aliceblue;
->>>>>>> origin/design
 }
