@@ -12,7 +12,7 @@ function UserInfo(props) {
 
     return (
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand class="align-right">
+          <Navbar.Brand>
             <img
               alt=""
               src={portrait}

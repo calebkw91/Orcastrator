@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import "./style.css";
 require("dotenv").config();
 
 function Login() {
@@ -15,10 +16,10 @@ function Login() {
     return(
     <div className="mx-auto row justify-content-center align-self-center">
         <h1 className="title-header">Orcastrate</h1>
-        <h3 className="title-subheader">Orchestrate your group</h3>
+        <h3 className="title-subheader">Manage your group</h3>
         <div className="col-12">
             <div className="justify-content-center">
-                <div className="card">
+                <div className="card card-position">
                     <div className="card-header">
                         <h3>Sign In</h3>
                     </div>
@@ -29,7 +30,6 @@ function Login() {
                 </div>
             </div>
         </div>
-
     </div>
     )
 }
