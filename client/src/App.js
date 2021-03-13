@@ -58,7 +58,7 @@ function App() {
             portrait: "",
             loggedIn: false
         });
-        window.open(process.env.LOGOUT || "http://localhost:8080/logout", "_self");
+        window.open(process.env.LOGOUT_URL || "http://localhost:8080/logout", "_self");
     };
 
     return (

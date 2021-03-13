@@ -20,15 +20,6 @@ function GroupAdd(props) {
                         <Form.Label>Group Name</Form.Label>
                         <Form.Control type="text" placeholder="Enter group name" />
                     </Form.Group>
-
-                    {/* <Form.Group controlId="groupDescription">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
-                    </Form.Group>
-
-                    <Form.Group controlId="formBasicCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
-                    </Form.Group> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={props.handleFormSubmit} type="submit">Save</Button>
