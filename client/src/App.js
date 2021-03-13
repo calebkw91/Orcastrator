@@ -72,7 +72,7 @@ function App() {
                             <PodDisplay />
                         </Route>
                         <Route path="*">
-                            <Landing />
+                          {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
                         </Route>
                     </Switch>
                 </div>
