@@ -1,17 +1,21 @@
+import axios from "axios";
 import React, { useEffect, useContext } from "react";
 import UserContext from "../../utils/userContext";
 
 
 
 function UserHomepage(props) {
-    
-    useEffect(() => {
-        props.setUser();
-    },[]);
-
     const { id, name, portrait } = useContext(UserContext);
-    
-    console.log(" id ",id," name ",name," portrait ",portrait);
+   
+    useEffect(() => {
+        if(id === "Not Logged In"){
+       window.open("http://localhost:3000/login", "_self")
+        };
+    },[id])
+
+    useEffect(() => {
+         props.setUser();
+    }, []);
 
     return (
         <div>
@@ -19,6 +23,7 @@ function UserHomepage(props) {
             <h1>ID:{id}</h1>
             <h1>Name:{name}</h1>
             <h1>Portrait:{portrait}</h1>
+            <button onClick={props.logout}>Logout</button>
         </div>
     );
 };

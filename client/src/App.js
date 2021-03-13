@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import UserHomepage from "./components/UserHomepage";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./components/Landing";
@@ -15,8 +15,6 @@ function App() {
     name: "",
     portrait: ""
   });
-
-  // let notLoggedIn = true;
 
   console.log(userState);
   useEffect(() => {
@@ -47,12 +45,21 @@ function App() {
         }
         }
         else {
+          setUserState({
+            ...userState,
+            id: "Not Logged In",
+            name: "Not Logged In",
+            portrait: "Not Logged In"
+          })
           return;
         }})
       .catch(err => console.log(err));
   };
 
-// { notLoggedIn ? <Redirect to="/login" /> : <UserHomepage setUser={settingUser} /> } 
+  const logout = () => {
+    console.log("logging out");
+    window.open("http:/localhost:3000/logout")
+  };
 
   return (
     <UserContext.Provider value={userState}>
@@ -66,7 +73,7 @@ function App() {
               <Login />
             </Route>
             <Route exact path="/User">
-              <UserHomepage setUser={settingUser}/>
+              <UserHomepage setUser={settingUser} logout={logout}/>
             </Route>
             <Route exact path="/Pod/:id">
               <PodDisplay />
