@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import UserHomepage from "./components/UserHomepage";
+import Dashboard from "./pages/Dashboard";
 import PodDisplay from "./components/PodDisplay";
-import Landing from "./components/Landing";
-import Login from "./components/Login/login"
+import Landing from "./pages/Landing";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import UserContext from "./utils/userContext";
 import axios from "axios";
 
@@ -66,10 +66,7 @@ function App() {
                 <div>
                     <Switch>
                         <Route exact path="/">
-                            {userState.loggedIn ? <UserHomepage logout={logout} /> : <Landing />}
-                        </Route>
-                        <Route exact path="/login">
-                            <Login />
+                            {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
                         </Route>
                         <Route exact path="/Pod/:id">
                             <PodDisplay />

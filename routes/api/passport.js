@@ -7,7 +7,7 @@ passportRouter.get('/auth/google',
 );
 
 passportRouter.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { failureRedirect: '/' }),
     function (req, res) {
         // Successful authentication, redirect home.
         res.redirect("http://localhost:3000/");
@@ -20,7 +20,7 @@ passportRouter.get("/auth/github",
 
 // if github login fails return to "/login" otherwise if login succeeds go to "/"
 passportRouter.get("/auth/github/callback",
-    passport.authenticate("github", { failureRedirect: "/login" }), (req, res) => {
+    passport.authenticate("github", { failureRedirect: "/" }), (req, res) => {
         res.redirect("http://localhost:3000/");
     }
 );
