@@ -28,6 +28,7 @@ function Dashboard(props) {
     return (
         <div>
             <UserInfo />
+            <button onClick={props.logout}>Logout</button>
             <Footer />
             {/* user info in the navbar */}
             {/* display group info on page */}
