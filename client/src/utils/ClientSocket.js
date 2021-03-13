@@ -3,7 +3,10 @@ const io = require("socket.io-client");
 function socketConnection(id, podname) {
   let socket = io({ 
     autoConnect: false,
-    auth:{userID:id}  
+    auth:{
+      userID:id,
+      podID:podname
+    }  
   });
   socket.oid = id;
   socket.pod = podname;

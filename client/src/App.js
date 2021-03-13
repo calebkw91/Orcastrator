@@ -5,7 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./pages/Landing";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UserContext from "./utils/userContext";
+import UserContext from "./utils/UserContext";
 import axios from "axios";
 require("dotenv").config();
 
