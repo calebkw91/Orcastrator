@@ -1,14 +1,9 @@
 .header {
-  margin: auto;
-  padding: 10px;
+  position: absolute;
+  top: 15%;
 }
 
-.background {
-  padding: 0;
-  background-image: url("https://i.imgur.com/k9oTs43.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 100%;
-  max-width: 100%;
+.card-position {
+  position: relative;
+  bottom: 50%;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import "./style.css";
 
 function Login() {
 
@@ -19,7 +20,7 @@ function Login() {
         </div>
         <div className="col-12">
             <div className="justify-content-center">
-                <div className="card">
+                <div className="card card-position">
                     <div className="card-header">
                         <h3>Sign In</h3>
                     </div>
