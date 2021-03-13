@@ -1,24 +1,26 @@
 @font-face {
-    font-family: Mulish;
-    src: url(./Mulish/Mulish-Italic-VariableFont_wght.ttf);
- }
- 
- * {
-    font-family: Mulish;
-   }
-   
-html { height: 100%; }
-
- body{
-    /* background-image: url(./images/background-parchment.jpg); */
-    background-repeat: no-repeat;
-    height: 100%;
-   }
-
-#root{
-   height: 100%;
+  font-family: "Didact Gothic", sans-serif;
+  src: url(./Font/DidactGothic-Regular.ttf);
 }
 
-.container{
-   height: 100%;
+* {
+  font-family: "Didact Gothic", sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  /* background-image: url(./images/background-parchment.jpg); */
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.container {
+  height: 100%;
 }

@@ -5,6 +5,7 @@
 
 .title-header {
   position: absolute;
+  font-size: 60px;
   top: 20%;
   color: aliceblue;
   animation: glow 5s ease-in-out infinite alternate;
@@ -25,4 +26,9 @@
   position: absolute;
   top: 30%;
   color: aliceblue;
+  font-family: "Lato", sans-serif;
+}
+
+h3 {
+  font-family: "Lato", sans-serif;
 }

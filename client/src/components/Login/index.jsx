@@ -14,7 +14,7 @@ function Login() {
 
     return(
     <div className="mx-auto row justify-content-center align-self-center">
-        <h1 className="title-header">Orcastrate</h1>
+        <h1 className="title-header">ORCASTRATE</h1>
         <h3 className="title-subheader">Manage your group</h3>
         <div className="col-12">
             <div className="justify-content-center">
@@ -23,7 +23,7 @@ function Login() {
                         <h3>Sign In</h3>
                     </div>
                     <div className="card-body">
-                        <Button variant="success"><span onClick={googleLogin}><i className="fab fa-google-plus-square"></i></span></Button>{' '}
+                        <Button variant="primary"><span onClick={googleLogin}><i className="fab fa-google-plus-square"></i></span></Button>{' '}
                         <Button variant="dark"><span onClick={githubLogin}><i class="fab fa-github"></i></span></Button>
                     </div>               
                 </div>
