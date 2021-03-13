@@ -7,7 +7,7 @@ function UserHomepage() {
 
     const { id, firstName, lastName, portrait } = useContext(UserContext);
     
-    console.log(" id ",id," firstName ",firstName, " lastName ",lastName," portrait ",portrait);
+   
    
     return (
         <div>
@@ -16,6 +16,7 @@ function UserHomepage() {
             <h1>FirstName:{firstName}</h1>
             <h1>LastName:{lastName}</h1>
             <h1>Portrait:{portrait}</h1>
+            <button onClick="window.location.href='window.location.hostname'"/>
         </div>
     )
 }

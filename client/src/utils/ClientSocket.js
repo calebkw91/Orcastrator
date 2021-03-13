@@ -1,18 +1,33 @@
+const io = require("socket.io-client");
 
-const io = require('socket.io-client');
-// const URL = window.location.href;
-
-function socketConnection (username,podname){
-    
-    let socket = io({autoConnect:false});
-    socket.username = username;
-    socket.pod = podname
-    console.log(socket);
+function socketConnection(id, podname) {
+  let socket = io({ 
+    autoConnect: false,
+    auth:{userID:id}  
+  });
+  socket.Oid = id;
+  socket.pod = podname;
+  console.log(socket);
+  if (socket.username === "") {
+    console.log("socket dose not have username-no connection attempt made");
+    return;
+  } else {
     socket.connect();
     console.log("after socket.connect");
-    socket.on("connect",()=>{
-        console.log("conencted to socket with username:_"+socket.username+" to socket id:_"+socket.id + ' room:_'+socket.pod);
+    socket.on("connect", () => {
+      console.log(
+        "conencted to socket with username:_" +
+          socket.username +
+          " to socket id:_" +
+          socket.id +
+          " room:_" +
+          socket.pod
+      );
     });
+    socket.on("connect_error",(err)=>{
+        console.log(err);
+        socket.disconnect();
+    })
 
     // socket.on("users", (users) => {
     //     users.forEach((user) => {
@@ -31,5 +46,6 @@ function socketConnection (username,podname){
     // socket.onAny((event,...args)=>{
     //         console.log(event,args);
     //     });
-};
+  }
+}
 export default socketConnection;

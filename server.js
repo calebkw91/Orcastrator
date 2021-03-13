@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const corsOptions = {
     origin:['https://orcastrator.herokuapp.com/','http://localhost:3000','http://localhost/8000/auth/google/callback','http://localhost/8000/auth/github/callback'],
+    methods:['GET','PUT','POST'],
     optionsSuccessStatus:200
 }
 const passport = require("passport");
@@ -16,17 +17,21 @@ const app = express();
 const server = http.createServer(app);
 const PORT = process.env.PORT || 8080;
 //create socket server to listen on our http server
-const io = socketio(server);//,{cors:{corsOptions}}
-// io.use((socket, next)=>{
-//     let username = socket.username;
-//     if(!username){
-//         return next(new Error("invalid username"));
-//     }
-//     next();
-// });
+const io = socketio(server,{cors:corsOptions});
+const socketAuthorization = require("./SocketIO/socketAuthorization"); 
+io.use((socket, next)=>{
+    let username = socket.username;
+    if(!username){
+        return next(new Error("invalid username"));
+    }
+    socketAuthorization(socket)
+    
+    next();
+});
 // what socketio should do once connected
 io.on('connection',(socket) =>{
-    let x = socket.pod;
+    console.log("this is the socket during connection ")
+    console.log(socket.handshake);
     // console.log(typeof(x));
     // socket.join(socket.pod);
     console.log('a user has connected to socket :_'+socket.id + ' username:_'+socket.username + 'room:_'+socket.pod);
