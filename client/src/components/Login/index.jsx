@@ -1,14 +1,15 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+require("dotenv").config();
 
 function Login() {
 
     const googleLogin = () => {
-        window.open("http://localhost:8080/auth/google", "_self");
+        window.open(process.env.GOOGLE_URL || "http://localhost:8080/auth/google", "_self");
     }
 
     const githubLogin = () => {
-        window.open("http://localhost:8080/auth/github", "_self");
+        window.open(process.env.GITHUB_URL || "http://localhost:8080/auth/github", "_self");
     }
 
     return(

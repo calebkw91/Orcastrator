@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserContext from "./utils/userContext";
 import axios from "axios";
+require("dotenv").config();
 
 function App() {
 
@@ -57,7 +58,7 @@ function App() {
             portrait: "",
             loggedIn: false
         });
-        window.open("http://localhost:8080/logout", "_self");
+        window.open(process.env.LOGOUT || "http://localhost:8080/logout", "_self");
     };
 
     return (
