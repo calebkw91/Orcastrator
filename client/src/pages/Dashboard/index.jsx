@@ -1,10 +1,13 @@
-import React from "react";
+import {React, useContext } from "react";
 import CreateGroupButton from "../../components/CreateGroupButton";
 import Footer from "../../components/Footer";
 import GroupInfo from "../../components/GroupInfo";
 import UserInfo from "../../components/UserInfo";
+import UserContext from "../../utils/userContext";
+
 
 function Dashboard(props) {
+    const { id, name, portrait } = useContext(UserContext);
 
     return (
         <div>
