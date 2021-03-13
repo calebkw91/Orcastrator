@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./pages/Landing";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserContext from "./utils/userContext";
 import axios from "axios";
-import Dashboard from "./pages/Dashboard";
 
 function App() {
 
   const [userState, setUserState] = useState({
     id: "",
-    firstName: "",
-    lastName: "",
+    name: "",
     portrait: ""
   });
-  // let notLoggedIn = true;
 
   console.log(userState);
   useEffect(() => {
@@ -27,23 +25,41 @@ function App() {
     axios.get("/User")
       .then((res) => {
         if (res.data.id !== undefined) {
+          if (res.data.provider === "google"){
           console.log(res);
           setUserState({
             ...userState,
             id: res.data.id,
-            firstName: res.data.name.givenName,
-            lastName: res.data.name.familyName,
+            name: res.data._json.name,
             portrait: res.data.photos[0].value
           })
-          console.log("we are in setting user function at app.js");
+        }
+        else if(res.data.provider === "github"){
+          console.log(res);
+          setUserState({
+            ...userState,
+            id: res.data.id,
+            name: res.data._json.name,
+            portrait: res.data._json.avatar_url
+          })
+        }
         }
         else {
+          setUserState({
+            ...userState,
+            id: "Not Logged In",
+            name: "Not Logged In",
+            portrait: "Not Logged In"
+          })
           return;
         }})
       .catch(err => console.log(err));
   };
 
-// { notLoggedIn ? <Redirect to="/login" /> : <UserHomepage setUser={settingUser} /> } 
+  const logout = () => {
+    console.log("logging out");
+    window.open("http:/localhost:3000/logout")
+  };
 
   return (
     <UserContext.Provider value={userState}>
@@ -53,7 +69,7 @@ function App() {
               <Landing />
             </Route>
             <Route exact path="/User">
-              <Dashboard setUser={settingUser}/>
+              <Dashboard setUser={settingUser} logout={logout}/>
             </Route>
             <Route exact path="/Pod/:id">
               <PodDisplay />

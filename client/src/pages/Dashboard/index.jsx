@@ -1,13 +1,18 @@
-import React from "react";
+import {React, useContext} from "react";
 import CreateGroupForm from "../../components/CreateGroupForm";
+import UserContext from "../../utils/userContext";
 import Footer from "../../components/Footer";
 import GroupInfo from "../../components/GroupInfo";
 import UserInfo from "../../components/UserInfo";
 
 function Dashboard(props){
+
+    const { id, name, portrait } = useContext(UserContext);
+
+
     return(
         <div>
-            <UserInfo setUser={props.setUser}/>
+            <UserInfo />
             <Footer />
             {/* user info in the navbar */}
         {/* display group info on page */}

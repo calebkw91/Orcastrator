@@ -5,14 +5,9 @@ import Navbar from "react-bootstrap/Navbar";
 
 
 function UserInfo(props) {
+    const { id, name, portrait } = useContext(UserContext);
     
-    useEffect(() => {
-        props.setUser();
-    },[]);
-
-    const { id, firstName, lastName, portrait } = useContext(UserContext);
-    
-    console.log(" id ",id," firstName ",firstName, " lastName ",lastName," portrait ",portrait);
+    console.log(" id ",id," name ",name," portrait ",portrait);
 
 
     return (
@@ -25,7 +20,7 @@ function UserInfo(props) {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-            {firstName} {lastName}
+            {name}
           </Navbar.Brand>
         </Navbar>
     );
