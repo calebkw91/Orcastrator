@@ -5,10 +5,10 @@ function socketConnection(id, podname) {
     autoConnect: false,
     auth:{userID:id}  
   });
-  socket.Oid = id;
+  socket.oid = id;
   socket.pod = podname;
   console.log(socket);
-  if (socket.username === "") {
+  if (socket.oid === "") {
     console.log("socket dose not have username-no connection attempt made");
     return;
   } else {
@@ -17,7 +17,7 @@ function socketConnection(id, podname) {
     socket.on("connect", () => {
       console.log(
         "conencted to socket with username:_" +
-          socket.username +
+          socket.oid +
           " to socket id:_" +
           socket.id +
           " room:_" +
