@@ -14,10 +14,8 @@ function Login() {
 
     return(
     <div className="mx-auto row justify-content-center align-self-center">
-        <div className="header">
-            <h1 className="title-header">Orcastrate</h1>
-            <h3 className="title-subheader">Manage your group</h3>
-        </div>
+        <h1 className="title-header">Orcastrate</h1>
+        <h3 className="title-subheader">Manage your group</h3>
         <div className="col-12">
             <div className="justify-content-center">
                 <div className="card card-position">
