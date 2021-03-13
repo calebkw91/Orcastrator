@@ -9,6 +9,7 @@ function Dashboard(props) {
     return (
         <div>
             <UserInfo />
+            <button onClick={props.logout}>Logout</button>
             <Footer />
             <br></br>
             <div className="container">
