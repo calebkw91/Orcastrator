@@ -7,9 +7,6 @@ import UserInfo from "../../components/UserInfo";
 
 function Dashboard(props){
 
-    const { id, name, portrait } = useContext(UserContext);
-
-
     return(
         <div>
             <UserInfo />
