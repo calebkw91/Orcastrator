@@ -7,6 +7,8 @@ import Landing from "./pages/Landing";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserContext from "./utils/userContext";
 import axios from "axios";
+import LocalSignup from "./pages/LocalSignup/index";
+import LocalLogin from "./pages/LocalLogin/index"
 require("dotenv").config();
 
 function App() {
@@ -68,6 +70,12 @@ function App() {
                     <Switch>
                         <Route exact path="/">
                             {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
+                        </Route>
+                        <Route exact path="/signup">
+                          <LocalSignup />
+                        </Route>
+                        <Route exact path="/login">
+                          <LocalLogin />
                         </Route>
                         <Route exact path="/Pod/:id">
                             <PodDisplay />
