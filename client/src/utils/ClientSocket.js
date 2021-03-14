@@ -29,7 +29,7 @@ function socketConnection(id, podname) {
     });
     socket.on("connect_error",(err)=>{
         console.log(err);
-        socket.disconnect();
+        socket.close();
     })
 
     // socket.on("users", (users) => {
