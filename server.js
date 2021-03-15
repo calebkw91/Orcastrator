@@ -44,21 +44,24 @@ io.use(async (socket, next) => {
   console.log("calling next");
   next();
 });
-
+io.use((socket,next)=>{
+  
+})
 // what socketio should do once connected
 io.on("connection", (socket) => {
   // console.log("this is the socket during connection ");
   // console.log(socket.handshake.auth);
   // console.log(typeof(x));
-  // socket.join(socket.pod);
+  socket.join(socket.handshake.auth.podID);
   console.log(
-    "a user has connected to socket :_" +
+    "a user has connected to socket:_" +
       socket.id +
       " username:_" +
-      socket.handshake.auth.userID +
-      "room:_" +
-      socket.handshake.auth.podID
+      socket.userID +
+      " room:_" +
+      socket.podID
   );
+  console.log(socket);
   // io.to(socket.pod).emit(socket.message);
 });
 

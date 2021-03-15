@@ -5,7 +5,8 @@ function socketConnection(id, podname) {
     autoConnect: false,
     auth:{
       userID:id,
-      podID:podname
+      podID:podname,
+      userName:"placeholder"
     }  
   });
   socket.oid = id;
