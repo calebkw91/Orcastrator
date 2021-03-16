@@ -5,8 +5,9 @@ import Dashboard from "./pages/Dashboard";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./pages/Landing";
 import "bootstrap/dist/css/bootstrap.min.css";
-import UserContext from "./utils/userContext";
+import UserContext from "./utils/UserContext";
 import axios from "axios";
+require("dotenv").config();
 
 function App() {
   const [userState, setUserState] = useState({
@@ -48,17 +49,17 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  const logout = () => {
-    console.log("logging out");
-    setUserState({
-      ...userState,
-      id: "",
-      name: "",
-      portrait: "",
-      loggedIn: false,
-    });
-    window.open("http://localhost:8080/logout", "_self");
-  };
+    const logout = () => {
+        console.log("logging out");
+        setUserState({
+            ...userState,
+            id: "",
+            name: "",
+            portrait: "",
+            loggedIn: false
+        });
+        window.open(process.env.LOGOUT_URL || "http://localhost:8080/logout", "_self");
+    };
 
   return (
     <UserContext.Provider value={userState}>

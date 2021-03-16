@@ -26,7 +26,7 @@ passportRouter.get("/auth/github/callback",
 );
 
 passportRouter.get("/User",isAuthenticated, (req, res) => {
-    console.log("weeeeeeeeeeeeeeeeeee madddddddddddddddeeeeeeeeeeeeeee ittttttttttttttttttttttt", req.user);
+    console.log("weeeeeeeeeeeeeeeeeee madddddddddddddddeeeeeeeeeeeeeee ittttttttttttttttttttttt");
     res.json(req.user);
 });
 

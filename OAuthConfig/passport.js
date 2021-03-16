@@ -26,6 +26,7 @@ passport.use(new GoogleStrategy({
 
         User.findOne({userId: profile.id})
                 .then(dbModel => {
+                    // console.log(dbModel);
                     if(!dbModel){
 
                         User.create({
@@ -40,7 +41,7 @@ passport.use(new GoogleStrategy({
                 })
                 .catch(err => console.log(err));
 
-        console.log(profile);
+        // console.log(profile);
         cb(null, profile);
     }
 ));
@@ -71,7 +72,7 @@ passport.use(new GithubStrategy({
                 })
                 .catch(err => console.log(err));
 
-        console.log(profile);
+        // console.log(profile);
         cb(null, profile);
     }
 ));

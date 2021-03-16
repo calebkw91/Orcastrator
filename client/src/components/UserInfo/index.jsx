@@ -1,5 +1,5 @@
 import {React, useContext } from "react";
-import UserContext from "../../utils/userContext";
+import UserContext from "../../utils/UserContext";
 import Navbar from "react-bootstrap/Navbar";
 
 
@@ -12,7 +12,7 @@ function UserInfo(props) {
 
     return (
         <Navbar bg="dark" variant="dark">
-          <Navbar.Brand class="align-right">
+          <Navbar.Brand>
             <img
               alt=""
               src={portrait}
