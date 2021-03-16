@@ -22,10 +22,12 @@ const corsOptions = {
 const app = express();
 //create a node.js http server using express
 const server = http.createServer(app);
-const PORT = process.env.PORT || 8080;1
+const PORT = process.env.PORT || 8080;
+
 //create socket server to listen on our http server
 const io = socketio(server, { cors: corsOptions });
-//crun socket connections through middleware to authenticate
+// Define middleware here
+//run socket connections through middleware to authenticate
 io.use(async (socket, next) => {
   console.log(" io.use entry");
   // console.log(socket);
@@ -34,32 +36,34 @@ io.use(async (socket, next) => {
   if (!credential) {
     return next(new Error("invalid username"));
   }
-   const socketAuth = await socketAuthorization(socket)
-    if(socketAuth === false) {
-      console.log("calling socket disconnect");
-      socket.disconnect(true);
-    }
-    console.log("calling next");
-    next();
-  
+  const socketAuth = await socketAuthorization(socket);
+  if (socketAuth === false) {
+    console.log("calling socket disconnect");
+    socket.disconnect(true);
+  }
+  console.log("calling next");
+  next();
 });
+io.use((socket,next)=>{
+  
+})
 // what socketio should do once connected
 io.on("connection", (socket) => {
-  console.log("this is the socket during connection ");
-  console.log(socket.handshake.auth);
+  // console.log("this is the socket during connection ");
+  // console.log(socket.handshake.auth);
   // console.log(typeof(x));
-  // socket.join(socket.pod);
+  socket.join(socket.handshake.auth.podID);
   console.log(
-    "a user has connected to socket :_" +
+    "a user has connected to socket:_" +
       socket.id +
       " username:_" +
-      socket.handshake.auth.userID +
-      "room:_" +
-      socket.handshake.auth.podID
+      socket.userID +
+      " room:_" +
+      socket.podID
   );
+  console.log(socket);
   // io.to(socket.pod).emit(socket.message);
 });
-// Define middleware here
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
