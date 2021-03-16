@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
-import './App.css';
+import "./App.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import PodDisplay from "./components/PodDisplay";
 import Landing from "./pages/Landing";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import UserContext from "./utils/userContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import UserContext from "./utils/UserContext";
 import axios from "axios";
 import LocalSignup from "./pages/LocalSignup/index";
 import LocalLogin from "./pages/LocalLogin/index"
 require("dotenv").config();
 
 function App() {
+  const [userState, setUserState] = useState({
+    id: "",
+    name: "",
+    portrait: "",
+    loggedIn: false,
+  });
 
-    const [userState, setUserState] = useState({
-        id: "",
-        name: "",
-        portrait: "",
-        loggedIn: false
-    });
-
-    console.log(userState.loggedIn);
     useEffect(() => {
         axios.get("/User")
             .then((res) => {

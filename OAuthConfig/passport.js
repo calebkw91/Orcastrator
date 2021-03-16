@@ -41,7 +41,7 @@ passport.use(new GoogleStrategy({
             })
             .catch(err => console.log(err));
 
-        console.log(profile);
+        // console.log(profile);
         cb(null, profile);
     }
 ));
@@ -71,7 +71,7 @@ passport.use(new GithubStrategy({
             })
             .catch(err => console.log(err));
 
-        console.log(profile);
+        // console.log(profile);
         cb(null, profile);
     }
 ));

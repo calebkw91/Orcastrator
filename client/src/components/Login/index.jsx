@@ -38,12 +38,10 @@ function Login() {
                             <Button variant="primary" onClick={localLogin}>Login</Button>
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
     )
-}
+};
 
 export default Login;
