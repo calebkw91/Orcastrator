@@ -2,7 +2,8 @@ const http = require('http');
 const express = require("express");
 const cors = require("cors");
 const corsOptions = {
-    origin:['https://orcastrator.herokuapp.com/','http://localhost:3000','http://localhost/8080/auth/google/callback','http://localhost/8080/auth/github/callback'],
+    origin:['https://orcastrator.herokuapp.com/','http://localhost:3000','http://localhost/8080/auth/google/callback',
+    'http://localhost/8080/auth/github/callback',],
     optionsSuccessStatus:200
 }
 const passport = require("passport");
@@ -38,6 +39,7 @@ app.use(
         saveUninitialized: true
     })
 );
+app.use
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./style.css";
-
 
 function LocalSignup() {
 
     const [localUser, setLocalUser] = useState({
-        email: "",
+        username: "",
         password: "",
     });
 
@@ -15,9 +15,22 @@ function LocalSignup() {
         setLocalUser({ ...localUser, [name]: value });
     };
 
-    const login = () => {
-
-    }
+    const login = (event) => {
+        event.preventDefault();
+        if (!localUser.username || !localUser.password) {
+            alert("Please fill out all fields");
+        }
+        else {
+            axios.post("/auth/local", { ...localUser })
+                .then(() => {
+                    window.location.assign("/");
+                })
+                .catch((err) => {
+                    console.log(err)
+                    alert("Invalid Login");
+                })
+        }
+    };
 
     return (
         <div className="mx-auto row justify-content-center align-self-center wrapper">
@@ -30,9 +43,9 @@ function LocalSignup() {
                         <div className="card-body">
                             <form>
                                 <div className="mb-3">
-                                    <label htmlFor="emailAddress" className="form-label">Email address</label>
-                                    <input type="email" className="form-control" id="emailAddress" aria-describedby="email" required
-                                        name="email"
+                                    <label htmlFor="username" className="form-label">Username</label>
+                                    <input type="text" className="form-control" id="username" aria-describedby="username" required
+                                        name="username"
                                         onChange={handleInputChange}
                                     />
                                 </div>

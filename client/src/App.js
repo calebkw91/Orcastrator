@@ -24,6 +24,7 @@ function App() {
     useEffect(() => {
         axios.get("/User")
             .then((res) => {
+                console.log(res);
                 if (res.data.id !== undefined) {
                     if (res.data.provider === "google") {
                         console.log(res);
@@ -44,7 +45,18 @@ function App() {
                             loggedIn: true
                         });
                     }
-                } else {
+                }
+                else if (res.data._id !== undefined) {
+                    console.log(res);
+                    setUserState({
+                        ...userState,
+                        id: res.data._id,
+                        name: res.data.name,
+                        portrait: res.data.portrait,
+                        loggedIn: true
+                    });
+                }
+                else {
                     return;
                 }
             })
@@ -72,10 +84,10 @@ function App() {
                             {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
                         </Route>
                         <Route exact path="/signup">
-                          <LocalSignup />
+                            <LocalSignup />
                         </Route>
                         <Route exact path="/login">
-                          <LocalLogin />
+                            <LocalLogin />
                         </Route>
                         <Route exact path="/Pod/:id">
                             <PodDisplay />

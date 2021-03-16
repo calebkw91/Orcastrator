@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../../components/LocalLogin/index"
+import LoginForm from "../../components/LocalLoginForm/index"
 
 function LocalLogin () {
 

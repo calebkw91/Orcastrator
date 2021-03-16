@@ -31,14 +31,14 @@ function Login() {
                         <div className="card-body">
                             <Button variant="success"><span onClick={googleLogin}><i className="fab fa-google-plus-square"></i></span></Button>{' '}
                             <Button variant="dark"><span onClick={githubLogin}><i className="fab fa-github"></i></span></Button>
+
+                            <h3>Or Create an Account</h3>
+                            <Button variant="secondary" onClick={localSignup}>Create Account</Button>
+                            <h3>Already have an Account?</h3>
+                            <Button variant="primary" onClick={localLogin}>Login</Button>
                         </div>
                     </div>
-                    <div>
-                        <h3>Or Create an Account</h3>
-                        <Button variant="secondary" onClick={localSignup}>Create Account</Button>
-                        <h3>Already have an Account?</h3>
-                        <Button variant="primary" onClick={localLogin}>Login</Button>
-                    </div>
+
                 </div>
             </div>
 
