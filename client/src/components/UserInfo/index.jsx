@@ -1,5 +1,5 @@
 import {React, useContext } from "react";
-import UserContext from "../../utils/userContext";
+import UserContext from "../../utils/UserContext";
 import Navbar from "react-bootstrap/Navbar";
 
 
