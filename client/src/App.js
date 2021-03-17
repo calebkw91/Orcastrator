@@ -9,6 +9,7 @@ import UserContext from "./utils/UserContext";
 import axios from "axios";
 import LocalSignup from "./pages/LocalSignup/index";
 import LocalLogin from "./pages/LocalLogin/index"
+import Invites from "./pages/Invite/index"
 require("dotenv").config();
 
 function App() {
@@ -76,7 +77,6 @@ function App() {
     return (
         <UserContext.Provider value={userState}>
             <BrowserRouter>
-                <div>
                     <Switch>
                         <Route exact path="/">
                             {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
@@ -90,14 +90,16 @@ function App() {
                         <Route exact path="/Pod/:id">
                             <PodDisplay />
                         </Route>
+                        <Route exact path="/invites">
+                            {userState.loggedIn ? <Invites logout={logout} /> : <Landing />}
+                        </Route>
                         <Route path="*">
                             <Landing />
                         </Route>
                     </Switch>
-                </div>
             </BrowserRouter>
         </UserContext.Provider>
     );
-}
+};
 
 export default App;
