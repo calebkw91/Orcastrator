@@ -8,6 +8,7 @@ const userSchema = new Schema({
   password: { type: String, required: false },
   portrait: { type: String, required: true },
   userId: { type: String, required: true },
+  groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }]
 });
 
 // userSchema.plugin(passportLocalMongoose);
