@@ -20,7 +20,7 @@ function CreateGroupButton(props){
         users: [id]
       };
   
-      API.saveGroup(newGroup)
+      API.saveGroup(newGroup, id)
         .then(() =>{
         console.log("group saved");
         })

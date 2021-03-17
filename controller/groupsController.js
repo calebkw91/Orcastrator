@@ -16,10 +16,20 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     groupCreate: function (req, res) {
-        db.Group
-            .create(req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
+        let savedUser;
+
+        db.User.findById(req.params.id, (err, user) => {
+            savedUser = user;
+
+            db.Group.create(req.body, (err, group) => {
+                savedUser.groups.push(group._id);
+                db.User.findOneAndUpdate({ _id: req.params.id }, savedUser)
+                    .catch(err => res.status(422).json(err));
+                if (err) console.log(err);
+            });
+
+            if (err) console.log(err);
+        });
     },
     groupUpdate: function (req, res) {
         db.Group

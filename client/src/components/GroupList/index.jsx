@@ -10,11 +10,10 @@ function GroupList(props) {
 
   useEffect(() => {
     //get all groups
-    API.getGroups().then((res) => {
+    API.getUserGroups(id).then((res) => {
       //only keep ones that you are a member of
       //setGroups(res.data.filter(group => group.users.includes(id)));
-      setGroups(res.data.filter(group => group.users.includes(id)));
-      console.log(groups);
+      setGroups(res.data.groups);
     });
   }, [props.modalShow, id]);
 
