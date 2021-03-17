@@ -1,15 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import UserContext from "../../utils/UserContext";
+import ListGroup from "react-bootstrap/ListGroup"
 import API from "../../utils/API";
 
 function GroupList(props) {
-  let socketstyle = {
-    position: "relative",
-    top: "5em",
-  };
-
   const [groups, setGroups] = useState([]);
-  const { id } = useContext(UserContext);
+  const { id, name } = useContext(UserContext);
 
   useEffect(() => {
     //get all groups
@@ -19,16 +15,18 @@ function GroupList(props) {
     });
   }, [props.modalShow, id]);
 
+  const handleGroupOnClick = (event) => {
+    console.log(event.target.id);
+    console.log(groups.filter(group => group.id === event.target.id))
+  }
+
   return (
     <div className="col-lg-6 col-sm-12 col-md-12">
+        <h3>{name}'s Groups</h3>
       <div className="row">
-        <h3>Currently Selected group information goes here</h3>
-        <p>{groups.map(g => {
-            return(<div>{g.name}</div>)
-        })}</p>
-      </div>
-      <div className="row">
-        <h3 style={socketstyle}>socket for group chat</h3>
+        <ListGroup className="col">{groups.map(g => {
+            return(<ListGroup.Item key={g.id} onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)
+        })}</ListGroup>
       </div>
     </div>
   );
