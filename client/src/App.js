@@ -60,6 +60,7 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
+<<<<<<< HEAD
   const logout = () => {
     console.log("logging out");
     setUserState({
@@ -72,6 +73,30 @@ function App() {
     window.open(
       process.env.LOGOUT_URL || "http://localhost:8080/logout",
       "_self"
+=======
+    return (
+        <UserContext.Provider value={userState}>
+            <BrowserRouter>
+                    <Switch>
+                        <Route exact path="/">
+                            {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
+                        </Route>
+                        <Route exact path="/signup">
+                            <LocalSignup />
+                        </Route>
+                        <Route exact path="/login">
+                            <LocalLogin />
+                        </Route>
+                        <Route exact path="/Pod/:id">
+                            <PodDisplay />
+                        </Route>
+                        <Route path="*">
+                            <Landing />
+                        </Route>
+                    </Switch>
+            </BrowserRouter>
+        </UserContext.Provider>
+>>>>>>> dd084f6a10212d642604fa909df75a4a31d6e014
     );
   };
 

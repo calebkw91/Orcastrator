@@ -1,12 +1,15 @@
+<<<<<<< HEAD
 .card-position {
   position: relative;
   bottom: 10%;
 }
+=======
+
+>>>>>>> dd084f6a10212d642604fa909df75a4a31d6e014
 
 .title-header {
   position: absolute;
-  font-size: 60px;
-  top: 20%;
+  top: 15%;
   color: aliceblue;
   animation: glow 5s ease-in-out infinite alternate;
 }
@@ -24,7 +27,7 @@
 
 .title-subheader {
   position: absolute;
-  top: 30%;
+  top: 25%;
   color: aliceblue;
   font-family: "Lato", sans-serif;
 }
