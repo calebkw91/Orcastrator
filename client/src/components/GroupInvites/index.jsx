@@ -8,9 +8,10 @@ function GroupInvites () {
     useEffect( () => {
         API.getGroups()
         .then((res) => {
-        console.log(res);
-        setGroups([...groups,res.data])
+        console.log("api call",res);
+        setGroups(res.data)
         })
+        console.log("groups",groups);
     },[]);
 
     return(
@@ -28,7 +29,7 @@ function GroupInvites () {
                 {groups.map(group =>
                     <tr key={group.name}>
                         <td>{group.name}</td>
-                        <td>{group.admin.name}<img alt="adminportrait" src={group.admin.portrait}></img></td>
+                        {/* <td>{group.admin.name}<img alt="adminportrait" src={group.admin.portrait}></img></td> */}
                         <td>{group.description}</td>
                         <td>{group.members.map(member =>
                           <p>{member.name}</p>
