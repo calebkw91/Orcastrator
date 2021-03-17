@@ -12,9 +12,7 @@ function Dashboard(props) {
 
     return (
         <div>
-            <UserInfo />
-            <button onClick={props.logout}>Logout</button>
-            <Footer />
+            <UserInfo logout = {props.logout}/>
             <br></br>
             <div className="container">
             {/* user info in the navbar */}
@@ -26,6 +24,7 @@ function Dashboard(props) {
             {/* display group making form on page - later put into a separate tab/page/whatever*/}
             {/* later - display other groups */}
             </div>
+            <Footer />
         </div> 
     );
 }
