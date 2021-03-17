@@ -7,6 +7,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const socketio = require("socket.io");
 const socketAuthorization = require("./SocketIO/socketAuthorization");
+const assignUserToSocket = require("./SocketIO/assignUserToSocket");
 const corsOptions = {
   origin: [
     "https://orcastrator.herokuapp.com/",
@@ -29,10 +30,7 @@ const io = socketio(server, { cors: corsOptions });
 // Define middleware here
 //run socket connections through middleware to authenticate
 io.use(async (socket, next) => {
-  console.log(" io.use entry");
-  // console.log(socket);
   let credential = socket.handshake.auth.userID;
-  console.log(credential);
   if (!credential) {
     return next(new Error("invalid username"));
   }
@@ -45,25 +43,22 @@ io.use(async (socket, next) => {
   next();
 });
 io.use((socket,next)=>{
-  
+  assignUserToSocket(socket);
+  next();
 })
 // what socketio should do once connected
 io.on("connection", (socket) => {
-  // console.log("this is the socket during connection ");
-  // console.log(socket.handshake.auth);
-  // console.log(typeof(x));
   socket.join(socket.handshake.auth.podID);
-  console.log(
-    "a user has connected to socket:_" +
-      socket.id +
-      " username:_" +
-      socket.userID +
-      " room:_" +
-      socket.podID
-  );
-  console.log(socket);
-  // io.to(socket.pod).emit(socket.message);
+  const users = [];
+  for (let[id,socket] of socket.of(socket.handshake.auth.podID).sockets){
+    users.push({userID:id,
+    username:socket.username,});
+  }
+  socket.emit("users",users);
+  socket.broadcast.emit("user connected",{userID:socket.id,username:socket.username});
+  io.to(socket.pod).emit(socket.message);
 });
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -93,6 +88,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/orcastrator", {
 
 const apiRoutes = require("./routes");
 const PASSPORTroutes = require("./routes/api/passport");
+const { default: socket } = require("./client/src/utils/SocketObject");
 // Use apiRoutes
 app.use("/api", apiRoutes);
 app.use(PASSPORTroutes);

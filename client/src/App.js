@@ -19,13 +19,6 @@ function App() {
     loggedIn: false,
   });
 
-    const [userState, setUserState] = useState({
-        id: "",
-        name: "",
-        portrait: "",
-        loggedIn: false
-    });
-
     console.log(userState.loggedIn);
     useEffect(() => {
         axios.get("/User")
