@@ -28,7 +28,7 @@ function GroupList(props) {
       </div>
       <div className="row">
         <ListGroup className="col">{groups.map(g => {
-            return(<ListGroup.Item action onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)
+            return(<ListGroup.Item onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)
         })}</ListGroup>
       </div>
     </div>

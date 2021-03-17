@@ -8,8 +8,8 @@ function GroupInfo(props) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-
-    props.setModalShow(false);
+    console.log(event.target.form[0].value);
+    setModalShow(false);
   };
 
 
