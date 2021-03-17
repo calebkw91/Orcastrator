@@ -20,59 +20,61 @@ function App() {
     loggedIn: false,
   });
 
-    useEffect(() => {
-        axios.get("/User")
-            .then((res) => {
-                console.log(res);
-                if (res.data.id !== undefined) {
-                    if (res.data.provider === "google") {
-                        console.log(res);
-                        setUserState({
-                            ...userState,
-                            id: res.data.id,
-                            name: res.data._json.name,
-                            portrait: res.data.photos[0].value,
-                            loggedIn: true
-                        });
-                    } else if (res.data.provider === "github") {
-                        console.log(res);
-                        setUserState({
-                            ...userState,
-                            id: res.data.id,
-                            name: res.data._json.name,
-                            portrait: res.data._json.avatar_url,
-                            loggedIn: true
-                        });
-                    }
-                }
-                else if (res.data._id !== undefined) {
-                    console.log(res);
-                    setUserState({
-                        ...userState,
-                        id: res.data._id,
-                        name: res.data.name,
-                        portrait: res.data.portrait,
-                        loggedIn: true
-                    });
-                }
-                else {
-                    return;
-                }
-            })
-            .catch(err => console.log(err));
-    }, []);
-
-    const logout = () => {
-        console.log("logging out");
-        setUserState({
+  useEffect(() => {
+    axios
+      .get("/User")
+      .then((res) => {
+        console.log(res);
+        if (res.data.id !== undefined) {
+          if (res.data.provider === "google") {
+            console.log(res);
+            setUserState({
+              ...userState,
+              id: res.data.id,
+              name: res.data._json.name,
+              portrait: res.data.photos[0].value,
+              loggedIn: true,
+            });
+          } else if (res.data.provider === "github") {
+            console.log(res);
+            setUserState({
+              ...userState,
+              id: res.data.id,
+              name: res.data._json.name,
+              portrait: res.data._json.avatar_url,
+              loggedIn: true,
+            });
+          }
+        } else if (res.data._id !== undefined) {
+          console.log(res);
+          setUserState({
             ...userState,
-            id: "",
-            name: "",
-            portrait: "",
-            loggedIn: false
-        });
-        window.open(process.env.LOGOUT_URL || "http://localhost:8080/logout", "_self");
-    };
+            id: res.data._id,
+            name: res.data.name,
+            portrait: res.data.portrait,
+            loggedIn: true,
+          });
+        } else {
+          return;
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const logout = () => {
+    console.log("logging out");
+    setUserState({
+      ...userState,
+      id: "",
+      name: "",
+      portrait: "",
+      loggedIn: false,
+    });
+    window.open(
+      process.env.LOGOUT_URL || "http://localhost:8080/logout",
+      "_self"
+    );
+  };
 
     return (
         <UserContext.Provider value={userState}>

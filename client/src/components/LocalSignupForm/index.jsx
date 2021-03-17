@@ -44,7 +44,7 @@ function LocalSignup() {
         <div className="mx-auto row justify-content-center align-self-center wrapper">
             <div className="col-12">
                 <div className="justify-content-center">
-                    <div className="card">
+                    <div className="card card-position">
                         <div className="card-header">
                             <h3>Create an Account</h3>
                         </div>
