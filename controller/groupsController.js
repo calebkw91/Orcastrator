@@ -57,11 +57,11 @@ module.exports = {
             if (err) console.log(err);
         });
 
-        db.User.findOneAndUpdate({ _id: userID }, savedUser)
+        db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
 
-        db.Group.findOneAndUpdate({ _id: groupID }, updatedGroup)
+        db.Group.findOneAndUpdate({ _id: req.body.groupID }, updatedGroup)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     }
