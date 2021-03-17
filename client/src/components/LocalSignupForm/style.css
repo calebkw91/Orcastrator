@@ -4,5 +4,8 @@
   margin-bottom: 15px;
 }
 .wrapper {
+  display: flex;
+  align-items: center;
   width: 50%;
+  bottom: 50%;
 }
