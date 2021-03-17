@@ -3,8 +3,8 @@ import CreateGroupButton from "../../components/CreateGroupButton";
 import Footer from "../../components/Footer";
 import GroupInfo from "../../components/GroupInfo";
 import UserInfo from "../../components/UserInfo";
-// import UserContext from "../../utils/UserContext";
-import API from "../../utils/API";
+import UserContext from "../../utils/UserContext";
+import "./style.css";
 
 
 function Dashboard(props) {

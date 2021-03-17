@@ -1,9 +1,9 @@
-
-
 .title-header {
+  font-size: 70px;
   position: absolute;
   top: 15%;
   color: aliceblue;
+  font-family: "Lato", sans-serif;
   animation: glow 5s ease-in-out infinite alternate;
 }
 
@@ -26,5 +26,11 @@
 }
 
 h3 {
+  font-size: 20px;
   font-family: "Lato", sans-serif;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
 }
