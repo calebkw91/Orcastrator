@@ -27,15 +27,6 @@ function GroupAdd(props) {
             <div className="row">
               <Form.Control type="text" placeholder="Pod Description" />
             </div>
-            <br />
-            <div className="row">
-                <div className="col-6">
-                    <Form.Control size="sm" type="text" placeholder="Member Name" />
-                </div>
-                <div className="col-6">
-                    <Form.Control size="sm" type="text" placeholder="Role" />
-                </div>
-            </div>
           </div>
         </Form.Group>
         </Modal.Body>

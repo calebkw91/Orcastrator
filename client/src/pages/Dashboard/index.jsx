@@ -9,6 +9,8 @@ import "./style.css";
 
 function Dashboard(props) {
 
+    const [modalShow, setModalShow] = useState(false);
+
     return (
         <div>
             <UserInfo />
@@ -19,8 +21,8 @@ function Dashboard(props) {
             {/* user info in the navbar */}
             {/* display group info on page */}
                 <div className="row">
-                    <CreateGroupButton />
-                    <GroupInfo />
+                    <CreateGroupButton modalShow={modalShow} setModalShow={setModalShow}/>
+                    <GroupInfo modalShow={modalShow}/>
                 </div>
             {/* display group making form on page - later put into a separate tab/page/whatever*/}
             {/* later - display other groups */}
