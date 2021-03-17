@@ -1,3 +1,8 @@
-.blah{
-    background-image: url(./footer-image.png);
+.blah {
+  background-image: url(./footer-image.png);
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1030;
 }
