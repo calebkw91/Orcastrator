@@ -17,8 +17,7 @@ function GroupList(props) {
   }, [props.modalShow, id]);
 
   const handleGroupOnClick = (event) => {
-    console.log(event.target.innerHTML);
-    props.setCurrentGroup(groups.filter(g => g.name === event.target.innerHTML));
+    props.setCurrentGroup(groups.filter(g => g.name === event.target.innerHTML)[0]);
   }
 
   return (
