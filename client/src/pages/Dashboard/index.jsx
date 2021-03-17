@@ -1,9 +1,8 @@
-import React, {useContext, useState, useEffect } from "react";
+import React, {useState} from "react";
 import CreateGroupButton from "../../components/CreateGroupButton";
 import Footer from "../../components/Footer";
 import GroupInfo from "../../components/GroupInfo";
 import UserInfo from "../../components/UserInfo";
-import UserContext from "../../utils/UserContext";
 import "./style.css";
 
 
