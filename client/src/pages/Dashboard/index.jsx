@@ -13,8 +13,7 @@ function Dashboard(props) {
 
     return (
         <div>
-            <UserInfo />
-            <button onClick={props.logout}>Logout</button>
+            <UserInfo logout = {props.logout}/>
             <br></br>
 
             <div className="container">

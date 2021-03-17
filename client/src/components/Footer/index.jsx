@@ -1,12 +1,12 @@
 import React from "react";
-import Navbar from "react-bootstrap/Navbar";
 import footer from "./footer-image.png";
+import "./style.css"
 
 
 
 function Footer({ children }) {
     return (
-        <div className="blah" fixed="bottom">
+        <div className="footer" fixed="bottom">
             <img src={footer}></img>
         </div>
     )
