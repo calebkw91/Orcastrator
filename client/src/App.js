@@ -9,6 +9,7 @@ import UserContext from "./utils/UserContext";
 import axios from "axios";
 import LocalSignup from "./pages/LocalSignup/index";
 import LocalLogin from "./pages/LocalLogin/index";
+import API from "./utils/API";
 require("dotenv").config();
 
 function App() {
@@ -24,26 +25,36 @@ function App() {
       .get("/User")
       .then((res) => {
         console.log(res);
-        if (res.data.id !== undefined) {
-          if (res.data.provider === "google") {
-            console.log(res);
-            setUserState({
-              ...userState,
-              id: res.data.id,
-              name: res.data._json.name,
-              portrait: res.data.photos[0].value,
-              loggedIn: true,
-            });
-          } else if (res.data.provider === "github") {
-            console.log(res);
-            setUserState({
-              ...userState,
-              id: res.data.id,
-              name: res.data._json.name,
-              portrait: res.data._json.avatar_url,
-              loggedIn: true,
-            });
-          }
+        if (res.data._id === undefined) {
+            API.getUser({ userId: res.data.userId })
+                .then(res => {
+                    setUserState({
+                        ...userState,
+                        id: res.data._id,
+                        name: res.data.name,
+                        portrait: res.data.portrait,
+                        loggedIn: true,
+                      });
+                });
+        //   if (res.data.provider === "google") {
+        //     console.log(res);
+        //     setUserState({
+        //       ...userState,
+        //       id: res.data.id,
+        //       name: res.data._json.name,
+        //       portrait: res.data.photos[0].value,
+        //       loggedIn: true,
+        //     });
+        //   } else if (res.data.provider === "github") {
+        //     console.log(res);
+        //     setUserState({
+        //       ...userState,
+        //       id: res.data.id,
+        //       name: res.data._json.name,
+        //       portrait: res.data._json.avatar_url,
+        //       loggedIn: true,
+        //     });
+        //  }
         } else if (res.data._id !== undefined) {
           console.log(res);
           setUserState({

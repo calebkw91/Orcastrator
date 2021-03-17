@@ -48,21 +48,20 @@ module.exports = {
         db.User.findById(req.body.userID, (err, user) => {
             savedUser = user;
             if (err) console.log(err);
+
+            db.Group.findById(req.body.groupID, (err, group) => {
+                group.users.push(savedUser);
+                savedUser.groups.push(group);
+                updatedGroup = group;
+                if (err) console.log(err);
+
+                db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
+                    .catch(err => res.status(422).json(err));
+
+                db.Group.findOneAndUpdate({ _id: req.body.groupID }, updatedGroup)
+                    .then(dbModel => res.json(dbModel))
+                    .catch(err => res.status(422).json(err));
+            });
         });
-
-        db.Group.findById(req.body.groupID, (err, group) => {
-            group.users.push(savedUser);
-            savedUser.groups.push(group);
-            updatedGroup = group;
-            if (err) console.log(err);
-        });
-
-        db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-
-        db.Group.findOneAndUpdate({ _id: req.body.groupID }, updatedGroup)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
     }
 };

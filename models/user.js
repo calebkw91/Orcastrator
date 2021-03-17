@@ -14,13 +14,13 @@ const userSchema = new Schema({
 // userSchema.plugin(passportLocalMongoose);
 
 userSchema.pre("save", function (next) {
-  try {
-    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10), null);
-    next();
-  }
-  catch (error) {
-    next(error)
-  }
+    try {
+        this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10), null);
+        next();
+    }
+    catch (error) {
+        next(error)
+    }
 })
 
 userSchema.statics.comparePassword = async function (password, user) {
