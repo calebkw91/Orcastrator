@@ -3,7 +3,7 @@ import CreateGroupButton from "../../components/CreateGroupButton";
 import Footer from "../../components/Footer";
 import GroupInfo from "../../components/GroupInfo";
 import UserInfo from "../../components/UserInfo";
-import UserContext from "../../utils/userContext";
+import UserContext from "../../utils/UserContext";
 
 
 function Dashboard(props) {

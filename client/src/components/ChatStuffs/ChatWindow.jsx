@@ -1,9 +1,13 @@
-import {useEffect} from "react";
-import socketConnection from "../../utils/socket"
+import {useContext, useEffect} from "react";
+import socketConnection from "../../utils/ClientSocket"
+import UserContext from "../../utils/UserContext";
+
 
 function ChatWindow(){
+    const{id} = useContext(UserContext);
+    
     useEffect(() => {
-        socketConnection("haventDoneAnythingYet");
+        socketConnection(id,window.location.pathname);
       });
 
     return (

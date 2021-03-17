@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import Button from "react-bootstrap/Button"
 import GroupAdd from "../GroupAdd";
 import API from "../../utils/API";
-import UserContext from "../../utils/userContext";
+import UserContext from "../../utils/UserContext";
 
 
 
