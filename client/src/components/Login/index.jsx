@@ -25,36 +25,19 @@ function Login() {
             <div className="col-12">
                 <div className="justify-content-center">
                     <div className="card">
-                        <div className="card-header">
+                        <div className="card-header card-position">
                             <h3>Sign In With:</h3>
                         </div>
                         <div className="card-body">
                             <Button variant="success"><span onClick={googleLogin}><i className="fab fa-google-plus-square"></i></span></Button>{' '}
                             <Button variant="dark"><span onClick={githubLogin}><i className="fab fa-github"></i></span></Button>
 
-<<<<<<< HEAD
-    return(
-    <div className="mx-auto row justify-content-center align-self-center">
-        <h1 className="title-header">ORCASTRATE</h1>
-        <h3 className="title-subheader">Manage your group</h3>
-        <div className="col-12">
-            <div className="justify-content-center">
-                <div className="card card-position">
-                    <div className="card-header">
-                        <h3>Sign In</h3>
-                    </div>
-                    <div className="card-body">
-                        <Button variant="primary"><span onClick={googleLogin}><i className="fab fa-google-plus-square"></i></span></Button>{' '}
-                        <Button variant="dark"><span onClick={githubLogin}><i class="fab fa-github"></i></span></Button>
-                    </div>               
-=======
                             <h3>Or Create an Account</h3>
                             <Button variant="secondary" onClick={localSignup}>Create Account</Button>
                             <h3>Already have an Account?</h3>
                             <Button variant="primary" onClick={localLogin}>Login</Button>
                         </div>
                     </div>
->>>>>>> f109bfbe3ec186463db17a36c5d18b9d3ea549a2
                 </div>
             </div>
         </div>
