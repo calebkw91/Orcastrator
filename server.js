@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
   // socket.broadcast.emit("user connected",{userID:socket.id,username:socket.username});
   socket.on("chat message",(message)=>{
     console.log(message);
-    io.to(socket.pod).emit(socket.message);
+    io.to(socket.pod).emit(message);
   })
   
 });
