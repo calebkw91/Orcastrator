@@ -31,10 +31,10 @@ function CreateGroupButton(props){
     };
 
     return(
-        <div className="col-lg-6 col-md-6 col-sm-12">
+        <div>
         <Button variant="primary" onClick={() => props.setModalShow(true)}>
         Create New Group
-      </Button>
+        </Button>
 
       <CreateGroupModal
         show={props.modalShow}

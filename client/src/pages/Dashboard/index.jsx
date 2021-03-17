@@ -21,8 +21,7 @@ function Dashboard(props) {
             {/* user info in the navbar */}
             {/* display group info on page */}
                 <div className="row">
-                    <CreateGroupButton modalShow={modalShow} setModalShow={setModalShow}/>
-                    <GroupList currentGroup={currentGroup} setCurrentGroup={setCurrentGroup} modalShow={modalShow}/>
+                    <GroupList currentGroup={currentGroup} setCurrentGroup={setCurrentGroup} setModalShow={setModalShow} modalShow={modalShow}/>
                 </div>
             {/* display group making form on page - later put into a separate tab/page/whatever*/}
             {/* later - display other groups */}

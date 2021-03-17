@@ -7,7 +7,7 @@ import "./style.css"
 function Footer({ children }) {
     return (
         <div className="footer" fixed="bottom">
-            <img src={footer}></img>
+            <img alt="Orca Breaching" src={footer}></img>
         </div>
     )
 }

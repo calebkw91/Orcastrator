@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import UserContext from "../../utils/UserContext";
 import ListGroup from "react-bootstrap/ListGroup"
 import API from "../../utils/API";
+import CreateGroupButton from "../CreateGroupButton";
 
 function GroupList(props) {
   const [groups, setGroups] = useState([]);
@@ -16,16 +17,19 @@ function GroupList(props) {
   }, [props.modalShow, id]);
 
   const handleGroupOnClick = (event) => {
-    console.log(event.target.id);
-    console.log(groups.filter(group => group.id === event.target.id))
+    console.log(event.target.innerHTML);
+    props.setCurrentGroup(groups.filter(g => g.name === event.target.innerHTML));
   }
 
   return (
     <div className="col-lg-6 col-sm-12 col-md-12">
+      <div className="row">
         <h3>{name}'s Groups</h3>
+        <CreateGroupButton modalShow={props.modalShow} setModalShow={props.setModalShow}/>
+      </div>
       <div className="row">
         <ListGroup className="col">{groups.map(g => {
-            return(<ListGroup.Item key={g.id} onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)
+            return(<ListGroup.Item onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)
         })}</ListGroup>
       </div>
     </div>
