@@ -4,10 +4,27 @@
   position: absolute;
   top: 15%;
   color: aliceblue;
+  animation: glow 5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #3297fc, 0 0 20px #3297fc,
+      0 0 25px #3297fc, 0 0 30px #3297fc, 0 0 35px #3297fc;
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #3297fc,
+      0 0 40px #3297fc, 0 0 50px #3297fc, 0 0 60px #3297fc, 0 0 70px #3297fc;
+  }
 }
 
 .title-subheader {
   position: absolute;
   top: 25%;
   color: aliceblue;
+  font-family: "Lato", sans-serif;
+}
+
+h3 {
+  font-family: "Lato", sans-serif;
 }
