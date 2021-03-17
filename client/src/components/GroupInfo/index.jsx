@@ -17,7 +17,7 @@ function GroupInfo(props) {
         //only keep ones that you are a member of
       setGroups(res.data.filter(group => group.users.includes(id)));
     });
-  }, [props.modalShow]);
+  }, [props.modalShow, id]);
 
   return (
     <div className="col-lg-6 col-sm-12 col-md-12">
