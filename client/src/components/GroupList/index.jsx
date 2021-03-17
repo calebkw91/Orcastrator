@@ -10,9 +10,10 @@ function GroupList(props) {
 
   useEffect(() => {
     //get all groups
-    API.getGroups().then((res) => {
-        //only keep ones that you are a member of
-      setGroups(res.data.filter(group => group.users.includes(id)));
+    API.getUserGroups(id).then((res) => {
+      //only keep ones that you are a member of
+      //setGroups(res.data.filter(group => group.users.includes(id)));
+      setGroups(res.data.groups);
     });
   }, [props.modalShow, id]);
 
@@ -28,7 +29,7 @@ function GroupList(props) {
       </div>
       <div className="row">
         <ListGroup className="col">{groups.map(g => {
-            return(<ListGroup.Item onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)
+            return(<ListGroup.Item key={g._id} onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)
         })}</ListGroup>
       </div>
     </div>
