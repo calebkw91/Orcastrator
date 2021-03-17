@@ -76,7 +76,6 @@ function App() {
     return (
         <UserContext.Provider value={userState}>
             <BrowserRouter>
-                <div>
                     <Switch>
                         <Route exact path="/">
                             {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
@@ -94,7 +93,6 @@ function App() {
                             <Landing />
                         </Route>
                     </Switch>
-                </div>
             </BrowserRouter>
         </UserContext.Provider>
     );

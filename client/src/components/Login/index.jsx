@@ -24,7 +24,7 @@ function Login() {
             <h3 className="title-subheader">Orchestrate your group</h3>
             <div className="col-12">
                 <div className="justify-content-center">
-                    <div className="card">
+                    <div className="card card-position">
                         <div className="card-header">
                             <h3>Sign In With:</h3>
                         </div>
