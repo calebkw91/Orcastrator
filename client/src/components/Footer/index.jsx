@@ -1,5 +1,6 @@
 import React from "react";
 import footer from "./footer-image.png";
+import "./style.css"
 
 
 
