@@ -40,23 +40,25 @@ io.use(async (socket, next) => {
     socket.disconnect(true);
   }
   console.log("calling next");
-  next();
-});
-io.use((socket,next)=>{
   assignUserToSocket(socket);
   next();
-})
+});
+
 // what socketio should do once connected
 io.on("connection", (socket) => {
   socket.join(socket.handshake.auth.podID);
-  const users = [];
-  for (let[id,socket] of socket.of(socket.handshake.auth.podID).sockets){
-    users.push({userID:id,
-    username:socket.username,});
-  }
-  socket.emit("users",users);
-  socket.broadcast.emit("user connected",{userID:socket.id,username:socket.username});
-  io.to(socket.pod).emit(socket.message);
+  // const users = [];
+  // for (let[id,socket] of socket.of(socket.handshake.auth.podID).sockets){
+  //   users.push({userID:id,
+  //   username:socket.username,});
+  // }
+  // socket.emit("users",users);
+  // socket.broadcast.emit("user connected",{userID:socket.id,username:socket.username});
+  socket.on("chat message",(message)=>{
+    console.log(message);
+    io.to(socket.pod).emit(socket.message);
+  })
+  
 });
 
 
@@ -88,7 +90,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/orcastrator", {
 
 const apiRoutes = require("./routes");
 const PASSPORTroutes = require("./routes/api/passport");
-const { default: socket } = require("./client/src/utils/SocketObject");
+
 // Use apiRoutes
 app.use("/api", apiRoutes);
 app.use(PASSPORTroutes);

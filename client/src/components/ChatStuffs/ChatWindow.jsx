@@ -1,6 +1,16 @@
-import {useContext, useEffect} from "react";
+import {useContext, useEffect,useState} from "react";
 import socketConnection from "../../utils/SocketConnection"
 import UserContext from "../../utils/UserContext";
+
+const [chatState, setChatState] = useState({
+    message: "",
+    userName: "",
+    online: true,
+    roomUsers:[],
+  });
+
+    
+
 const io = require("socket.io-client");
 const socket = io({autoConnect:false});
 
@@ -20,6 +30,11 @@ socket.on("users",(users)=>{
     
 });
 
+function handleButtonSubmit(e){
+    e.preventDefault();
+
+}
+
 socket.on("chat message",(data)=>{
     console.log(data);
 })
@@ -37,7 +52,7 @@ function ChatWindow(){
                 <ul className="chatmessages"/>
             </div>
             <input className="messageTextArea" placeholder="Type Here"/>
-            <button onclick={socket.emit('chat message',document.getElementsByClassName("messageTextArea"))}/>
+            <button onclick={handleButtonSubmit}/>
         </div>
     )
 };

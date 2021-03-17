@@ -9,8 +9,9 @@ function socketConnection(id, podname) {
       userName:"placeholder"
     }  
   });
- 
-  if (socket.handshake.auth.userID === "") {
+ socket.oid = id;
+ socket.pod = podname;
+  if (socket.oid === "") {
     console.log("socket dose not have username-no connection attempt made");
     return;
   } else {
