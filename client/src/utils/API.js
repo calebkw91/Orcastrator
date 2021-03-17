@@ -6,6 +6,10 @@ export default {
     getUser: function (id) {
         return axios.get("/api/users/" + id);
     },
+    // Returns users in given query
+    getUserByQuery: function (data) {
+        return axios.get("/api/users", data);
+    },
     // Gets user by user name
     // data = { name: }
     getUsername: function (data) {
