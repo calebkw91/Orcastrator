@@ -25,9 +25,11 @@ function App() {
       .get("/User")
       .then((res) => {
         console.log(res);
-        if (res.data._id === undefined) {
-            API.getUser({ userId: res.data.userId })
+        console.log(res.data.id);
+        if (res.data.id) {
+            API.getUserByUserId(res.data.id)
                 .then(res => {
+                    console.log(res);
                     setUserState({
                         ...userState,
                         id: res.data._id,
@@ -36,26 +38,7 @@ function App() {
                         loggedIn: true,
                       });
                 });
-        //   if (res.data.provider === "google") {
-        //     console.log(res);
-        //     setUserState({
-        //       ...userState,
-        //       id: res.data.id,
-        //       name: res.data._json.name,
-        //       portrait: res.data.photos[0].value,
-        //       loggedIn: true,
-        //     });
-        //   } else if (res.data.provider === "github") {
-        //     console.log(res);
-        //     setUserState({
-        //       ...userState,
-        //       id: res.data.id,
-        //       name: res.data._json.name,
-        //       portrait: res.data._json.avatar_url,
-        //       loggedIn: true,
-        //     });
-        //  }
-        } else if (res.data._id !== undefined) {
+        } else if (res.data._id) {
           console.log(res);
           setUserState({
             ...userState,
