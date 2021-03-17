@@ -1,6 +1,6 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import Button from "react-bootstrap/Button"
-import GroupAdd from "../GroupAdd";
+import CreateGroupModal from "../CreateGroupModal";
 import API from "../../utils/API";
 import UserContext from "../../utils/UserContext";
 
@@ -8,10 +8,7 @@ import UserContext from "../../utils/UserContext";
 
 // button prompts a modal to show up to create a new group
 function CreateGroupButton(props){
-    const { id, name, portrait } = useContext(UserContext);
-
-
-    const [modalShow, setModalShow] = useState(false);
+    const {id} = useContext(UserContext);
 
     const handleFormSubmit = (event) => {
       event.preventDefault();
@@ -20,26 +17,29 @@ function CreateGroupButton(props){
         name: event.target.form[0].value,
         admin: id,
         description: event.target.form[1].value,
-        members: [{name: event.target.form[2].value, role: event.target.form[3].value}]
+        users: [id]
       };
   
       API.saveGroup(newGroup)
-        .then(console.log("group saved"))
+        .then(() =>{
+        console.log("group saved");
+        })
         .catch((err) => console.log(err));
-  
-      setModalShow(false);
+      
+
+      props.setModalShow(false);
     };
 
     return(
-        <div className="col-lg-6 col-md-6 col-sm-12">
-        <Button variant="primary" onClick={() => setModalShow(true)}>
+        <div>
+        <Button variant="primary" onClick={() => props.setModalShow(true)}>
         Create New Group
-      </Button>
+        </Button>
 
-      <GroupAdd
-        show={modalShow}
+      <CreateGroupModal
+        show={props.modalShow}
         handleFormSubmit={handleFormSubmit}
-        onHide={() => setModalShow(false)}
+        onHide={() => props.setModalShow(false)}
       />
       </div>
     );

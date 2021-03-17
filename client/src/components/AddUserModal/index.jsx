@@ -1,9 +1,7 @@
 import React from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 
-function GroupAdd(props) {
-
-
+function AddUserModal(props) {
   return (
     <Modal
       {...props}
@@ -21,20 +19,11 @@ function GroupAdd(props) {
         <Form.Group controlId="groupName">
           <div className="container">
             <div className="row">
-              <Form.Control size="lg" type="text" placeholder="Pod Name" />
+              <Form.Control size="lg" type="text" placeholder="Orca Name" />
             </div>
             <br />
             <div className="row">
-              <Form.Control type="text" placeholder="Pod Description" />
-            </div>
-            <br />
-            <div className="row">
-                <div className="col-6">
-                    <Form.Control size="sm" type="text" placeholder="Member Name" />
-                </div>
-                <div className="col-6">
-                    <Form.Control size="sm" type="text" placeholder="Role" />
-                </div>
+              <Form.Control type="text" placeholder="Orca's role" />
             </div>
           </div>
         </Form.Group>
@@ -50,4 +39,4 @@ function GroupAdd(props) {
   );
 }
 
-export default GroupAdd;
+export default AddUserModal;

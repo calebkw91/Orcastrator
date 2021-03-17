@@ -50,9 +50,10 @@ passportRouter.post("/signup", (req, res) => {
                 res.status(409).json()
             }
             else {
+                let password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null);
                 User.create({
                     name: req.body.name,
-                    password: req.body.password,
+                    password: password,
                     portrait: req.body.portrait,
                     userId: req.body.id,
                 })

@@ -25,11 +25,13 @@ passport.use(new GoogleStrategy({
         // User.findOrCreate({ id: profile.id }, function (err, user) {
         //   return cb(err, user);
         // });
+        console.log("check user");
 
         User.findOne({ userId: profile.id })
             .then(dbModel => {
                 if (!dbModel) {
 
+                    console.log("create user");
                     User.create({
                         name: profile._json.name,
                         portrait: profile.photos[0].value,
@@ -55,10 +57,12 @@ passport.use(new GithubStrategy({
         // User.findOrCreate({ googleId: profile.id }, function (err, user) {
         //   return cb(err, user);
         // });
+        console.log("check user");
 
         User.findOne({ userId: profile.id })
             .then(dbModel => {
                 if (!dbModel) {
+                    console.log("create user");
 
                     User.create({
                         name: profile._json.name,
