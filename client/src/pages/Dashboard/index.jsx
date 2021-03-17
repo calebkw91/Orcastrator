@@ -9,7 +9,7 @@ import "./style.css";
 function Dashboard(props) {
 
     const [modalShow, setModalShow] = useState(false);
-    const [currentGroup, setCurrentGroup] = useState({});
+    const [currentGroup, setCurrentGroup] = useState({name:"Nothing to Display", description: "", users:[]});
 
 
     return (

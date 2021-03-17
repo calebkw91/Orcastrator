@@ -1,7 +1,6 @@
 import React from "react";
 
 function GroupInfoDisplay(props) {
-  if (props.displayGroup) {
     return (
       <div>
         <p>{props.displayGroup.name}</p>
@@ -13,9 +12,6 @@ function GroupInfoDisplay(props) {
         </ul>
       </div>
     );
-  } else {
-    return <p>Got Nothing</p>;
-  }
 }
 
 export default GroupInfoDisplay;

@@ -19,11 +19,11 @@ function AddUserModal(props) {
         <Form.Group controlId="groupName">
           <div className="container">
             <div className="row">
-              <Form.Control size="lg" type="text" placeholder="Pod Name" />
+              <Form.Control size="lg" type="text" placeholder="Orca Name" />
             </div>
             <br />
             <div className="row">
-              <Form.Control type="text" placeholder="Pod Description" />
+              <Form.Control type="text" placeholder="Orca's role" />
             </div>
           </div>
         </Form.Group>
