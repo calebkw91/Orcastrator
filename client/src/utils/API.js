@@ -23,11 +23,11 @@ export default {
         console.log(groupData);
         return axios.post("/api/groups", groupData);
     },
-    // Gets groups that a specific user belongs to
+    // Gets groups that a specific user belongs to, takes user id
     getUserGroups: function (id) {
         return axios.get("/api/users/groups/" + id);
     },
-    // Get users that belong to a specific group
+    // Get users that belong to a specific group, takes group id
     getGroupUsers: function (id) {
         return axios.get("/api/groups/users/" + id);
     },
