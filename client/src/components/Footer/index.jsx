@@ -6,9 +6,9 @@ import footer from "./footer-image.png";
 
 function Footer({ children }) {
     return (
-        <Navbar className="blah" fixed="bottom">
+        <div className="blah">
             <img src={footer}></img>
-        </Navbar>
+        </div>
     )
 }
 
