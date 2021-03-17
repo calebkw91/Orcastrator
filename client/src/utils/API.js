@@ -6,9 +6,9 @@ export default {
     getUser: function (id) {
         return axios.get("/api/users/" + id);
     },
-    // Returns users in given query
-    getUserByQuery: function (data) {
-        return axios.get("/api/users", data);
+    // Returns users using their initial google of github id, stored in user.userId
+    getUserByUserId: function (id) {
+        return axios.get("/api/users/userid/" + id);
     },
     // Gets user by user name
     // data = { name: }

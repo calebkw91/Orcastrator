@@ -25,8 +25,9 @@ function App() {
       .get("/User")
       .then((res) => {
         console.log(res);
+        console.log(res.data.id);
         if (res.data.id) {
-            API.getUserByQuery({ userId: res.data.id })
+            API.getUserByUserId(res.data.id)
                 .then(res => {
                     console.log(res);
                     setUserState({
@@ -37,7 +38,7 @@ function App() {
                         loggedIn: true,
                       });
                 });
-        } else if (res.data._id !== undefined) {
+        } else if (res.data._id) {
           console.log(res);
           setUserState({
             ...userState,
