@@ -7,22 +7,22 @@ function AddUserModal(props) {
   let [user,setUser] = useState();
 
   const inviteUser = () => {
-   API.getUsername(user)
-   .then((res) => {
-     if(res.data === null){
-       alert("User Does Not Exist!")
-     }
-     else{
-      //  API.addUserInvite({user:user,group:group})
-      console.log("this is the res",res);
-     }
-     
-   })
-   .catch((err) => {
-     console.log(err);
-   })
-  }
-  console.log("current Group",props.currentGroup)
+   
+    API.getUsername(user)
+    .then((res) => {
+      console.log("before if",res);
+      if(res.data === null){
+        console.log("in if");
+        alert("User Does Not Exist!");
+      }
+      else{
+        console.log("in else",res.data.name);
+         API.addUserInvite(res.data.name,props.currentGroup._id);
+         alert("Invite Sent");
+      };
+    });
+  };
+
   const handleInputChange = (event) => {
     setUser(event.target.value);
   }
@@ -55,7 +55,7 @@ function AddUserModal(props) {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={inviteUser} type="submit">
-            Save
+            Invite
           </Button>
           <Button onClick={props.onHide} >Close</Button>
         </Modal.Footer>

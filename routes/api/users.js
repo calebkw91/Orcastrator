@@ -8,6 +8,8 @@ router.route("/")
 
 router.route("/userid/:id")
     .get(usersController.userFindByUserId);
+router.route("/:name/:groupId")
+    .post(usersController.addUserInvite);
 
 router.route("/:name")
 .get(usersController.userFindByName);

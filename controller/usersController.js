@@ -16,11 +16,16 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     userFindByName: function (req, res) {
-        console.log("first req.params",req.params.name)
         db.User
             .findOne({name:req.params.name})
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
+    },
+    addUserInvite: function (req, res) {
+        db.User
+            .updateOne({name:req.params.name},{ $push: { invites:req.params.groupId}})
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err))
     },
     userFindById: function (req, res) {
         db.User

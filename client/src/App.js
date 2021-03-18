@@ -10,6 +10,7 @@ import axios from "axios";
 import LocalSignup from "./pages/LocalSignup/index";
 import LocalLogin from "./pages/LocalLogin/index";
 import API from "./utils/API";
+import Invites from "./pages/Invites/index"
 require("dotenv").config();
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     id: "",
     name: "",
     portrait: "",
+    invites:[],
     loggedIn: false,
   });
 
@@ -24,20 +26,20 @@ function App() {
     axios
       .get("/User")
       .then((res) => {
-        console.log(res);
+        console.log("first res",res);
         console.log(res.data.id);
         if (res.data.id) {
-            API.getUserByUserId(res.data.id)
-                .then(res => {
-                    console.log(res);
-                    setUserState({
-                        ...userState,
-                        id: res.data._id,
-                        name: res.data.name,
-                        portrait: res.data.portrait,
-                        loggedIn: true,
-                      });
-                });
+          API.getUserByUserId(res.data.id)
+            .then(res => {
+              setUserState({
+                ...userState,
+                id: res.data._id,
+                name: res.data.name,
+                portrait: res.data.portrait,
+                invites: res.data.invites,
+                loggedIn: true,
+              });
+            });
         } else if (res.data._id) {
           console.log(res);
           setUserState({
@@ -45,6 +47,7 @@ function App() {
             id: res.data._id,
             name: res.data.name,
             portrait: res.data.portrait,
+            invites:res.data.invites,
             loggedIn: true,
           });
         } else {
@@ -84,6 +87,9 @@ function App() {
           </Route>
           <Route exact path="/Pod/:id">
             <PodDisplay />
+          </Route>
+          <Route exact path="/invites">
+            {userState.loggedIn ? <Invites logout={logout} /> : <Landing />}
           </Route>
           <Route path="*">
             <Landing />

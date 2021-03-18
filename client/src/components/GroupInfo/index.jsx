@@ -19,7 +19,7 @@ function GroupInfo(props) {
         <GroupInfoDisplay displayGroup={props.displayGroup}/>
       <Button onClick={() =>setModalShow(true)}>Add a new Orca</Button>
       <AddUserModal
-        currentGroup={props.currentGroup}
+        currentGroup={props.displayGroup}
         show={modalShow}
         handleFormSubmit={handleFormSubmit}
         onHide={() => setModalShow(false)}
