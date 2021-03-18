@@ -11,9 +11,9 @@ export default {
         return axios.get("/api/users/userid/" + id);
     },
     // Gets user by user name
-    // data = { name: }
-    getUsername: function (data) {
-        return axios.get("/api/users/", data);
+
+    getUsername: function (name) {
+        return axios.get("/api/users/" +  name);
     },
     // Gets all groups
     getGroups: function () {

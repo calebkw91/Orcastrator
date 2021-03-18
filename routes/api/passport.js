@@ -2,6 +2,7 @@ const passportRouter = require("express").Router();
 const passport = require("../../OAuthConfig/passport");
 const isAuthenticated = require("../../OAuthConfig/isAuthenticated");
 const User = require("../../models/user");
+const bcrypt = require("bcrypt");
 
 passportRouter.get('/auth/google',
     passport.authenticate('google', { scope: ['profile'] })
