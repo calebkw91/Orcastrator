@@ -9,12 +9,14 @@ function GroupList(props) {
   const { id, name } = useContext(UserContext);
 
   useEffect(() => {
+    console.log(props.modalShow);
     console.log("groups updated");
     //get all groups
     API.getUserGroups(id).then((res) => {
       //only keep ones that you are a member of
       //setGroups(res.data.filter(group => group.users.includes(id)));
       setGroups(res.data.groups);
+      console.log(res.data.groups);
     });
   }, [props.modalShow, id]);
 
@@ -29,9 +31,9 @@ function GroupList(props) {
         <CreateGroupButton modalShow={props.modalShow} setModalShow={props.setModalShow}/>
       </div>
       <div className="row">
-        <ListGroup className="col">{groups.map(g => {
-            return(<ListGroup.Item key={g._id} onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)
-        })}</ListGroup>
+        <ListGroup className="col">
+            {groups.map(g => <ListGroup.Item key={g._id} onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)}
+        </ListGroup>
       </div>
     </div>
   );

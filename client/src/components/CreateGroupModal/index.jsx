@@ -31,7 +31,7 @@ function GroupAdd(props) {
         </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onFormSubmit} type="submit">
+          <Button onClick={props.handleFormSubmit} type="submit">
             Save
           </Button>
           <Button onClick={props.onHide} >Close</Button>

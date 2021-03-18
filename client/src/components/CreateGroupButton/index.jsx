@@ -13,6 +13,8 @@ function CreateGroupButton(props){
     const handleFormSubmit = (event) => {
       event.preventDefault();
   
+      console.log("saving group");
+
       let newGroup = {
         name: event.target.form[0].value,
         admin: id,
@@ -21,13 +23,8 @@ function CreateGroupButton(props){
       };
   
       API.saveGroup(newGroup, id)
-        .then(() =>{
-        console.log("group saved");
-        })
+        .then(props.setModalShow(false))
         .catch((err) => console.log(err));
-      
-
-      props.setModalShow(false);
     };
 
     return(
@@ -38,7 +35,7 @@ function CreateGroupButton(props){
 
       <CreateGroupModal
         show={props.modalShow}
-        onFormSubmit={handleFormSubmit}
+        handleFormSubmit={handleFormSubmit}
         onHide={() => props.setModalShow(false)}
       />
       </div>
