@@ -24,6 +24,7 @@ module.exports = {
             db.Group.create(req.body, (err, group) => {
                 savedUser.groups.push(group._id);
                 db.User.findOneAndUpdate({ _id: req.params.id }, savedUser)
+                    .then(dbModel => res.json(dbModel))
                     .catch(err => res.status(422).json(err));
                 if (err) console.log(err);
             });

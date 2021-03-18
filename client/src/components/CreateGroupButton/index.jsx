@@ -23,7 +23,10 @@ function CreateGroupButton(props){
       };
   
       API.saveGroup(newGroup, id)
-        .then(props.setModalShow(false))
+        .then((res) => {
+            console.log("group saved");
+            props.setModalShow(false);
+        })
         .catch((err) => console.log(err));
     };
 
