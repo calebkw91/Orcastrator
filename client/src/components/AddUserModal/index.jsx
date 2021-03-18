@@ -22,7 +22,7 @@ function AddUserModal(props) {
      console.log(err);
    })
   }
-
+  console.log("current Group",props.currentGroup)
   const handleInputChange = (event) => {
     setUser(event.target.value);
   }
