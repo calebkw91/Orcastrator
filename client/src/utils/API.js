@@ -28,9 +28,9 @@ export default {
         return axios.delete("/api/groups/" + id);
     },
     // Saves a group to the database
-    saveGroup: function (groupData) {
+    saveGroup: function (groupData, id) {
         console.log(groupData);
-        return axios.post("/api/groups", groupData);
+        return axios.post("/api/groups/" + id, groupData);
     },
     // Gets groups that a specific user belongs to, takes user id
     getUserGroups: function (id) {
