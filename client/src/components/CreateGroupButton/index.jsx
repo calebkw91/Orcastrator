@@ -38,7 +38,7 @@ function CreateGroupButton(props){
 
       <CreateGroupModal
         show={props.modalShow}
-        handleFormSubmit={handleFormSubmit}
+        onFormSubmit={handleFormSubmit}
         onHide={() => props.setModalShow(false)}
       />
       </div>

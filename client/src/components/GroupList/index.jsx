@@ -9,6 +9,7 @@ function GroupList(props) {
   const { id, name } = useContext(UserContext);
 
   useEffect(() => {
+    console.log("groups updated");
     //get all groups
     API.getUserGroups(id).then((res) => {
       //only keep ones that you are a member of
