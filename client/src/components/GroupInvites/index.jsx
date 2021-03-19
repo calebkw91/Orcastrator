@@ -7,6 +7,9 @@ function GroupInvites() {
     const [activeInvites, setInvites] = useState(invites);
     const [groups, setGroups] = useState([]);
 
+    console.log("main activeInvites " + activeInvites);
+    console.log("main invites " + invites);
+
     const accept = (event) => {
         console.log("accept");
 
@@ -24,6 +27,7 @@ function GroupInvites() {
                 if (index > -1) {
                     newInvites.splice(index, 1);
                     setInvites(newInvites);
+                    console.log("activeInvites " + activeInvites);
                 }
 
                 API.userUpdate(id, { invites: newInvites })
@@ -39,6 +43,7 @@ function GroupInvites() {
         if (index > -1) {
             newInvites.splice(index, 1);
             setInvites(newInvites);
+            console.log("activeInvites " + activeInvites);
         }
 
         API.userUpdate(id, { invites: newInvites })

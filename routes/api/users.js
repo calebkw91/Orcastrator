@@ -9,6 +9,9 @@ router.route("/")
 router.route("/userid/:id")
     .get(usersController.userFindByUserId);
 
+router.route("/findid/:id")
+    .get(usersController.userFindById);
+
 router.route("/:name")
     .get(usersController.userFindByName);
 

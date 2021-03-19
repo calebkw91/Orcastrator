@@ -12,7 +12,7 @@ export default {
     },
     // Gets user by id
     getUser: function (id) {
-        return axios.get("/api/users/" + id);
+        return axios.get("/api/users/findid/" + id);
     },
     // Returns users using their initial google of github id, stored in user.userId
     getUserByUserId: function (id) {
