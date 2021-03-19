@@ -10,7 +10,8 @@ function assignUserToSocket(socket){
     socket.username = username;
     socket.userID = userID;
     socket.pod = pod;
-    console.log(socket);
+    // console.log(socket);
+    console.log("assigning User");
     return socket
 }
 

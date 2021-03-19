@@ -30,6 +30,7 @@ const io = socketio(server, { cors: corsOptions });
 // Define middleware here
 //run socket connections through middleware to authenticate
 io.use(async (socket, next) => {
+  console.log("someone Is trying to connect");
   let credential = socket.handshake.auth.userID;
   if (!credential) {
     return next(new Error("invalid username"));
@@ -39,28 +40,27 @@ io.use(async (socket, next) => {
     console.log("calling socket disconnect");
     socket.disconnect(true);
   }
-  console.log("calling next");
+  // console.log("calling next");
   assignUserToSocket(socket);
   next();
 });
 
 // what socketio should do once connected
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
   socket.join(socket.handshake.auth.podID);
-  // const users = [];
-  // for (let[id,socket] of socket.of(socket.handshake.auth.podID).sockets){
-  //   users.push({userID:id,
-  //   username:socket.username,});
-  // }
-  // socket.emit("users",users);
-  // socket.broadcast.emit("user connected",{userID:socket.id,username:socket.username});
-  socket.on("chat message",(message)=>{
+  console.log("after socket room join");
+  io.to(socket.handshake.auth.podID).emit("chatMessage","you are in room" + socket.handshake.auth.podID);
+  socket.on('chatMessage',(message)=>{
+    console.log("recived a message now logging");
     console.log(message);
-    io.to(socket.pod).emit(message);
-  })
-  
+    // callback({status:"ok"});
+     io.emit("chatMessage",message);
+ });
+ socket.onAny((event)=>{
+   console.log(event);
+ });
+ 
 });
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

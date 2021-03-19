@@ -1,64 +1,73 @@
+
 import { useContext, useEffect, useState } from "react";
-import socketConnection from "../../utils/SocketConnection";
+
 import UserContext from "../../utils/UserContext";
-
-const [chatState, setChatState] = useState({
-  message: "",
-  userName: "",
-  online: true,
-  roomUsers: [],
-});
-
-const io = require("socket.io-client");
-const socket = io({ autoConnect: false });
-socket.onAny((event, ...args) => {
-  console.log(event, ...args);
-});
-socket.on("users", (users) => {
-  console.log(users);
-  // users.forEach((user)=>{
-  //     user.self = user.userID === socket.id;
-  // });
-  // //put the current user first then sort by name
-  // this.users = users.sort((a,b)=>{
-  //     if(a.self)return -1;
-  //     if(b.self)return 1;
-  //     if(a.username<b.username) return -1;
-  //     return a.username>b.username? 1:0;
-  // });
-});
-socket.on("chat message", (data) => {
-  console.log(data);
-});
-
-function handleButtonSubmit(e) {
-  e.preventDefault();
-  socket.to(socket.pod).emit("chat message",chatState.message);
-  setChatState(...chatState,chatState.message = "");
-}
 
 function ChatWindow() {
   const { id } = useContext(UserContext);
-
-  useEffect(() => {
-    socketConnection(id, window.location.pathname);
+  const [chatState, setChatState] = useState({
+    message: "",
+    userName: "",
+    online: false,
+    roomUsers: [],
+    incomingMessages: [],
   });
+  let sendText ="";
+  let messages = [];
+  const io = require("socket.io-client");
+  const socket = io({
+    // autoConnect: false,
+    auth: {
+      userID: id,
+      podID: window.location.pathname,
+      username: "placeholder",
+    },
+  });
+  socket.oid = id;
+  socket.pod = window.location.pathname;
+  // useEffect(() => {
+  //       if (socket.oid === "") {
+  //         console.log(
+  //           "socket dose not have username-no connection attempt made"
+  //         );
+  //         return;
+  //       } else {
+  //         socket.connect();
+  //         console.log("socket connecting");
+  //         setChatState({ ...chatState, online: true });
+  //         console.log("chat state set to true");
+  //       };
+      
+  // }, []);
+  
+  socket.on('chatMessage', (data) => {
+    console.log(data);
+    messages.push(data);
+  }); 
+   function handleButtonSubmit(e) {
+    console.log("calling function");
+    console.log(sendText);
+    socket.emit('chatMessage',sendText);
 
+  }
   return (
     <div className="chatWindow">
-      <div>
-        <ul className="chatmessages" />
-      </div>
+      <ul className="chatmessages"></ul>
       <input
         className="messageTextArea"
+        id="chatFeild"
         name="chatFeild"
         placeholder="Type Here"
         type="text"
-        onChange={(e) => setChatState(...chatState,chatState.message = e.target.value)}
+        onChange={(e) => {
+          console.log(e);
+          sendText=e.target.value;
+        }}
       />
-      <button onclick={handleButtonSubmit} />
+      <button type='button'
+        onClick={handleButtonSubmit}
+      >SEND</button>
     </div>
   );
 }
-
 export default ChatWindow;
