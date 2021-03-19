@@ -4,6 +4,10 @@ const groupsController = require("../../controller/groupsController");
 // Matches with "/api/groups"
 router.route("/")
     .get(groupsController.groupFindAll);
+    
+// Matches with "/api/groups/users/"
+router.route("/users")
+    .post(groupsController.groupSaveUser);
 
 // Matches with "/api/groups/:id"
 router.route("/:id")
@@ -16,8 +20,5 @@ router.route("/:id")
 router.route("/users/:id")
     .get(groupsController.groupGetUsers);
 
-// Matches with "/api/groups/users/"
-router.route("/users")
-    .post(groupsController.groupSaveUser);
 
 module.exports = router;
