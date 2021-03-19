@@ -9,7 +9,7 @@ const userSchema = new Schema({
   portrait: { type: String, required: true },
   userId: { type: String, required: true },
   groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }],
-  invites: [{type: String}]
+  invites: [{ type: Schema.Types.ObjectId, ref: 'Group' }]
 });
 
 userSchema.statics.comparePassword = async function (password, user) {

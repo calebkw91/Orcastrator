@@ -3,16 +3,15 @@ const usersController = require("../../controller/usersController");
 
 // Matches with "/api/users"
 router.route("/")
-    .get(usersController.userFindByName)
+    .get(usersController.userFindAll)
     .post(usersController.userCreate);
 
 router.route("/userid/:id")
     .get(usersController.userFindByUserId);
-router.route("/:name/:groupId")
-    .post(usersController.addUserInvite);
 
 router.route("/:name")
-.get(usersController.userFindByName);
+    .get(usersController.userFindByName);
+
 // Matches with "/api/users/:id"
 router.route("/:id")
     .get(usersController.userFindById)

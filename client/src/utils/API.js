@@ -2,8 +2,13 @@ import axios from "axios";
 
 //eslint-disable-next-line
 export default {
-    addUserInvite: function(name,groupId) {
-        return axios.post("/api/users/" + name + "/" + groupId);
+    //data = { userId: , groupId: }
+    userUpdate: function(id, data) {
+        return axios.put("/api/users/" + id, data);
+    },
+    // Gets user by id
+    getAllUsers: function () {
+        return axios.get("/api/users");
     },
     // Gets user by id
     getUser: function (id) {
