@@ -19,20 +19,30 @@ function GroupInvites() {
             .then((res) => {
                 console.log("user saved to group");
 
-                let newInvites  = activeInvites;
+                let newInvites = activeInvites;
                 const index = newInvites.indexOf(event.target.value);
                 if (index > -1) {
                     newInvites.splice(index, 1);
+                    setInvites(newInvites);
                 }
 
-                API.userUpdate(id, { invites: newInvites})
+                API.userUpdate(id, { invites: newInvites })
                     .then((res) => console.log("invites updated"));
-                
+
             });
     };
 
-    const decline = () => {
+    const decline = (event) => {
         console.log("decline");
+        let newInvites = activeInvites;
+        const index = newInvites.indexOf(event.target.value);
+        if (index > -1) {
+            newInvites.splice(index, 1);
+            setInvites(newInvites);
+        }
+
+        API.userUpdate(id, { invites: newInvites })
+            .then((res) => console.log("invites updated"));
     };
 
     const redirect = () => {
@@ -42,7 +52,7 @@ function GroupInvites() {
     useEffect(() => {
         const grabem = async () => {
             try {
-                if (invites.length >= 1) {
+                if (activeInvites.length >= 1) {
                     let newGroupsArr = [];
                     for (let i = 0; i < invites.length; i++) {
                         let newGroup = await API.getGroup(invites[i]);
@@ -55,7 +65,7 @@ function GroupInvites() {
             }
         }
         grabem();
-    }, []);
+    }, [activeInvites, invites]);
 
     return (
         <div>
@@ -76,9 +86,12 @@ function GroupInvites() {
                             <td>{group.data.admin}</td>
                             <td>{group.data.description}</td>
                             <td>{group.data.users.map(user =>
-                                <p>{user}</p>
+                                <p key={user}>{user}</p>
                             )}</td>
-                            <td><button onClick={accept} value={group.data._id}>Accept</button><button onClick={decline}>Decline</button></td>
+                            <td>
+                                <button onClick={accept} value={group.data._id}>Accept</button>
+                                <button onClick={decline} value={group.data._id}>Decline</button>
+                            </td>
                         </tr>)}
                 </tbody>
             </table>
