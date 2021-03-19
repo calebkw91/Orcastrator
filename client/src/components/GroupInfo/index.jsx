@@ -15,7 +15,7 @@ function GroupInfo(props) {
 
   return (
     <div className="col-lg-6 col-sm-12 col-md-12">
-      <h3>Here's some info about your currently selected group</h3>
+      <h3>Selected Pod Info</h3>
         <GroupInfoDisplay displayGroup={props.displayGroup}/>
       <Button onClick={() =>setModalShow(true)}>Add a new Orca</Button>
       <AddUserModal
