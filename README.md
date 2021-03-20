@@ -40,9 +40,9 @@ $npm i
 
 ## Badges
 
-![JavaScript](https://img.shields.io/badge/JavaScript-62.5%25-yellow)<br/>
-![CSS](https://img.shields.io/badge/CSS-21.7%25-purple) <br/>
-![HTML](https://img.shields.io/badge/HTML-15.8%25-red) <br/>
+![JavaScript](https://img.shields.io/badge/JavaScript-90.8%25-yellow)<br/>
+![CSS](https://img.shields.io/badge/CSS-4.5%25-purple) <br/>
+![HTML](https://img.shields.io/badge/HTML-4.7%25-red) <br/>
 
 ## Contributors
 
