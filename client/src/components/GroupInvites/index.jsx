@@ -1,9 +1,7 @@
-import { set } from "mongoose";
 import React, { useEffect, useState, useContext } from "react";
 import API from "../../utils/API";
 import UserContext from "../../utils/UserContext";
 import AcceptInviteModal from "../AcceptInviteModal/"
-import { Modal, Button, Form } from "react-bootstrap";
 
 
 function GroupInvites() {
