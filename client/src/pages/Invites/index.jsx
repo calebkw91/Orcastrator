@@ -6,7 +6,6 @@ function Invites() {
 
     return(
         <div className="login">
-        <h1>Invite List</h1>
         <GroupInvites/>
         </div>
     )

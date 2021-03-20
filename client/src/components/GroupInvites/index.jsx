@@ -88,6 +88,11 @@ function GroupInvites() {
                     let newGroupsArr = [];
                     for (let i = 0; i < invites.length; i++) {
                         let newGroup = await API.getGroup(invites[i]);
+                        console.log("here",newGroup)
+                        let newGroupAdmin= newGroup.data.admin;
+                        let adminCall = await API.getUser(newGroupAdmin);
+                        let adminName = adminCall.data.name;
+                        newGroup.data.admin = adminName;
                         newGroupsArr.push(newGroup);
                     }
                     setGroups(newGroupsArr);
@@ -100,14 +105,14 @@ function GroupInvites() {
     }, [updateInvites, invites, activeInvites.length]);
 
     return (
-        <div>
+        <div className="inviteContainer">
+            <h1 className="inviteHeader">Pod Invites</h1>
             <table className="table">
                 <thead>
                     <tr className="tableHead">
                         <th>Name</th>
                         <th>Group Leader</th>
                         <th>Description</th>
-                        <th>Current Members</th>
                         <th>Response</th>
                     </tr>
                 </thead>
@@ -117,28 +122,21 @@ function GroupInvites() {
                             <td>{group.data.name}</td>
                             <td>{group.data.admin}</td>
                             <td>{group.data.description}</td>
-                            <td>{group.data.users.map(user =>
-                                <p key={user}>{user}</p>
-                            )}
-                            </td>
                             <td>
-                                <Button onClick={accept} value={group.data._id}>Accept</Button>
-                                <Button onClick={decline} value={group.data._id}>Decline</Button>
+                                <Button className="responseButtons" onClick={accept} value={group.data._id}>Accept</Button>
+                                <Button className="responseButtons" onClick={decline} value={group.data._id}>Decline</Button>
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
-            <Button onClick={redirect}>Dashboard</Button>
+            <Button className="dashboardButton" onClick={redirect}>Dashboard</Button>
 
             <AcceptInviteModal
                 portrait={portrait}
                 invites={invites}
-                portrait={portrait}
                 data={modalData}
-                // currentGroup={props.displayGroup}
                 show={modalShow}
-                // handleFormSubmit={handleFormSubmit}
                 onHide={() => setModalShow(false)}
             />
         </div>
