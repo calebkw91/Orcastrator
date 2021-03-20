@@ -1,6 +1,5 @@
 import React from "react";
 import OrcaCard from "../OrcaCard";
-import CardColumns from "react-bootstrap/CardColumns";
 
 function GroupInfoDisplay(props) {
   //iterate through users
