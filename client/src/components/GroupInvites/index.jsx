@@ -5,7 +5,7 @@ import AcceptInviteModal from "../AcceptInviteModal/"
 
 
 function GroupInvites() {
-    const { id, invites } = useContext(UserContext);
+    const { id, invites, portrait } = useContext(UserContext);
     const [activeInvites, setInvites] = useState(invites);
     const [groups, setGroups] = useState([]);
     const [modalShow, setModalShow] = useState(false)
@@ -130,6 +130,7 @@ function GroupInvites() {
             <button onClick={redirect}>Go Back to Dashboard</button>
 
             <AcceptInviteModal
+                portrait={portrait}
                 invites={invites}
                 data={modalData}
                 // currentGroup={props.displayGroup}

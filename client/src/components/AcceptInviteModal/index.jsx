@@ -16,7 +16,7 @@ function AcceptInviteModal(props) {
         tempProps[index] = {[prop]:event.target.value};
     };
 
-    const user = {id:userID, properties:groupProperties};
+    const user = {id:userID, properties:groupProperties, portrait:props.portrait};
     
     const data = {
         userID: userID,
@@ -32,12 +32,11 @@ function AcceptInviteModal(props) {
             await API.userUpdate(userID, { invites: newInvites })
             console.log("user saved");
             props.onHide();
+            window.location.assign("/");
         } catch (err) {
             throw err;
         }
-        
-        
-    }
+    };
 
     useEffect(() => {
         API.getGroup(groupID)
