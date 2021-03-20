@@ -71,7 +71,7 @@ function App() {
             loggedIn: false
         });
         window.open(
-            "https://orcastrator.herokuapp.com//logout",
+            "https://orcastrator.herokuapp.com/logout",
             "_self"
         );
     };
