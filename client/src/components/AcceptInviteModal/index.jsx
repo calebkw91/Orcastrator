@@ -33,6 +33,7 @@ function AcceptInviteModal(props) {
             await API.userUpdate(id, { invites: newInvites })
             console.log("user saved");
             props.onHide();
+            window.location.assign("/");
         } catch (err) {
             throw err;
         }
