@@ -1,0 +1,14 @@
+.login {
+  padding: 0;
+  background-image: url("https://i.imgur.com/AMlHx6e.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  max-width: 100%;
+}
+
+h1 {
+  color: aliceblue;
+  font-family: "Didact Gothic", sans-serif;
+}
