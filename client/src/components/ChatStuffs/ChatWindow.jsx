@@ -1,58 +1,53 @@
-
 import { useContext, useEffect, useState } from "react";
-
+import socketConnection from "../../utils/SocketConnection";
 import UserContext from "../../utils/UserContext";
+const io = require("socket.io-client");
 
 function ChatWindow() {
   const { id } = useContext(UserContext);
-  const [chatState, setChatState] = useState({
-    message: "",
-    userName: "",
-    online: false,
-    roomUsers: [],
-    incomingMessages: [],
-  });
-  let sendText ="";
-  let messages = [];
-  const io = require("socket.io-client");
-  const socket = io({
-    // autoConnect: false,
+  let incommingMessage=["these","are","dummy","messages"];
+  let outgoinMessage="";
+  let socket = io({
+    autoConnect: false,
     auth: {
       userID: id,
       podID: window.location.pathname,
       username: "placeholder",
     },
   });
-  socket.oid = id;
-  socket.pod = window.location.pathname;
-  // useEffect(() => {
-  //       if (socket.oid === "") {
-  //         console.log(
-  //           "socket dose not have username-no connection attempt made"
-  //         );
-  //         return;
-  //       } else {
-  //         socket.connect();
-  //         console.log("socket connecting");
-  //         setChatState({ ...chatState, online: true });
-  //         console.log("chat state set to true");
-  //       };
-      
-  // }, []);
-  
-  socket.on('chatMessage', (data) => {
+  useEffect(() => {
+        socket.offAny();
+        socket.close();
+        console.log(id);
+        socket.connect();
+        console.log("socket connecting");
+  }, [id]);
+  socket.on("connect",()=>{
+    console.log(socket.connected);
+   socket.emit('join group',window.location.pathname)
+  });
+  socket.on("connection_error",(error)=>{console.log(error);})
+  socket.on("disconnect",(reason)=>{console.log(reason);});
+  socket.on("chatMessage", (data) => {
+    console.log("socket.on,chatMessage");
     console.log(data);
-    messages.push(data);
-  }); 
+    incommingMessage.push(data);
+    
+  });
+
    function handleButtonSubmit(e) {
-    console.log("calling function");
-    console.log(sendText);
-    socket.emit('chatMessage',sendText);
+    console.log("calling emit function");
+    socket.emit('chatMessage',outgoinMessage,window.location.pathname);
+    outgoinMessage = "";
 
   }
   return (
     <div className="chatWindow">
-      <ul className="chatmessages"></ul>
+      <ul className="chatmessages">
+        {incommingMessage.forEach((message)=>(
+        <li></li>
+        ))}
+      </ul>
       <input
         className="messageTextArea"
         id="chatFeild"
@@ -60,13 +55,12 @@ function ChatWindow() {
         placeholder="Type Here"
         type="text"
         onChange={(e) => {
-          console.log(e);
-          sendText=e.target.value;
+          outgoinMessage = e.target.value;
         }}
       />
-      <button type='button'
-        onClick={handleButtonSubmit}
-      >SEND</button>
+      <button type="submit" onClick={handleButtonSubmit}>
+        SEND
+      </button>
     </div>
   );
 }

@@ -31,8 +31,9 @@ const io = socketio(server, { cors: corsOptions });
 //run socket connections through middleware to authenticate
 io.use(async (socket, next) => {
   console.log("someone Is trying to connect");
+  console.log(socket.handshake.auth);
   let credential = socket.handshake.auth.userID;
-  if (!credential) {
+  if (credential ==="") {
     return next(new Error("invalid username"));
   }
   const socketAuth = await socketAuthorization(socket);
@@ -47,20 +48,20 @@ io.use(async (socket, next) => {
 
 // what socketio should do once connected
 io.on('connection', (socket) => {
-  socket.join(socket.handshake.auth.podID);
-  console.log("after socket room join");
-  io.to(socket.handshake.auth.podID).emit("chatMessage","you are in room" + socket.handshake.auth.podID);
-  socket.on('chatMessage',(message)=>{
+  socket.on('join group',(pod)=>{
+    console.log("inside join pod");
+    socket.join(pod);
+    io.to(pod).emit("chatMessage","you are in room" + pod);
+  })
+  socket.on('chatMessage',(message,pod)=>{
     console.log("recived a message now logging");
     console.log(message);
     // callback({status:"ok"});
-     io.emit("chatMessage",message);
+     io.to(pod).emit("chatMessage",message); 
+  });
  });
- socket.onAny((event)=>{
-   console.log(event);
- });
- 
-});
+
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

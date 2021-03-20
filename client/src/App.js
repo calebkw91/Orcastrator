@@ -9,6 +9,7 @@ import UserContext from "./utils/UserContext";
 import axios from "axios";
 import LocalSignup from "./pages/LocalSignup/index";
 import LocalLogin from "./pages/LocalLogin/index"
+import socketConnection from "./utils/SocketConnection";
 require("dotenv").config();
 
 function App() {

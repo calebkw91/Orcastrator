@@ -4,11 +4,12 @@ const Group = require("../models/group");
 function socketAuthorization(socket) {
   idNum = socket.handshake.auth.userID;
   podID = socket.handshake.auth.podID;
-
+  console.log(idNum+"_:_"+podID);
     return User.findOne({ userId: idNum })// remove return
       .then((dbModel,err) => {
         if (err) {
           console.log("UnAuthorized #SA1");
+          console.log(dbModel);
           return false;
         }
         return true;// remove return
