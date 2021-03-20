@@ -20,7 +20,6 @@ module.exports = {
 
         db.User.findById(req.params.id, (err, user) => {
             savedUser = user;
-
             db.Group.create(req.body, (err, group) => {
                 savedUser.groups.push(group._id);
                 db.User.findOneAndUpdate({ _id: req.params.id }, savedUser)
@@ -65,6 +64,33 @@ module.exports = {
                 savedUser.groups.push(group);
                 updatedGroup = group;
                 if (err) console.log(err);
+
+                db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
+                    .catch(err => res.status(422).json(err));
+
+                db.Group.findOneAndUpdate({ _id: req.body.groupID }, updatedGroup)
+                    .then(dbModel => res.json(dbModel))
+                    .catch(err => res.status(422).json(err));
+            });
+        });
+    },
+    groupSaveNewUser: function (req, res) {
+        let savedUser;
+        let updatedGroup;
+
+        db.User.findById(req.body.userID, (err, user) => {
+            savedUser = user;
+            if (err) console.log(err);
+
+            db.Group.findById(req.body.groupID, (err, group) => {
+                group.users.push(savedUser);
+                group.fullUsers.push(req.body.fullUsers);
+                savedUser.groups.push(group);
+                updatedGroup = group;
+                if (err) console.log(err);
+
+                console.log("savedUser",savedUser);
+                console.log("updatedGroup", updatedGroup);
 
                 db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
                     .catch(err => res.status(422).json(err));

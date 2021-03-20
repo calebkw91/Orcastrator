@@ -9,6 +9,9 @@ router.route("/")
 router.route("/users")
     .post(groupsController.groupSaveUser);
 
+router.route("/newUsers")
+    .post(groupsController.groupSaveNewUser);
+
 // Matches with "/api/groups/:id"
 router.route("/:id")
     .get(groupsController.groupFindById)

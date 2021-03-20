@@ -4,24 +4,28 @@ import { Modal, Button, Form } from "react-bootstrap";
 function GroupAdd(props) {
 
   const [groupProperties, setGroupProperties] = useState([]);
-
   const [currentProperty, setCurrentProperty] = useState("");
+  const [currentPropertyValue, setCurrentPropertyValue] = useState("");
 
   const addProperty = (event) => {
     event.preventDefault();
-    console.log(groupProperties);
-    setGroupProperties([...groupProperties, currentProperty]);
+    setGroupProperties([...groupProperties, {[currentProperty]:currentPropertyValue}]);
   };
 
   const handleInputChange = (event) => {
-    setCurrentProperty(event.target.value);
-    console.log(currentProperty);
+    if(event.target.name === "property"){
+      setCurrentProperty(event.target.value);
+    }
+    else{
+      setCurrentPropertyValue(event.target.value)
+    }
   };
 
   const deleteProperty = (event) => {
     event.preventDefault();
-    const target=event.target.value;
-    setGroupProperties(groupProperties.filter( property => property !== target));
+    console.log(event)
+    const prop=event.target.attributes.prop.value;
+    setGroupProperties(groupProperties.filter( property => Object.keys(property)[0] !== prop));
   }
 
   return (
@@ -49,7 +53,9 @@ function GroupAdd(props) {
               </div>
               <br />
               <div className="row">
-                <Form.Control type="text" onChange={handleInputChange} placeholder="Required Group Property" />
+                <Form.Control className="col-6" type="text" name="property" onChange={handleInputChange} placeholder="Required Group Property" />
+                <Form.Control className="col-6" type="text" name="propertyValue" onChange={handleInputChange} placeholder="Your Property Value" />
+                {/* groupProperties is an array of objects */}
                 <button onClick={addProperty}>Add Property</button>
               </div>
               <div className="row">
@@ -57,7 +63,7 @@ function GroupAdd(props) {
                 <br/>
                 <ul>
                   {groupProperties.map(property =>
-                    <li>{property}<button className="deleteButton" value={property} onClick={deleteProperty}>X</button></li>                   
+                    <li>{Object.keys(property)[0]} : {Object.values(property)[0]}<button className="deleteButton" prop={Object.keys(property)[0]} propvalue={Object.values(property)[0]}  onClick={deleteProperty}>X</button></li>                   
                   )}
                 </ul>
               </div>

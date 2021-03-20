@@ -6,7 +6,7 @@ const groupSchema = new Schema({
   admin: {type: String, required: true},
   description: {type: String, required: false},
   users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-  properties:[ {type: String, required: false} ],
+  properties:[],
   fullUsers:[]
 });
 

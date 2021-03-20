@@ -37,7 +37,7 @@ export default {
     },
     // Saves a group to the database
     saveGroup: function (groupData, id) {
-        console.log(groupData);
+        console.log("groupData",groupData);
         return axios.post("/api/groups/" + id, groupData);
     },
     // Gets groups that a specific user belongs to, takes user id
@@ -53,5 +53,9 @@ export default {
     saveUserToGroup: function (data) {
         console.log(data);
         return axios.post("/api/groups/users", data);
+    },
+    newSaveUserToGroup: function (data) {
+        console.log(data);
+        return axios.post("/api/groups/newUsers",data);
     }
 };

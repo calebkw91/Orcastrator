@@ -10,36 +10,39 @@ import UserContext from "../../utils/UserContext";
 function CreateGroupButton(props) {
   const { id } = useContext(UserContext);
   const properties = [];
-  const propValues = [];
 
   const handleFormSubmit = async (event) => {
     try {
       event.preventDefault();
-      const formLength = await event.target.form.length
-      if (formLength > 6) {
-        for (let i = 4; i < formLength - 2; i++) {
-          properties.push(event.target.form[i].value);
-          propValues.push(prompt("Your " + event.target.form[i].value + " :"))
+      const data = event.target.form
+      console.log("here",data.length)
+      console.log(event)
+      const formLength = await data.length
+      if (formLength > 7) {
+        for (let i = 5; i < formLength - 2; i++) {
+          const property = data[i].attributes[1].value
+          const value = data[i].attributes[2].value
+          const object ={[property]:value}
+          properties.push(object);
         };
         console.log("properties",properties);
-        console.log("propValues",propValues);
       }
       else {
         console.log("no  props")
       }
-      const user = {id:id, properties:properties, propValues:propValues};
+      const user = {id:id, properties:properties};
 
       let newGroup = {
-        name: event.target.form[0].value,
+        name: data[0].value,
         admin: id,
-        description: event.target.form[1].value,
+        description: data[1].value,
         users: [id],
         properties: properties,
         fullUsers:[user]
       };
-
-      API.saveGroup(newGroup, id);
-      props.setModalShow(false);
+      console.log(newGroup);
+      await API.saveGroup(newGroup, id);
+      await props.setModalShow(false);
     } catch (err) {
       throw err;
     }

@@ -47,10 +47,6 @@ function AddUserModal(props) {
                             <div className="row">
                                 <Form.Control size="lg" type="text" placeholder="Orca Name" onChange={handleInputChange} />
                             </div>
-                            <br />
-                            <div className="row">
-                                <Form.Control type="text" placeholder="Orca's role" />
-                            </div>
                         </div>
                     </Form.Group>
                 </Modal.Body>
