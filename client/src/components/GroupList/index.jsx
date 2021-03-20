@@ -3,6 +3,7 @@ import UserContext from "../../utils/UserContext";
 import ListGroup from "react-bootstrap/ListGroup"
 import API from "../../utils/API";
 import CreateGroupButton from "../CreateGroupButton";
+import shortid from "shortid";
 
 function GroupList(props) {
   const [groups, setGroups] = useState([]);
@@ -34,8 +35,8 @@ function GroupList(props) {
         </div>
       </div>
       <div className="row">
-        <ListGroup className="col">
-            {groups.map(g => <ListGroup.Item key={g._id} onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)}
+        <ListGroup key={shortid.generate()} className="col">
+            {groups.map(g => <ListGroup.Item key={shortid.generate()} action onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)}
         </ListGroup>
       </div>
     </div>

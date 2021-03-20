@@ -1,8 +1,6 @@
 import React, {useState} from "react";
-import API from "../../utils/API";
 
 function GroupInfoDisplay(props) {
-  const [user, setUser] = useState();
   
   //iterate through users
 

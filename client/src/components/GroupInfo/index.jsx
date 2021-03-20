@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import AddUserModal from "../AddUserModal";
 import GroupInfoDisplay from "../GroupInfoDisplay";
+import shortid from "shortid";
 
 
 function GroupInfo(props) {
@@ -16,7 +17,7 @@ function GroupInfo(props) {
   return (
     <div className="col-lg-6 col-sm-12 col-md-12">
       <h3>Selected Pod Info</h3>
-        <GroupInfoDisplay displayGroup={props.displayGroup}/>
+        <GroupInfoDisplay key={shortid.generate()} displayGroup={props.displayGroup}/>
       <Button onClick={() =>setModalShow(true)}>Add a new Orca</Button>
       <AddUserModal
         currentGroup={props.displayGroup}
