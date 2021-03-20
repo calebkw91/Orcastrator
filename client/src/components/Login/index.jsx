@@ -31,10 +31,6 @@ function Login() {
                         <div className="card-body">
                             <Button variant="primary"><span onClick={googleLogin}><i className="fab fa-google-plus-square"></i></span></Button>{' '}
                             <Button variant="dark"><span onClick={githubLogin}><i className="fab fa-github"></i></span></Button>
-<<<<<<< HEAD
-
-=======
->>>>>>> 52b83c1ed26e9b63311972282f0a3051d89f2e69
                             <h3>Or Create an Account</h3>
                             <Button variant="secondary" onClick={localSignup}>Create Account</Button>
                             <h3>Already have an Account?</h3>
@@ -43,10 +39,6 @@ function Login() {
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> 52b83c1ed26e9b63311972282f0a3051d89f2e69
         </div>
     )
 };
