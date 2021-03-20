@@ -4,6 +4,7 @@ import GroupInfo from "../../components/GroupInfo";
 import GroupList from "../../components/GroupList";
 import UserInfo from "../../components/UserInfo";
 import "./style.css";
+import ChatWindow from "../../components/ChatStuffs/ChatWindow";
 
 
 function Dashboard(props) {
@@ -23,6 +24,9 @@ function Dashboard(props) {
                 <div className="row">
                     <GroupInfo displayGroup={currentGroup}/>
                     <GroupList currentGroup={currentGroup} setCurrentGroup={setCurrentGroup} setModalShow={setModalShow} modalShow={modalShow}/>
+                </div>
+                <div>
+                    <ChatWindow currentGroup={currentGroup.name}/>
                 </div>
             {/* display group making form on page - later put into a separate tab/page/whatever*/}
             {/* later - display other groups */}
