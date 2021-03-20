@@ -10,7 +10,6 @@ function GroupList(props) {
   const { id, name } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(props.modalShow);
     console.log("groups updated");
     //get all groups
     API.getUserGroups(id).then((res) => {
@@ -21,8 +20,9 @@ function GroupList(props) {
     });
   }, [props.modalShow, id]);
 
-  const handleGroupOnClick = (event) => {
-    props.setCurrentGroup(groups.filter(g => g.name === event.target.innerHTML)[0]);
+  const handleGroupOnClick = (event, idArg) => {
+    console.log(idArg)
+    props.setCurrentGroup(groups.filter(g => g._id === idArg)[0]);
   }
 
   return (
@@ -36,7 +36,7 @@ function GroupList(props) {
       </div>
       <div className="row">
         <ListGroup key={shortid.generate()} className="col">
-            {groups.map(g => <ListGroup.Item key={shortid.generate()} action onClick={handleGroupOnClick}>{g.name}</ListGroup.Item>)}
+            {groups.map(g => <ListGroup.Item id={g._id} key={shortid.generate()} action onClick={(e)=>handleGroupOnClick(e, g._id)}>{g.name}</ListGroup.Item>)}
         </ListGroup>
       </div>
     </div>
