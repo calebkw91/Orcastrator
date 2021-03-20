@@ -56,7 +56,7 @@ function GroupAdd(props) {
                 <Form.Control className="col-6" type="text" name="property" onChange={handleInputChange} placeholder="Required Group Property" />
                 <Form.Control className="col-6" type="text" name="propertyValue" onChange={handleInputChange} placeholder="Your Property Value" />
                 {/* groupProperties is an array of objects */}
-                <button onClick={addProperty}>Add Property</button>
+                <Button onClick={addProperty}>Add Property</Button>
               </div>
               <div className="row">
                 <h5>Current Properties:</h5>
@@ -71,7 +71,7 @@ function GroupAdd(props) {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.handleFormSubmit} type="submit">
+          <Button  onClick={props.handleFormSubmit} type="submit">
             Save
           </Button>
           <Button onClick={props.onHide} >Close</Button>
