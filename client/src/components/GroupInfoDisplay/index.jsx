@@ -1,14 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
+import API from "../../utils/API";
 
 function GroupInfoDisplay(props) {
-  console.log(props.displayGroup);
+  const [user, setUser] = useState();
+  
+  //iterate through users
+
+  console.log("displaygroup: ", props.displayGroup);
+
     return (
       <div>
         <p>{props.displayGroup.name}</p>
         <p>{props.displayGroup.description}</p>
         <ul>
-          {props.displayGroup.users.map((user) => {
-            return <li>{user}</li>;
+          {props.displayGroup.fullUsers.map(user => {
+            return <li>{user.name} <ul>
+              {user.properties.map(property =>{
+                return <li>{Object.getOwnPropertyNames(property).map(attr =>{
+                  return<p>{attr} : {property[attr]}</p>
+              })}</li>
+              })}
+              </ul></li>
           })}
         </ul>
       </div>

@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import AddUserModal from "../AddUserModal";
 import GroupInfoDisplay from "../GroupInfoDisplay";
 
+
 function GroupInfo(props) {
   const [modalShow, setModalShow] = useState();
 
@@ -11,7 +12,6 @@ function GroupInfo(props) {
     console.log(event.target.form[0].value);
     setModalShow(false);
   };
-
 
   return (
     <div className="col-lg-6 col-sm-12 col-md-12">
