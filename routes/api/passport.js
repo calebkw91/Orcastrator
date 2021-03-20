@@ -13,7 +13,7 @@ passportRouter.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/' }),
     function (req, res) {
         // Successful authentication, redirect home.
-        res.redirect(process.env.HOME || "http://localhost:3000/");
+        res.redirect("https://orcastrator.herokuapp.com/");
         // dashboard instead of /User
     });
 
@@ -24,7 +24,7 @@ passportRouter.get("/auth/github",
 // if github login fails return to "/login" otherwise if login succeeds go to "/"
 passportRouter.get("/auth/github/callback",
     passport.authenticate("github", { failureRedirect: "/" }), (req, res) => {
-        res.redirect(process.env.HOME || "http://localhost:3000/");
+        res.redirect("https://orcastrator.herokuapp.com/");
     }
 );
 
@@ -42,7 +42,7 @@ passportRouter.get("/User", isAuthenticated, (req, res) => {
 passportRouter.get("/logout", (req, res) => {
     console.log("we are in logout");
     req.logout();
-    res.redirect(process.env.HOME || "http://localhost:3000/");
+    res.redirect("https://orcastrator.herokuapp.com/");
 });
 
 passportRouter.post("/signup", (req, res) => {

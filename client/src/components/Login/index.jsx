@@ -8,10 +8,10 @@ function Login() {
     console.log(process.env.GOOGLE_URL);
 
     const googleLogin = () => {
-        window.open(process.env.GOOGLE_URL || "http://localhost:8080/auth/google", "_self");
+        window.open("https://orcastrator.herokuapp.com//auth/google", "_self");
     }
     const githubLogin = () => {
-        window.open(process.env.GITHUB_URL || "http://localhost:8080/auth/github", "_self");
+        window.open("https://orcastrator.herokuapp.com//auth/github", "_self");
     }
     const localSignup = () => {
         window.location.assign("/signup");
