@@ -23,14 +23,11 @@ function Dashboard(props) {
                     <GroupInfo displayGroup={currentGroup}/>
                     <GroupList currentGroup={currentGroup} setCurrentGroup={setCurrentGroup} setModalShow={setModalShow} modalShow={modalShow}/>
                 </div>
-<<<<<<< HEAD
                 <div>
                     <ChatWindow currentGroup={currentGroup.name}/>
                 </div>
             {/* display group making form on page - later put into a separate tab/page/whatever*/}
             {/* later - display other groups */}
-=======
->>>>>>> e5bd3d5252157e02d0cfe3d663cdcef0b22c9f11
             </div>
             <Footer />
         </div> 
