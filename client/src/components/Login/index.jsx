@@ -5,6 +5,8 @@ require("dotenv").config();
 
 function Login() {
 
+    console.log(process.env.GOOGLE_URL);
+
     const googleLogin = () => {
         window.open(process.env.GOOGLE_URL || "http://localhost:8080/auth/google", "_self");
     }
