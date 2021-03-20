@@ -9,6 +9,12 @@ router.route("/")
 router.route("/userid/:id")
     .get(usersController.userFindByUserId);
 
+router.route("/findid/:id")
+    .get(usersController.userFindById);
+
+router.route("/:name")
+    .get(usersController.userFindByName);
+
 // Matches with "/api/users/:id"
 router.route("/:id")
     .get(usersController.userFindById)

@@ -15,6 +15,12 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+    userFindByName: function (req, res) {
+        db.User
+            .findOne({name:req.params.name})
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
     userFindById: function (req, res) {
         db.User
             .findById(req.params.id)
@@ -28,6 +34,9 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     userUpdate: function (req, res) {
+        console.log("update route");
+        console.log(req.body);
+        console.log(req.params.id);
         db.User
             .findOneAndUpdate({ _id: req.params.id }, req.body)
             .then(dbModel => res.json(dbModel))
