@@ -60,17 +60,22 @@ module.exports = {
             if (err) console.log(err);
 
             db.Group.findById(req.body.groupID, (err, group) => {
-                group.users.push(savedUser);
-                savedUser.groups.push(group);
-                updatedGroup = group;
-                if (err) console.log(err);
 
-                db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
-                    .catch(err => res.status(422).json(err));
-
-                db.Group.findOneAndUpdate({ _id: req.body.groupID }, updatedGroup)
-                    .then(dbModel => res.json(dbModel))
-                    .catch(err => res.status(422).json(err));
+                if(group.users.indexOf(savedUser._id) == -1){
+                    group.users.push(savedUser);
+                    savedUser.groups.push(group);
+                    updatedGroup = group;
+                    if (err) console.log(err);
+    
+                    db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
+                        .catch(err => res.status(422).json(err));
+    
+                    db.Group.findOneAndUpdate({ _id: req.body.groupID }, updatedGroup)
+                        .then(dbModel => res.json(dbModel))
+                        .catch(err => res.status(422).json(err));
+                } else {
+                    res.json(group);
+                }
             });
         });
     },
@@ -83,21 +88,26 @@ module.exports = {
             if (err) console.log(err);
 
             db.Group.findById(req.body.groupID, (err, group) => {
-                group.users.push(savedUser);
-                group.fullUsers.push(req.body.fullUsers);
-                savedUser.groups.push(group);
-                updatedGroup = group;
-                if (err) console.log(err);
 
-                console.log("savedUser",savedUser);
-                console.log("updatedGroup", updatedGroup);
-
-                db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
-                    .catch(err => res.status(422).json(err));
-
-                db.Group.findOneAndUpdate({ _id: req.body.groupID }, updatedGroup)
-                    .then(dbModel => res.json(dbModel))
-                    .catch(err => res.status(422).json(err));
+                if(group.users.indexOf(savedUser._id) == -1){
+                    group.users.push(savedUser);
+                    group.fullUsers.push(req.body.fullUsers);
+                    savedUser.groups.push(group);
+                    updatedGroup = group;
+                    if (err) console.log(err);
+    
+                    console.log("savedUser",savedUser);
+                    console.log("updatedGroup", updatedGroup);
+    
+                    db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
+                        .catch(err => res.status(422).json(err));
+    
+                    db.Group.findOneAndUpdate({ _id: req.body.groupID }, updatedGroup)
+                        .then(dbModel => res.json(dbModel))
+                        .catch(err => res.status(422).json(err));
+                } else {
+                    res.json(group);
+                }
             });
         });
     }
