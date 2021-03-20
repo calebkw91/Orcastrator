@@ -1,9 +1,11 @@
-.avatars{
-    width:20%;
-    margin-top:15px;
-    margin-bottom:15px;
+.avatars {
+  width: 20%;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
-.wrapper{
-    width:50%;
-    margin-top:25px;
+.wrapper {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  bottom: 50%;
 }

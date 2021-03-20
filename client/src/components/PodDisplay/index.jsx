@@ -3,7 +3,7 @@ import userContext from "../../utils/UserContext"
 import ChatWindow from "../ChatStuffs/ChatWindow";
 
 function PodDisplay(){
-    const {id,firstName,} = useContext(userContext);
+    const {firstName} = useContext(userContext);
     return(
         <div>
         <h1>PodDisplay Page</h1>

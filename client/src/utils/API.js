@@ -2,21 +2,48 @@ import axios from "axios";
 
 //eslint-disable-next-line
 export default {
-  // Gets all books
-  getGroups: function() {
-    return axios.get("/api/groups");
-  },
-  // Gets the book with the given id
-  getGroup: function(id) {
-    return axios.get("/api/groups/" + id);
-  },
-  // Deletes the book with the given id
-  deleteGroup: function(id) {
-    return axios.delete("/api/groups/" + id);
-  },
-  // Saves a book to the database
-  saveGroup: function(groupData) {
-    console.log(groupData);
-    return axios.post("/api/groups", groupData);
-  }
+    // Gets user by id
+    getUser: function (id) {
+        return axios.get("/api/users/" + id);
+    },
+    // Returns users using their initial google of github id, stored in user.userId
+    getUserByUserId: function (id) {
+        return axios.get("/api/users/userid/" + id);
+    },
+    // Gets user by user name
+    // data = { name: }
+    getUsername: function (data) {
+        return axios.get("/api/users/", data);
+    },
+    // Gets all groups
+    getGroups: function () {
+        return axios.get("/api/groups");
+    },
+    // Gets the group with the given id
+    getGroup: function (id) {
+        return axios.get("/api/groups/" + id);
+    },
+    // Deletes the group with the given id
+    deleteGroup: function (id) {
+        return axios.delete("/api/groups/" + id);
+    },
+    // Saves a group to the database
+    saveGroup: function (groupData, id) {
+        console.log(groupData);
+        return axios.post("/api/groups/" + id, groupData);
+    },
+    // Gets groups that a specific user belongs to, takes user id
+    getUserGroups: function (id) {
+        return axios.get("/api/users/groups/" + id);
+    },
+    // Get users that belong to a specific group, takes group id
+    getGroupUsers: function (id) {
+        return axios.get("/api/groups/users/" + id);
+    },
+    // Saves a group to the database
+    // data = { groupID: , userID: }
+    saveUserToGroup: function (data) {
+        console.log(data);
+        return axios.post("/api/groups/users", data);
+    }
 };

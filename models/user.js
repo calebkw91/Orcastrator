@@ -8,19 +8,8 @@ const userSchema = new Schema({
   password: { type: String, required: false },
   portrait: { type: String, required: true },
   userId: { type: String, required: true },
+  groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }]
 });
-
-// userSchema.plugin(passportLocalMongoose);
-
-userSchema.pre("save", function (next) {
-  try {
-    this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(10), null);
-    next();
-  }
-  catch (error) {
-    next(error)
-  }
-})
 
 userSchema.statics.comparePassword = async function (password, user) {
   try {

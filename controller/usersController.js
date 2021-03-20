@@ -4,8 +4,14 @@ const db = require("../models");
 module.exports = {
     userFindAll: function (req, res) {
         db.User
-            .find(req.query)
+            .find(req.body)
             .sort({ date: -1 })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+    userFindByUserId: function (req, res) {
+        db.User
+            .findOne({ userId: req.params.id })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
@@ -31,6 +37,13 @@ module.exports = {
         db.User
             .findById({ _id: req.params.id })
             .then(dbModel => dbModel.remove())
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
+    userGetGroups: function (req, res) {
+        db.User
+            .findById(req.params.id)
+            .populate('groups')
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     }

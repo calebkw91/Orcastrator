@@ -1,23 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "react-bootstrap";
+import AddUserModal from "../AddUserModal";
+import GroupInfoDisplay from "../GroupInfoDisplay";
 
-function GroupInfo(props){
-    let socketstyle={
-        position: "relative",
-        top: "5em"
-    }
+function GroupInfo(props) {
+  const [modalShow, setModalShow] = useState();
 
-    
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    console.log(event.target.form[0].value);
+    setModalShow(false);
+  };
 
-    return(
-        <div className="col-lg-6 col-sm-12 col-md-12">
-            <div className="row">
-                <h3>Currently Selected group information goes here</h3>
-            </div>
-            <div className="row">
-                <h3 style={socketstyle}>socket for group chat</h3>
-            </div>
-        </div>
-    );
+
+  return (
+    <div className="col-lg-6 col-sm-12 col-md-12">
+      <h3>Selected Pod Info</h3>
+        <GroupInfoDisplay displayGroup={props.displayGroup}/>
+      <Button onClick={() =>setModalShow(true)}>Add a new Orca</Button>
+      <AddUserModal
+        show={modalShow}
+        handleFormSubmit={handleFormSubmit}
+        onHide={() => setModalShow(false)}
+      />
+    </div>
+  );
 }
 
 export default GroupInfo;

@@ -1,30 +1,33 @@
-import {React, useContext } from "react";
-import CreateGroupButton from "../../components/CreateGroupButton";
+import React, {useState} from "react";
 import Footer from "../../components/Footer";
 import GroupInfo from "../../components/GroupInfo";
+import GroupList from "../../components/GroupList";
 import UserInfo from "../../components/UserInfo";
-import UserContext from "../../utils/UserContext";
+import "./style.css";
 
 
 function Dashboard(props) {
-    const { id, name, portrait } = useContext(UserContext);
+
+    const [modalShow, setModalShow] = useState(false);
+    const [currentGroup, setCurrentGroup] = useState({name:"Nothing to Display", description: "", users:[]});
+
 
     return (
         <div>
-            <UserInfo />
-            <button onClick={props.logout}>Logout</button>
-            <Footer />
+            <UserInfo logout = {props.logout}/>
             <br></br>
+
             <div className="container">
             {/* user info in the navbar */}
             {/* display group info on page */}
                 <div className="row">
-                    <CreateGroupButton />
-                    <GroupInfo />
+                    <GroupInfo displayGroup={currentGroup}/>
+                    <GroupList currentGroup={currentGroup} setCurrentGroup={setCurrentGroup} setModalShow={setModalShow} modalShow={modalShow}/>
                 </div>
             {/* display group making form on page - later put into a separate tab/page/whatever*/}
             {/* later - display other groups */}
             </div>
+            <Footer />
         </div> 
     );
 }

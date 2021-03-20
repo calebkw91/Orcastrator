@@ -1,6 +1,8 @@
 import {React, useContext } from "react";
 import UserContext from "../../utils/UserContext";
 import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
+import "./style.css"
 
 
 
@@ -22,6 +24,7 @@ function UserInfo(props) {
             />{' '}
             {name}
           </Navbar.Brand>
+          <Button className="right" variant="secondary" onClick={props.logout}>Logout</Button>
         </Navbar>
     );
 };
