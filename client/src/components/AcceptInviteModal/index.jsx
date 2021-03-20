@@ -6,6 +6,7 @@ function AcceptInviteModal(props) {
     const userID = props.data.userID;
     const groupID = props.data.groupID;
     const invites = props.invites;
+    const portrait = props.portrait;
     const [groupProperties,setGroupProperties] = useState([]);
 
     const handleInputChange = (event) => {
@@ -16,7 +17,7 @@ function AcceptInviteModal(props) {
         tempProps[index] = {[prop]:event.target.value};
     };
 
-    const user = {id:userID, properties:groupProperties};
+    const user = {id:userID, properties:groupProperties, portrait:portrait};
     
     const data = {
         userID: userID,

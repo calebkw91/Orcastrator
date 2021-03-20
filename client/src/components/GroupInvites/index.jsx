@@ -7,7 +7,7 @@ import "./style.css";
 
 
 function GroupInvites() {
-    const { id, invites } = useContext(UserContext);
+    const { id, invites, portrait } = useContext(UserContext);
     const [activeInvites, setInvites] = useState(invites);
     const [groups, setGroups] = useState([]);
     const [modalShow, setModalShow] = useState(false)
@@ -133,6 +133,7 @@ function GroupInvites() {
 
             <AcceptInviteModal
                 invites={invites}
+                portrait={portrait}
                 data={modalData}
                 // currentGroup={props.displayGroup}
                 show={modalShow}
