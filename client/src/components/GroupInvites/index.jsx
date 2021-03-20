@@ -13,10 +13,27 @@ function GroupInvites() {
     const [modalShow, setModalShow] = useState(false)
     const [modalData, setModalData] = useState({ userID: "" });
 
-    let updateInvites = false;
-
-    console.log("main activeInvites " + activeInvites);
-    console.log("main invites " + invites);
+    const getInvites = async () => {
+        console.log("get invites");
+        try {
+            if (activeInvites.length >= 1) {
+                let newGroupsArr = [];
+                for (let i = 0; i < invites.length; i++) {
+                    let newGroup = await API.getGroup(invites[i]);
+                    let newGroupAdmin = newGroup.data.admin;
+                    let adminCall = await API.getUser(newGroupAdmin);
+                    let adminName = adminCall.data.name;
+                    newGroup.data.admin = adminName;
+                    newGroupsArr.push(newGroup);
+                }
+                setGroups(newGroupsArr);
+            } else {
+                setGroups([]);
+            }
+        } catch (err) {
+            throw err;
+        }
+    }
 
     const accept = (event) => {
         API.getGroup(event.target.attributes[0].value)
@@ -29,7 +46,6 @@ function GroupInvites() {
                         }
                     )
                     setModalShow(true);
-
                 }
                 else {
                     let data = {
@@ -45,13 +61,12 @@ function GroupInvites() {
                             if (index > -1) {
                                 newInvites.splice(index, 1);
                                 setInvites(newInvites);
-                                console.log("activeInvites " + activeInvites);
                             }
 
                             API.userUpdate(id, { invites: newInvites })
                                 .then((res) => {
                                     console.log("invites updated");
-                                    updateInvites = true;
+                                    getInvites();
                                 });
 
                         });
@@ -67,13 +82,12 @@ function GroupInvites() {
         if (index > -1) {
             newInvites.splice(index, 1);
             setInvites(newInvites);
-            console.log("activeInvites " + activeInvites);
         }
 
         API.userUpdate(id, { invites: newInvites })
             .then((res) => {
                 console.log("invites updated");
-                updateInvites = true;
+                getInvites();
             });
     };
 
@@ -82,27 +96,8 @@ function GroupInvites() {
     };
 
     useEffect(() => {
-        const grabem = async () => {
-            try {
-                if (activeInvites.length >= 1) {
-                    let newGroupsArr = [];
-                    for (let i = 0; i < invites.length; i++) {
-                        let newGroup = await API.getGroup(invites[i]);
-                        console.log("here",newGroup)
-                        let newGroupAdmin= newGroup.data.admin;
-                        let adminCall = await API.getUser(newGroupAdmin);
-                        let adminName = adminCall.data.name;
-                        newGroup.data.admin = adminName;
-                        newGroupsArr.push(newGroup);
-                    }
-                    setGroups(newGroupsArr);
-                }
-            } catch (err) {
-                throw err;
-            }
-        }
-        grabem();
-    }, [updateInvites, invites, activeInvites.length]);
+        getInvites();
+    }, []);
 
     return (
         <div className="inviteContainer">
