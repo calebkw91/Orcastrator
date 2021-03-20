@@ -17,11 +17,9 @@ function GroupInvites() {
     console.log("main invites " + invites);
 
     const accept = (event) => {
-        console.log("here", event);
-        API.getGroups(event.target.id)
+        API.getGroup(event.target.attributes[0].value)
             .then((res) => {
-                console.log(res)
-                if (res.data[0].properties.length <= 1) {
+                if (res.data.properties.length >= 1) {
                     setModalData(
                         {
                             userID: id,
