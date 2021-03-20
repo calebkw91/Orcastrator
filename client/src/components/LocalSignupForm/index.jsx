@@ -87,7 +87,7 @@ function LocalSignup() {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="password1" className="form-label">Password</label>
-                                    <input type="text" className="form-control" id="password1"
+                                    <input type="password" className="form-control" id="password1"
                                         name="password"
                                         onChange={handleInputChange}
                                     />

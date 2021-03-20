@@ -1,30 +1,25 @@
 import React from "react";
 import Image from "react-bootstrap/Image";
+import OrcaCard from "../OrcaCard";
 
 function GroupInfoDisplay(props) {
-  
   //iterate through users
 
   console.log("displaygroup: ", props.displayGroup);
 
-    return (
-      <div>
+  return (
+    <div className="row">
+      <div className="col-12">
         <p>{props.displayGroup.name}</p>
         <p>{props.displayGroup.description}</p>
-        <ul>
-          {props.displayGroup.fullUsers.map(user => {
-            return <li>{user.name} <Image alt={`${user.name}'s portrait`}
-            src={user.portrait} fluid/><ul>
-              {user.properties.map(property =>{
-                return <li>{Object.getOwnPropertyNames(property).map(attr =>{
-                  return<p>{attr} : {property[attr]}</p>
-              })}</li>
-              })}
-              </ul></li>
+        <div className={"row"}>
+          {props.displayGroup.fullUsers.map((user) => {
+            return <OrcaCard user={user} />;
           })}
-        </ul>
+        </div>
       </div>
-    );
+    </div>
+  );
 }
 
 export default GroupInfoDisplay;

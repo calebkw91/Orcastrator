@@ -134,6 +134,7 @@ function GroupInvites() {
             <AcceptInviteModal
                 portrait={portrait}
                 invites={invites}
+                portrait={portrait}
                 data={modalData}
                 // currentGroup={props.displayGroup}
                 show={modalShow}

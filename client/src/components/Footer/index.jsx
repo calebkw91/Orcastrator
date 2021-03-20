@@ -18,7 +18,7 @@ function Footer({ children }) {
             direction: "alternate",
             easing: "easeOutInSine",
             delay: 500,
-            duration: 3000
+            duration: 5000
           },
         ]}
       >

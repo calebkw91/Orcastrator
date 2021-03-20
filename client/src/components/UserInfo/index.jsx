@@ -28,8 +28,8 @@ function UserInfo(props) {
             />{' '}
             {name}
           </Navbar.Brand>
-          <Button className="inviteBtn" onClick={inviteRedirect}><i class="fas fa-envelope-open-text"></i></Button>
-          <Button className="right" variant="secondary" onClick={props.logout}>Logout</Button>
+          <Button className="inviteBtn" onClick={inviteRedirect}><i className="fas fa-envelope-open-text"></i></Button>
+          <Button className="float-end m-1" variant="secondary" onClick={props.logout}>Logout</Button>
         </Navbar>
     );
 };
