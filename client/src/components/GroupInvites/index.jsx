@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import API from "../../utils/API";
 import UserContext from "../../utils/UserContext";
 import AcceptInviteModal from "../AcceptInviteModal/"
+import Button from "react-bootstrap/Button";
+import "./style.css";
 
 
 function GroupInvites() {
@@ -17,11 +19,9 @@ function GroupInvites() {
     console.log("main invites " + invites);
 
     const accept = (event) => {
-        console.log("here", event);
-        API.getGroups(event.target.id)
+        API.getGroup(event.target.attributes[0].value)
             .then((res) => {
-                console.log(res)
-                if (res.data[0].properties.length <= 1) {
+                if (res.data.properties.length >= 1) {
                     setModalData(
                         {
                             userID: id,
@@ -122,14 +122,14 @@ function GroupInvites() {
                             )}
                             </td>
                             <td>
-                                <button onClick={accept} value={group.data._id}>Accept</button>
-                                <button onClick={decline} value={group.data._id}>Decline</button>
+                                <Button onClick={accept} value={group.data._id}>Accept</Button>
+                                <Button onClick={decline} value={group.data._id}>Decline</Button>
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
-            <button onClick={redirect}>Go Back to Dashboard</button>
+            <Button onClick={redirect}>Dashboard</Button>
 
             <AcceptInviteModal
                 invites={invites}

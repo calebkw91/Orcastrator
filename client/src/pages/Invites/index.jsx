@@ -1,11 +1,12 @@
 import React from "react";
 import GroupInvites from "../../components/GroupInvites/index"
+import "./style.css";
 
 function Invites() {
 
     return(
-        <div>
-        <h1>Look At All Them Invites</h1>
+        <div className="login">
+        <h1>Invite List</h1>
         <GroupInvites/>
         </div>
     )

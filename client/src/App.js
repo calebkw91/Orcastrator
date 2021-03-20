@@ -67,7 +67,8 @@ function App() {
             id: "",
             name: "",
             portrait: "",
-            loggedIn: false,
+            invites: "",
+            loggedIn: false
         });
         window.open(
             process.env.LOGOUT_URL || "http://localhost:8080/logout",
