@@ -2,18 +2,26 @@ import axios from "axios";
 
 //eslint-disable-next-line
 export default {
+    //data = { userId: , groupId: }
+    userUpdate: function(id, data) {
+        return axios.put("/api/users/" + id, data);
+    },
+    // Gets user by id
+    getAllUsers: function () {
+        return axios.get("/api/users");
+    },
     // Gets user by id
     getUser: function (id) {
-        return axios.get("/api/users/" + id);
+        return axios.get("/api/users/findid/" + id);
     },
     // Returns users using their initial google of github id, stored in user.userId
     getUserByUserId: function (id) {
         return axios.get("/api/users/userid/" + id);
     },
     // Gets user by user name
-    // data = { name: }
-    getUsername: function (data) {
-        return axios.get("/api/users/", data);
+
+    getUsername: function (name) {
+        return axios.get("/api/users/" +  name);
     },
     // Gets all groups
     getGroups: function () {
@@ -29,7 +37,7 @@ export default {
     },
     // Saves a group to the database
     saveGroup: function (groupData, id) {
-        console.log(groupData);
+        console.log("groupData",groupData);
         return axios.post("/api/groups/" + id, groupData);
     },
     // Gets groups that a specific user belongs to, takes user id
@@ -45,5 +53,9 @@ export default {
     saveUserToGroup: function (data) {
         console.log(data);
         return axios.post("/api/groups/users", data);
+    },
+    newSaveUserToGroup: function (data) {
+        console.log(data);
+        return axios.post("/api/groups/newUsers",data);
     }
 };

@@ -1,6 +1,7 @@
 import React from "react";
 
 function GroupInfoDisplay(props) {
+  console.log(props.displayGroup);
     return (
       <div>
         <p>{props.displayGroup.name}</p>

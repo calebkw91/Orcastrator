@@ -7,9 +7,13 @@ import "./style.css"
 
 
 function UserInfo(props) {
-    const { id, name, portrait } = useContext(UserContext);
+    const { name, portrait } = useContext(UserContext);
     
-    console.log(" id ",id," name ",name," portrait ",portrait);
+    // console.log(" id ",id," name ",name," portrait ",portrait);
+
+    const inviteRedirect = () => {
+      window.location.assign("/invites");
+    }
 
 
     return (
@@ -24,6 +28,7 @@ function UserInfo(props) {
             />{' '}
             {name}
           </Navbar.Brand>
+          <button className="inviteBtn" onClick={inviteRedirect}><i class="fas fa-envelope-open-text"></i></button>
           <Button className="right" variant="secondary" onClick={props.logout}>Logout</Button>
         </Navbar>
     );
