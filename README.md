@@ -13,6 +13,14 @@ Want a one-stop-shop for creating and building your team for a project? Manage y
 
 ## Code
 
+Dashboard page:
+
+![image](https://user-images.githubusercontent.com/70075341/111876820-84a8e080-896e-11eb-9ba5-1847e5ef2d0a.JPG)
+
+Add User modal:
+
+![image](https://user-images.githubusercontent.com/70075341/111876822-85417700-896e-11eb-9c52-ed2ea78738e1.JPG)
+
 ## Installation
 
 ```
@@ -32,9 +40,9 @@ $npm i
 
 ## Badges
 
-![JavaScript](https://img.shields.io/badge/JavaScript-62.5%25-yellow)<br/>
-![CSS](https://img.shields.io/badge/CSS-21.7%25-purple) <br/>
-![HTML](https://img.shields.io/badge/HTML-15.8%25-red) <br/>
+![JavaScript](https://img.shields.io/badge/JavaScript-90.8%25-yellow)<br/>
+![CSS](https://img.shields.io/badge/CSS-4.5%25-purple) <br/>
+![HTML](https://img.shields.io/badge/HTML-4.7%25-red) <br/>
 
 ## Contributors
 
