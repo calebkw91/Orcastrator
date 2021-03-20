@@ -2,6 +2,8 @@ import React, { useEffect, useState, useContext } from "react";
 import API from "../../utils/API";
 import UserContext from "../../utils/UserContext";
 import AcceptInviteModal from "../AcceptInviteModal/"
+import Button from "react-bootstrap/Button";
+import "./style.css";
 
 
 function GroupInvites() {
@@ -120,14 +122,14 @@ function GroupInvites() {
                             )}
                             </td>
                             <td>
-                                <button onClick={accept} value={group.data._id}>Accept</button>
-                                <button onClick={decline} value={group.data._id}>Decline</button>
+                                <Button onClick={accept} value={group.data._id}>Accept</Button>
+                                <Button onClick={decline} value={group.data._id}>Decline</Button>
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
-            <button onClick={redirect}>Go Back to Dashboard</button>
+            <Button onClick={redirect}>Dashboard</Button>
 
             <AcceptInviteModal
                 portrait={portrait}

@@ -8,7 +8,7 @@ import UserContext from "../../utils/UserContext";
 
 // button prompts a modal to show up to create a new group
 function CreateGroupButton(props) {
-  const { id, portrait } = useContext(UserContext);
+  const { id, portrait, name } = useContext(UserContext);
   const properties = [];
 
   const handleFormSubmit = async (event) => {
