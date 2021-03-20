@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import API from "../../utils/API"
+import UserContext from "../../utils/UserContext";
 
 function AcceptInviteModal(props) {
-    const userID = props.data.userID;
     const groupID = props.data.groupID;
     const invites = props.invites;
-    const portrait = props.portrait;
     const [groupProperties,setGroupProperties] = useState([]);
+    const { id, name, portrait } = useContext(UserContext);
 
     const handleInputChange = (event) => {
         console.log(event);
@@ -17,10 +17,10 @@ function AcceptInviteModal(props) {
         tempProps[index] = {[prop]:event.target.value};
     };
 
-    const user = {id:userID, properties:groupProperties, portrait:portrait};
+    const user = {id:id, properties:groupProperties, portrait:portrait, name:name};
     
     const data = {
-        userID: userID,
+        userID: id,
         groupID: groupID,
         fullUsers: user
     }
@@ -30,7 +30,7 @@ function AcceptInviteModal(props) {
             event.preventDefault();
             await API.newSaveUserToGroup(data);
             const newInvites = await invites.filter(invite => invite !== groupID);
-            await API.userUpdate(userID, { invites: newInvites })
+            await API.userUpdate(id, { invites: newInvites })
             console.log("user saved");
             props.onHide();
         } catch (err) {
