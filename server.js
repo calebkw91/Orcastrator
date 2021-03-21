@@ -34,41 +34,41 @@ io.use(async (socket, next) => {
   if (!credential) {
     return next(new Error("invalid username"));
   }
-   const socketAuth = await socketAuthorization(socket)
-    if(socketAuth === false) {
-      console.log("calling socket disconnect");
-      socket.disconnect(true);
-    }
-    next();
-  
+  const socketAuth = await socketAuthorization(socket);
+  if (socketAuth === false) {
+    console.log("calling socket disconnect");
+    socket.disconnect(true);
+  }
+  next();
 });
 // what socketio should do once connected
 io.on("connection", (socket) => {
-//   console.log("this is the socket during connection ");
-//   console.log(socket.handshake.auth);
-//   // console.log(typeof(x));
-//   // socket.join(socket.pod);
-//   console.log(
-//     "a user has connected to socket :_" +
-//       socket.id +
-//       " username:_" +
-//       socket.handshake.auth.userID +
-//       "room:_" +
-//       socket.handshake.auth.podID
-//   );
-//   // io.to(socket.pod).emit(socket.message);
-// });
-socket.on('join group',(pod)=>{
-  console.log("inside join pod");
-  socket.join(pod);
-  io.to(pod).emit("chatMessage","you are in room_" + pod);
-})
-socket.on('chatMessage',(message,pod)=>{
-  console.log("recived a message now logging");
-  console.log(message);
-  // callback({status:"ok"});
-   io.to(pod).emit("chatMessage",message); 
-});
+  //   console.log("this is the socket during connection ");
+  //   console.log(socket.handshake.auth);
+  //   // console.log(typeof(x));
+  //   // socket.join(socket.pod);
+  //   console.log(
+  //     "a user has connected to socket :_" +
+  //       socket.id +
+  //       " username:_" +
+  //       socket.handshake.auth.userID +
+  //       "room:_" +
+  //       socket.handshake.auth.podID
+  //   );
+  //   // io.to(socket.pod).emit(socket.message);
+  // });
+  socket.on("join group", (pod) => {
+    console.log("inside join pod");
+    socket.join(pod);
+    io.to(pod).emit("chatMessage", "you are in room_" + pod);
+  });
+  socket.on("chatMessage", (message, pod) => {
+    console.log("recived a message now logging");
+    console.log(message);
+    console.log(pod);
+    // callback({status:"ok"});
+    io.to(pod).emit("groupBlast", message);
+  }); 
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -81,7 +81,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use
+app.use;
 app.use(passport.initialize());
 app.use(passport.session());
 

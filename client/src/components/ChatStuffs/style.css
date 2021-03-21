@@ -1,0 +1,8 @@
+.chatWindow {
+    float: right;
+  }
+
+.chatMessages{
+  max-height: 500px;
+  max-width: 300px
+}

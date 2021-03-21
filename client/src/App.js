@@ -81,7 +81,7 @@ function App() {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/">
-                        {userState.loggedIn ? <Dashboard logout={logout} /> : <Landing />}
+                        {userState.loggedIn ? <Dashboard logout={logout} UserContext={userState} /> : <Landing />}
                     </Route>
                     <Route exact path="/signup">
                         <LocalSignup />

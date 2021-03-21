@@ -1,66 +1,84 @@
-import { useContext, useEffect, } from "react";
+import { useContext, useEffect, useState, setState, useRef } from "react";
 import UserContext from "../../utils/UserContext";
+import "./style.css";
 const io = require("socket.io-client");
 
 function ChatWindow(props) {
   const { id } = useContext(UserContext);
+  const [messages, setMessage] = useState([]);
+  const [sendMessage,setSendMessage] = useState("");
+  const socketRef = useRef();
   let currentPod = props.currentGroup;
-  let incommingMessage=["these","are","dummy","messages"];
-  let outgoinMessage="";
-  let socket = io({
-    autoConnect: false,
-    auth: {
-      userID: id,
-      podID: currentPod,
-      username: "placeholder",
-    },
-  });
+  
   useEffect(() => {
-        socket.offAny();
-        socket.close();
-        console.log(id);
-        socket.connect();
-        console.log("socket connecting");
-  }, [id,currentPod]);
-  socket.on("connect",()=>{
-    console.log(socket.connected);
-   socket.emit('join group',currentPod)
-  });
-  socket.on("connection_error",(error)=>{console.log(error);})
-  socket.on("disconnect",(reason)=>{console.log(reason);});
-  socket.on("chatMessage", (data) => {
-    console.log("socket.on,chatMessage");
-    console.log(data);
-    incommingMessage.push(data);
-    
-  });
+    socketRef.current = io({
+      auth: {
+        userID: id,
+        podID: currentPod,
+        username: "placeholder",
+      },
+    });
 
-   function handleButtonSubmit(e) {
+    console.log("socket connecting");
+    socketRef.current.on("connect", () => {
+      socketRef.current.emit("join group", currentPod);
+    });
+    socketRef.current.on("connection_error", (error) => {
+      console.log(error);
+    });
+
+    socketRef.current.on("disconnect", (reason) => {
+      console.log(reason);
+    });
+
+    socketRef.current.on("groupBlast", (data) => {
+      console.log("socket.on,chatMessage");
+      console.log(data);
+      let x = messages;
+      console.log(x);
+      x.push(data);
+      setMessage(x);
+      console.log(messages);
+    });
+    return () => {
+      socketRef.current.offAny();
+      socketRef.current.close();
+    };
+  }, [messages,currentPod]);
+
+  function handleButtonSubmit(e) {
+    e.preventDefault();
     console.log("calling emit function");
-    socket.emit('chatMessage',outgoinMessage,currentPod);
-    outgoinMessage = "";
-
+    let outgoingmessage = sendMessage;
+    socketRef.current.emit("chatMessage", outgoingmessage, currentPod);
+    renderChat();
   }
+
+  const renderChat = () => {
+    return messages.map((message, index) => (
+      <div key={index}>
+        <p>{message}</p>
+      </div>
+    ));
+  };
+
   return (
     <div className="chatWindow">
-      <ul className="chatmessages">
-        {incommingMessage.forEach((message)=>(
-        <li>{message}</li>
-        ))}
-      </ul>
-      <input
-        className="messageTextArea"
-        id="chatFeild"
-        name="chatFeild"
-        placeholder="Type Here"
-        type="text"
-        onChange={(e) => {
-          outgoinMessage = e.target.value;
-        }}
-      />
-      <button type="submit" onClick={handleButtonSubmit}>
-        SEND
-      </button>
+      <form className="" onSubmit={handleButtonSubmit}>
+        <div className="chatmessages">{renderChat()}</div>
+        <input
+          className="messageTextArea"
+          id="chatFeild"
+          name="chatFeild"
+          placeholder="Type Here"
+          type="text"
+          onChange={(e) => {
+            setSendMessage(e.target.value);
+          }}
+          value = {sendMessage}
+        />
+        <button onClick={handleButtonSubmit}>SEND</button>
+      </form>
     </div>
   );
 }

@@ -24,7 +24,7 @@ function Dashboard(props) {
                     <GroupList currentGroup={currentGroup} setCurrentGroup={setCurrentGroup} setModalShow={setModalShow} modalShow={modalShow}/>
                 </div>
                 <div>
-                    <ChatWindow currentGroup={currentGroup.name}/>
+                    <ChatWindow currentGroup={currentGroup.name} UserContext={props.UserContext}/>
                 </div>
             {/* display group making form on page - later put into a separate tab/page/whatever*/}
             {/* later - display other groups */}
