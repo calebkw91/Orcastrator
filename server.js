@@ -24,7 +24,6 @@ const app = express();
 //create a node.js http server using express
 const server = http.createServer(app);
 const PORT = process.env.PORT || 8080;
-
 //create socket server to listen on our http server
 const io = socketio(server, { cors: corsOptions });
 // Define middleware here
@@ -41,27 +40,26 @@ io.use(async (socket, next) => {
     console.log("calling socket disconnect");
     socket.disconnect(true);
   }
-  // console.log("calling next");
   assignUserToSocket(socket);
   next();
 });
 
 // what socketio should do once connected
-io.on('connection', (socket) => {
-  socket.on('join group',(pod)=>{
+io.on("connection", (socket) => {
+
+  socket.on("join group", (pod) => {
     console.log("inside join pod");
     socket.join(pod);
-    io.to(pod).emit("chatMessage","you are in room" + pod);
-  })
-  socket.on('chatMessage',(message,pod)=>{
+    io.to(pod).emit("chatMessage", "you are in room_" + pod);
+  });
+  socket.on("chatMessage", (message, pod) => {
     console.log("recived a message now logging");
     console.log(message);
+    console.log(pod);
     // callback({status:"ok"});
-     io.to(pod).emit("chatMessage",message); 
-  });
- });
-
-
+    io.to(pod).emit("groupBlast", message);
+  }); 
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -73,7 +71,7 @@ app.use(
     saveUninitialized: true,
   })
 );
-app.use
+app.use;
 app.use(passport.initialize());
 app.use(passport.session());
 

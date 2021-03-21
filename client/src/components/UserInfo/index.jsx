@@ -28,7 +28,7 @@ function UserInfo(props) {
             />{' '}
             {name}
           </Navbar.Brand>
-          <button className="inviteBtn" onClick={inviteRedirect}><i class="fas fa-envelope-open-text"></i></button>
+          <Button className="inviteBtn" onClick={inviteRedirect}><i class="fas fa-envelope-open-text"></i></Button>
           <Button className="right" variant="secondary" onClick={props.logout}>Logout</Button>
         </Navbar>
     );
