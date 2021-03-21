@@ -10,8 +10,8 @@ function GroupInfoDisplay(props) {
   return (
     <div className="row">
       <div className="col-12">
-        <p>{props.displayGroup.name}</p>
-        <p>{props.displayGroup.description}</p>
+        <h4>{props.displayGroup.name}</h4>
+        <h5>{props.displayGroup.description}</h5>
         <div className={"row"}>
           {props.displayGroup.fullUsers.map((user) => {
             return <OrcaCard user={user} />;

@@ -14,18 +14,15 @@ function CreateGroupButton(props) {
   const handleFormSubmit = async (event) => {
     try {
       event.preventDefault();
-      const data = event.target.form
-      console.log("here",data.length)
-      console.log(event)
-      const formLength = await data.length
+      const data = event.target.form;
+      const formLength = await data.length;
       if (formLength > 7) {
         for (let i = 5; i < formLength - 2; i++) {
-          const property = data[i].attributes[1].value
-          const value = data[i].attributes[2].value
+          const property = data[i].attributes[0].value
+          const value = data[i].attributes[1].value
           const object ={[property]:value}
           properties.push(object);
         };
-        console.log("properties",properties);
       }
       else {
         console.log("no  props")
@@ -40,7 +37,6 @@ function CreateGroupButton(props) {
         properties: properties,
         fullUsers:[user]
       };
-      console.log(newGroup);
       await API.saveGroup(newGroup, id);
       await props.setModalShow(false);
     } catch (err) {

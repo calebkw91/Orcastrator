@@ -1,6 +1,7 @@
 .gotInvites{
     animation: gotInvites 5s infinite linear;
 }
+
 @keyframes gotInvites {
     0%{
       transform: rotate(-15deg)
@@ -12,10 +13,3 @@
       transform: rotate(-15deg)
     }
   }
-
-  /* .gotInvites::after{
-      margin-left:6px;
-      font-weight: bold;
-      color:white;
-      content: "2"
-  } */

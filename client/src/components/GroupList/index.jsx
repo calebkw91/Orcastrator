@@ -29,14 +29,13 @@ function GroupList(props) {
     <div className="col-lg-6 col-sm-12 col-md-12">
       <div className="row">
         <h3>{name}'s Groups</h3>
-        <br/>
-        <div>
-        <CreateGroupButton modalShow={props.modalShow} setModalShow={props.setModalShow}/>
-        </div>
+      </div>
+      <div className="row">
+            <CreateGroupButton modalShow={props.modalShow} setModalShow={props.setModalShow} />
       </div>
       <div className="row">
         <ListGroup key={shortid.generate()} className="col">
-            {groups.map(g => <ListGroup.Item id={g._id} key={shortid.generate()} action onClick={(e)=>handleGroupOnClick(e, g._id)}>{g.name}</ListGroup.Item>)}
+          {groups.map(g => <ListGroup.Item id={g._id} key={shortid.generate()} action onClick={(e) => handleGroupOnClick(e, g._id)}>{g.name}</ListGroup.Item>)}
         </ListGroup>
       </div>
     </div>
