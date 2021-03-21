@@ -13,13 +13,19 @@ function AddUserModal(props) {
             .then((res) => {
                 console.log("before if", res);
                 if (res.data) {
-                    res.data.invites.push(props.currentGroup._id);
-                    API.userUpdate(res.data._id, res.data)
-                        .then((res) => {
-                            alert("Invite Sent");
-                        });
+                    if(res.data.invites.indexOf(props.currentGroup._id) !== -1){
+                        alert("User is already invited");
+                    } else if(res.data.groups.indexOf(props.currentGroup._id) !== -1){
+                        alert("User is already in the group");
+                    } else {
+                        res.data.invites.push(props.currentGroup._id);
+                        API.userUpdate(res.data._id, res.data)
+                            .then((res) => {
+                                alert("Invite Sent");
+                            });
+                    }
                 } else {
-                    alert("user does not exist");
+                    alert("User does not exist");
                 };
             });
     };

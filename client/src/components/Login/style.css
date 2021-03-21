@@ -1,7 +1,7 @@
 .title-header {
   font-size: 70px;
   position: absolute;
-  top: 15%;
+  top: 8%;
   color: aliceblue;
   font-family: "Lato", sans-serif;
   animation: glow 5s ease-in-out infinite alternate;
@@ -20,7 +20,7 @@
 
 .title-subheader {
   position: absolute;
-  top: 25%;
+  top: 20%;
   color: aliceblue;
   font-family: "Lato", sans-serif;
 }
@@ -28,4 +28,16 @@
 h3 {
   font-size: 20px;
   font-family: "Lato", sans-serif;
+}
+.loginCardBody{
+  text-align: center;
+}
+.oAuthButton{
+  width:80%;
+  height:50px;
+  margin-bottom:10px
+}
+.fab{
+  font-size: xx-large;
+  margin-right:10px;
 }
