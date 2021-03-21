@@ -52,7 +52,6 @@ function ChatWindow(props) {
     e.preventDefault();
     console.log("calling emit function");
     let outgoingmessage = sendMessage;
-    let sendName = name;
     socketRef.current.emit("chatMessage", outgoingmessage, currentPod);
     // renderChat();
     setSendMessage("")

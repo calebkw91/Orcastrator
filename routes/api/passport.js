@@ -34,11 +34,6 @@ passportRouter.post("/auth/local",
     });
 
 passportRouter.get("/User", isAuthenticated, (req, res) => {
-<<<<<<< HEAD
-    // console.log(req.user)
-=======
-    console.log(req.user)
->>>>>>> 52b83c1ed26e9b63311972282f0a3051d89f2e69
     res.json(req.user);
 });
 
