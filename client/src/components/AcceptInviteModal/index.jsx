@@ -37,9 +37,7 @@ function AcceptInviteModal(props) {
         } catch (err) {
             throw err;
         }
-        
-        
-    }
+    };
 
     useEffect(() => {
         API.getGroup(groupID)

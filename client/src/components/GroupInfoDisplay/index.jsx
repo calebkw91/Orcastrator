@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "react-bootstrap/Image";
 import OrcaCard from "../OrcaCard";
 
 function GroupInfoDisplay(props) {

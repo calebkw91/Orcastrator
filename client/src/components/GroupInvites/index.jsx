@@ -13,10 +13,27 @@ function GroupInvites() {
     const [modalShow, setModalShow] = useState(false)
     const [modalData, setModalData] = useState({ userID: "" });
 
-    let updateInvites = false;
-
-    console.log("main activeInvites " + activeInvites);
-    console.log("main invites " + invites);
+    const getInvites = async () => {
+        console.log("get invites");
+        try {
+            if (activeInvites.length >= 1) {
+                let newGroupsArr = [];
+                for (let i = 0; i < invites.length; i++) {
+                    let newGroup = await API.getGroup(invites[i]);
+                    let newGroupAdmin = newGroup.data.admin;
+                    let adminCall = await API.getUser(newGroupAdmin);
+                    let adminName = adminCall.data.name;
+                    newGroup.data.admin = adminName;
+                    newGroupsArr.push(newGroup);
+                }
+                setGroups(newGroupsArr);
+            } else {
+                setGroups([]);
+            }
+        } catch (err) {
+            throw err;
+        }
+    }
 
     const accept = (event) => {
         API.getGroup(event.target.attributes[0].value)
@@ -29,7 +46,6 @@ function GroupInvites() {
                         }
                     )
                     setModalShow(true);
-
                 }
                 else {
                     let data = {
@@ -45,13 +61,12 @@ function GroupInvites() {
                             if (index > -1) {
                                 newInvites.splice(index, 1);
                                 setInvites(newInvites);
-                                console.log("activeInvites " + activeInvites);
                             }
 
                             API.userUpdate(id, { invites: newInvites })
                                 .then((res) => {
                                     console.log("invites updated");
-                                    updateInvites = true;
+                                    getInvites();
                                 });
 
                         });
@@ -67,13 +82,12 @@ function GroupInvites() {
         if (index > -1) {
             newInvites.splice(index, 1);
             setInvites(newInvites);
-            console.log("activeInvites " + activeInvites);
         }
 
         API.userUpdate(id, { invites: newInvites })
             .then((res) => {
                 console.log("invites updated");
-                updateInvites = true;
+                getInvites();
             });
     };
 
@@ -82,32 +96,18 @@ function GroupInvites() {
     };
 
     useEffect(() => {
-        const grabem = async () => {
-            try {
-                if (activeInvites.length >= 1) {
-                    let newGroupsArr = [];
-                    for (let i = 0; i < invites.length; i++) {
-                        let newGroup = await API.getGroup(invites[i]);
-                        newGroupsArr.push(newGroup);
-                    }
-                    setGroups(newGroupsArr);
-                }
-            } catch (err) {
-                throw err;
-            }
-        }
-        grabem();
-    }, [updateInvites, invites, activeInvites.length]);
+        getInvites();
+    }, []);
 
     return (
-        <div>
+        <div className="inviteContainer">
+            <h1 className="inviteHeader">Pod Invites</h1>
             <table className="table">
                 <thead>
                     <tr className="tableHead">
                         <th>Name</th>
                         <th>Group Leader</th>
                         <th>Description</th>
-                        <th>Current Members</th>
                         <th>Response</th>
                     </tr>
                 </thead>
@@ -117,27 +117,21 @@ function GroupInvites() {
                             <td>{group.data.name}</td>
                             <td>{group.data.admin}</td>
                             <td>{group.data.description}</td>
-                            <td>{group.data.users.map(user =>
-                                <p key={user}>{user}</p>
-                            )}
-                            </td>
                             <td>
-                                <Button onClick={accept} value={group.data._id}>Accept</Button>
-                                <Button onClick={decline} value={group.data._id}>Decline</Button>
+                                <Button className="responseButtons" onClick={accept} value={group.data._id}>Accept</Button>
+                                <Button className="responseButtons" onClick={decline} value={group.data._id}>Decline</Button>
                             </td>
                         </tr>
                     )}
                 </tbody>
             </table>
-            <Button onClick={redirect}>Dashboard</Button>
+            <Button className="dashboardButton" onClick={redirect}>Dashboard</Button>
 
             <AcceptInviteModal
-                invites={invites}
                 portrait={portrait}
+                invites={invites}
                 data={modalData}
-                // currentGroup={props.displayGroup}
                 show={modalShow}
-                // handleFormSubmit={handleFormSubmit}
                 onHide={() => setModalShow(false)}
             />
         </div>
