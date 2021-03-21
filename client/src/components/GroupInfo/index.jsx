@@ -10,7 +10,6 @@ function GroupInfo(props) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target.form[0].value);
     setModalShow(false);
   };
 

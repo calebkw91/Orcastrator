@@ -26,7 +26,6 @@ function GroupAdd(props) {
 
   const deleteProperty = (event) => {
     event.preventDefault();
-    console.log(event)
     const prop=event.target.attributes.prop.value;
     setGroupProperties(groupProperties.filter( property => Object.keys(property)[0] !== prop));
   }

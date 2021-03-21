@@ -10,7 +10,6 @@ function AcceptInviteModal(props) {
     const { id, name, portrait } = useContext(UserContext);
 
     const handleInputChange = (event) => {
-        console.log(event);
         const prop = event.target.attributes[0].value;
         const tempProps = groupProperties;
         const index = tempProps.findIndex(property => Object.keys(property)[0] === prop);
@@ -31,7 +30,6 @@ function AcceptInviteModal(props) {
             await API.newSaveUserToGroup(data);
             const newInvites = await invites.filter(invite => invite !== groupID);
             await API.userUpdate(id, { invites: newInvites })
-            console.log("user saved");
             props.onHide();
             window.location.assign("/");
         } catch (err) {
@@ -45,7 +43,6 @@ function AcceptInviteModal(props) {
             if(res.data.properties.length > 0){
                 const properties = res.data.properties;
                 setGroupProperties([...properties,]);
-                console.log(groupProperties);
             }
             else{
                 console.log("no properties")
@@ -55,8 +52,6 @@ function AcceptInviteModal(props) {
     },[props.show])
 
     return (
-
-
         <Modal
             {...props}
             size="lg"

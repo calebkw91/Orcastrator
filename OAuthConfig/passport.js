@@ -21,12 +21,6 @@ passport.use(new GoogleStrategy({
     callbackURL: "/auth/google/callback"
 },
     function (accessToken, refreshToken, profile, cb) {
-
-        // User.findOrCreate({ id: profile.id }, function (err, user) {
-        //   return cb(err, user);
-        // });
-        console.log("check user");
-
         User.findOne({ userId: profile.id })
             .then(dbModel => {
                 if (!dbModel) {
@@ -42,8 +36,6 @@ passport.use(new GoogleStrategy({
                 }
             })
             .catch(err => console.log(err));
-
-        // console.log(profile);
         cb(null, profile);
     }
 ));
@@ -54,16 +46,9 @@ passport.use(new GithubStrategy({
     callbackUrl: "/auth/github/callback"
 },
     function (accessToken, refreshToken, profile, cb) {
-        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        //   return cb(err, user);
-        // });
-        console.log("check user");
-
         User.findOne({ userId: profile.id })
             .then(dbModel => {
                 if (!dbModel) {
-                    console.log("create user");
-
                     User.create({
                         name: profile._json.name,
                         portrait: profile._json.avatar_url,
@@ -74,8 +59,6 @@ passport.use(new GithubStrategy({
                 }
             })
             .catch(err => console.log(err));
-
-        // console.log(profile);
         cb(null, profile);
     }
 ));

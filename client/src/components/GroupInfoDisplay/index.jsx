@@ -4,9 +4,6 @@ import OrcaCard from "../OrcaCard";
 
 function GroupInfoDisplay(props) {
   //iterate through users
-
-  console.log("displaygroup: ", props.displayGroup);
-
   return (
     <div className="row">
       <div className="col-12">

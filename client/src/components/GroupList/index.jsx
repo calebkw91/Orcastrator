@@ -10,18 +10,14 @@ function GroupList(props) {
   const { id, name } = useContext(UserContext);
 
   useEffect(() => {
-    console.log("groups updated");
     //get all groups
     API.getUserGroups(id).then((res) => {
       //only keep ones that you are a member of
-      //setGroups(res.data.filter(group => group.users.includes(id)));
       setGroups(res.data.groups);
-      console.log(res.data.groups);
     });
   }, [props.modalShow, id]);
 
   const handleGroupOnClick = (event, idArg) => {
-    console.log(idArg)
     props.setCurrentGroup(groups.filter(g => g._id === idArg)[0]);
   }
 
