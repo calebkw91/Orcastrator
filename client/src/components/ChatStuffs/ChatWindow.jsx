@@ -1,3 +1,4 @@
+import { set } from "mongoose";
 import { useContext, useEffect, useState, setState, useRef } from "react";
 import UserContext from "../../utils/UserContext";
 import "./style.css";
@@ -34,10 +35,12 @@ function ChatWindow(props) {
     socketRef.current.on("groupBlast", (data) => {
       console.log("socket.on,chatMessage");
       console.log(data);
-      let x = messages;
+      let x = [];
+      messages.forEach((mes)=>x.push(mes));
       console.log(x);
       x.push(data);
       setMessage(x);
+      renderChat();
       console.log(messages);
     });
     return () => {
@@ -51,7 +54,8 @@ function ChatWindow(props) {
     console.log("calling emit function");
     let outgoingmessage = sendMessage;
     socketRef.current.emit("chatMessage", outgoingmessage, currentPod);
-    renderChat();
+    // renderChat();
+    setSendMessage("")
   }
 
   const renderChat = () => {

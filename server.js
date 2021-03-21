@@ -43,20 +43,7 @@ io.use(async (socket, next) => {
 });
 // what socketio should do once connected
 io.on("connection", (socket) => {
-  //   console.log("this is the socket during connection ");
-  //   console.log(socket.handshake.auth);
-  //   // console.log(typeof(x));
-  //   // socket.join(socket.pod);
-  //   console.log(
-  //     "a user has connected to socket :_" +
-  //       socket.id +
-  //       " username:_" +
-  //       socket.handshake.auth.userID +
-  //       "room:_" +
-  //       socket.handshake.auth.podID
-  //   );
-  //   // io.to(socket.pod).emit(socket.message);
-  // });
+
   socket.on("join group", (pod) => {
     console.log("inside join pod");
     socket.join(pod);
