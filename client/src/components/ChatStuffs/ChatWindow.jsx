@@ -8,51 +8,59 @@ function ChatWindow(props) {
   const [messages, setMessage] = useState([]);
   const [sendMessage,setSendMessage] = useState("");
   const socketRef = useRef();
-  let currentPod = props.currentGroup;
-  
-  useEffect(() => {
-    socketRef.current = io({
+  let currentPodName = props.currentGroup.name;
+  socketRef.current = io({
       auth: {
         userID: id,
-        podID: currentPod,
-        username: "placeholder",
+        podID: props.currentGroup.id,
+        username: name,
+        groupName:props.currentGroup.name
       },
     });
-
-    console.log("socket connecting");
+  useEffect(() => { 
+      socketRef.current.offAny();
+      socketRef.current.close();
+    //set a ref of the socket instance with auth information to be used in server side middleware
+    
+    //register listeners for socket connection
     socketRef.current.on("connect", () => {
-      socketRef.current.emit("join group", currentPod);
+      // socketRef.current.emit("join group", currentPodName);
     });
     socketRef.current.on("connection_error", (error) => {
       console.log(error);
     });
-
     socketRef.current.on("disconnect", (reason) => {
       console.log(reason);
     });
-
-    socketRef.current.on("groupBlast", (data) => {
-      console.log("socket.on,chatMessage");
-      console.log(data);
+    socketRef.current.on("roomMessage",(data) =>{
       let x = [];
       messages.forEach((mes)=>x.push(mes));
-      console.log(x);
       x.push(data);
       setMessage(x);
       renderChat();
-      console.log(messages);
     });
+    socketRef.current.on("users",(data)=>{
+      console.log(data);
+    });
+    socketRef.current.on("groupBlast", (data) => {
+      let x = [];
+      messages.forEach((mes)=>x.push(mes));
+      x.push(data);
+      setMessage(x);
+      renderChat();
+    });
+    //the return takes place at the end of the component lifecycle(similiar to componentWillUnmount)
     return () => {
-      socketRef.current.offAny();
-      socketRef.current.close();
+      //cleanup listeners and close underlying connection
+     
     };
-  }, [messages,currentPod]);
+  }, [messages,currentPodName]);
 
   function handleButtonSubmit(e) {
     e.preventDefault();
-    console.log("calling emit function");
     let outgoingmessage = sendMessage;
-    socketRef.current.emit("chatMessage", outgoingmessage, currentPod);
+    //emits message to the server
+    socketRef.current.emit("chatMessage", outgoingmessage, currentPodName);
     // renderChat();
     setSendMessage("")
   }

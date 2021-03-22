@@ -6,16 +6,15 @@ function socketAuthorization(socket) {
   podID = socket.handshake.auth.podID;
   console.log(idNum+"_:_"+podID);
     return User.findOne({ userId: idNum })// remove return
-      .then((dbModel,err) => {
-        if (err) {
-          console.log("UnAuthorized #SA1");
-          console.log(dbModel);
-          return false;
-        }
-        return true;// remove return
-        // Group.findone({/*what to find:what to match*/})
-        // .then((db)=>{/*do stuff with it .. if this returns true then ok the connectio/join*/})
-      })
+          .then((dbModel,err) => {
+            if (err) {
+              console.log("Unauthorized not a valid account");
+              return false;
+            }
+            return true;// remove return
+            // Group.findone({/*what to find:what to match*/})
+            // .then((db)=>{/*do stuff with it .. if this returns true then ok the connectio/join*/})
+          })
       .catch((err) => console.log(err));
   }
 
