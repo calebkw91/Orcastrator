@@ -15,7 +15,7 @@ function GroupInfo(props) {
 
   return (
     <div className="col-lg-6 col-sm-12 col-md-12">
-      <Button onClick={() =>setModalShow(true)}>Add a new Orca</Button>
+      { (props.displayGroup._id) ? <Button onClick={() =>setModalShow(true)}>Add a new Orca</Button> : <div />}
       <GroupInfoDisplay key={shortid.generate()} displayGroup={props.displayGroup}/>
       <AddUserModal
         currentGroup={props.displayGroup}

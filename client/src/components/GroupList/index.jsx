@@ -27,7 +27,7 @@ function GroupList(props) {
         <h3>{name}'s Pods</h3>
       </div>
       <div className="row">
-            <CreateGroupButton modalShow={props.modalShow} setModalShow={props.setModalShow} />
+        <CreateGroupButton modalShow={props.modalShow} setModalShow={props.setModalShow} />
       </div>
       <div className="row">
         <ListGroup key={shortid.generate()} className="col">

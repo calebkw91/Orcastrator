@@ -15,6 +15,16 @@ function GroupAdd(props) {
     document.getElementById("propValue").value = "";
   };
 
+  const submit = async (event) => {
+    try{
+      // event.preventDefault()
+      await props.handleFormSubmit(event);
+      setGroupProperties([]);
+    }catch (err){
+      throw err;
+    };
+  };
+
   const handleInputChange = (event) => {
     if(event.target.name === "property"){
       setCurrentProperty(event.target.value);
@@ -80,7 +90,7 @@ function GroupAdd(props) {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.handleFormSubmit} type="submit">
+          <Button onClick={submit} type="submit">
             Save
           </Button>
           <Button onClick={props.onHide} >Close</Button>
