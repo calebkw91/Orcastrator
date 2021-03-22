@@ -48,7 +48,7 @@ function CreateGroupButton(props) {
   return (
     <div>
       <Button variant="primary" onClick={() => props.setModalShow(true)}>
-        Create New Group
+        Create New Pod
         </Button>
 
       <CreateGroupModal

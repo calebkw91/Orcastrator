@@ -67,7 +67,7 @@ function GroupAdd(props) {
                 <Button id="propButton" onClick={addProperty}>Add Property</Button>
               </div>
               <div className="row">
-                <h5>Current Properties:</h5>
+                <h5>Current Pod Properties:</h5>
               </div>
               <div className="row">
                 <ul>
