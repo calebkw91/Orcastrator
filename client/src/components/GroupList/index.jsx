@@ -10,33 +10,28 @@ function GroupList(props) {
   const { id, name } = useContext(UserContext);
 
   useEffect(() => {
-    console.log("groups updated");
     //get all groups
     API.getUserGroups(id).then((res) => {
       //only keep ones that you are a member of
-      //setGroups(res.data.filter(group => group.users.includes(id)));
       setGroups(res.data.groups);
-      console.log(res.data.groups);
     });
   }, [props.modalShow, id]);
 
   const handleGroupOnClick = (event, idArg) => {
-    console.log(idArg)
     props.setCurrentGroup(groups.filter(g => g._id === idArg)[0]);
   }
 
   return (
     <div className="col-lg-6 col-sm-12 col-md-12">
       <div className="row">
-        <h3>{name}'s Groups</h3>
-        <br/>
-        <div>
-        <CreateGroupButton modalShow={props.modalShow} setModalShow={props.setModalShow}/>
-        </div>
+        <h3>{name}'s Pods</h3>
+      </div>
+      <div className="row">
+        <CreateGroupButton modalShow={props.modalShow} setModalShow={props.setModalShow} />
       </div>
       <div className="row">
         <ListGroup key={shortid.generate()} className="col">
-            {groups.map(g => <ListGroup.Item id={g._id} key={shortid.generate()} action onClick={(e)=>handleGroupOnClick(e, g._id)}>{g.name}</ListGroup.Item>)}
+          {groups.map(g => <ListGroup.Item id={g._id} key={shortid.generate()} action onClick={(e) => handleGroupOnClick(e, g._id)}>{g.name}</ListGroup.Item>)}
         </ListGroup>
       </div>
     </div>

@@ -1,20 +1,20 @@
-import {React, useContext } from "react";
+import {React, useContext, useEffect } from "react";
 import UserContext from "../../utils/UserContext";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import "./style.css"
 
-
-
 function UserInfo(props) {
-    const { name, portrait } = useContext(UserContext);
-    
-    // console.log(" id ",id," name ",name," portrait ",portrait);
+    const { name, portrait, invites } = useContext(UserContext);
 
     const inviteRedirect = () => {
       window.location.assign("/invites");
-    }
-
+    };
+    useEffect(() => {
+      if(invites.length > 0){
+        document.getElementById("envelope").classList.add("gotInvites")
+      }
+    })
 
     return (
         <Navbar bg="dark" variant="dark">
@@ -28,7 +28,7 @@ function UserInfo(props) {
             />{' '}
             {name}
           </Navbar.Brand>
-          <Button className="inviteBtn" onClick={inviteRedirect}><i className="fas fa-envelope-open-text"></i></Button>
+          <Button className="inviteBtn" onClick={inviteRedirect}><i id="envelope" className="fas fa-envelope-open-text"></i> {invites.length}</Button>
           <Button className="float-end m-1" variant="secondary" onClick={props.logout}>Logout</Button>
         </Navbar>
     );

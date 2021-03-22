@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import "./groupModal.css"
 
 function GroupAdd(props) {
 
@@ -10,6 +11,18 @@ function GroupAdd(props) {
   const addProperty = (event) => {
     event.preventDefault();
     setGroupProperties([...groupProperties, {[currentProperty]:currentPropertyValue}]);
+    document.getElementById("propField").value = "";
+    document.getElementById("propValue").value = "";
+  };
+
+  const submit = async (event) => {
+    try{
+      // event.preventDefault()
+      await props.handleFormSubmit(event);
+      setGroupProperties([]);
+    }catch (err){
+      throw err;
+    };
   };
 
   const handleInputChange = (event) => {
@@ -23,7 +36,6 @@ function GroupAdd(props) {
 
   const deleteProperty = (event) => {
     event.preventDefault();
-    console.log(event)
     const prop=event.target.attributes.prop.value;
     setGroupProperties(groupProperties.filter( property => Object.keys(property)[0] !== prop));
   }
@@ -37,7 +49,7 @@ function GroupAdd(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Create a group:
+          Create a Pod:
         </Modal.Title>
       </Modal.Header>
       <Form>
@@ -52,18 +64,25 @@ function GroupAdd(props) {
                 <Form.Control type="text" placeholder="Pod Description" />
               </div>
               <br />
+              {/* <br /> */}
               <div className="row">
-                <Form.Control className="col-6" type="text" name="property" onChange={handleInputChange} placeholder="Required Group Property" />
-                <Form.Control className="col-6" type="text" name="propertyValue" onChange={handleInputChange} placeholder="Your Property Value" />
+                <h5>Add Pod Required Info Fields</h5>
+              </div>
+              {/* <br/> */}
+              <div className="row">
+                <Form.Control id="propField" className="col-5 groupProperty" type="text" name="property" onChange={handleInputChange} placeholder="Required Pod Property" />
+                <h4 id="colon">:</h4>
+                <Form.Control id="propValue" className="col-4 groupProperty" type="text" name="propertyValue" onChange={handleInputChange} placeholder="Your Property Value" />
                 {/* groupProperties is an array of objects */}
-                <Button onClick={addProperty}>Add Property</Button>
+                <Button id="propButton" onClick={addProperty}>Add Property</Button>
               </div>
               <div className="row">
-                <h5>Current Properties:</h5>
-                <br/>
+                <h5>Current Pod Properties:</h5>
+              </div>
+              <div className="row">
                 <ul>
                   {groupProperties.map(property =>
-                    <li>{Object.keys(property)[0]} : {Object.values(property)[0]}<button className="deleteButton" prop={Object.keys(property)[0]} propvalue={Object.values(property)[0]}  onClick={deleteProperty}>X</button></li>                   
+                    <li className="propertyList">{Object.keys(property)[0]} : {Object.values(property)[0]}<Button variant="danger" className="deleteButton btn-sm" prop={Object.keys(property)[0]} propvalue={Object.values(property)[0]} onClick={deleteProperty}>X</Button></li>
                   )}
                 </ul>
               </div>
@@ -71,7 +90,7 @@ function GroupAdd(props) {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button  onClick={props.handleFormSubmit} type="submit">
+          <Button onClick={submit} type="submit">
             Save
           </Button>
           <Button onClick={props.onHide} >Close</Button>

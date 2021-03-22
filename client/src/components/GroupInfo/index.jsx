@@ -10,15 +10,13 @@ function GroupInfo(props) {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target.form[0].value);
     setModalShow(false);
   };
 
   return (
     <div className="col-lg-6 col-sm-12 col-md-12">
-      <h3>Selected Pod Info</h3>
-        <GroupInfoDisplay key={shortid.generate()} displayGroup={props.displayGroup}/>
-      <Button onClick={() =>setModalShow(true)}>Add a new Orca</Button>
+      { (props.displayGroup._id) ? <Button onClick={() =>setModalShow(true)}>Add a new Orca</Button> : <div />}
+      <GroupInfoDisplay key={shortid.generate()} displayGroup={props.displayGroup}/>
       <AddUserModal
         currentGroup={props.displayGroup}
         show={modalShow}

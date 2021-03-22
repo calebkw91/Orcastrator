@@ -26,8 +26,6 @@ function App() {
         axios
             .get("/User")
             .then((res) => {
-                console.log("first res", res);
-                console.log(res.data.id);
                 if (res.data.id) {
                     API.getUserByUserId(res.data.id)
                         .then(res => {
@@ -43,7 +41,6 @@ function App() {
                 } else if (res.data._id) {
                     API.getUser(res.data._id)
                         .then(res => {
-                            console.log(res);
                             setUserState({
                                 ...userState,
                                 id: res.data._id,
@@ -61,7 +58,6 @@ function App() {
     }, []);
 
     const logout = () => {
-        console.log("logging out");
         setUserState({
             ...userState,
             id: "",

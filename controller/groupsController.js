@@ -95,10 +95,7 @@ module.exports = {
                     savedUser.groups.push(group);
                     updatedGroup = group;
                     if (err) console.log(err);
-    
-                    console.log("savedUser",savedUser);
-                    console.log("updatedGroup", updatedGroup);
-    
+                    
                     db.User.findOneAndUpdate({ _id: req.body.userID }, savedUser)
                         .catch(err => res.status(422).json(err));
     

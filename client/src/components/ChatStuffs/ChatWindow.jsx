@@ -4,7 +4,7 @@ import "./style.css";
 const io = require("socket.io-client");
 
 function ChatWindow(props) {
-  const { id,name } = useContext(UserContext);
+  const { id, name } = useContext(UserContext);
   const [messages, setMessage] = useState([]);
   const [sendMessage,setSendMessage] = useState("");
   const socketRef = useRef();
@@ -33,21 +33,15 @@ function ChatWindow(props) {
     socketRef.current.on("disconnect", (reason) => {
       console.log(reason);
     });
-    socketRef.current.on("roomMessage",(data) =>{
+
+    socketRef.current.on("groupBlast", (text,name) => {
+      console.log("socket.on,chatMessage");
+      console.log(text);
       let x = [];
-      messages.forEach((mes)=>x.push(mes));
-      x.push(data);
-      setMessage(x);
-      renderChat();
-    });
-    socketRef.current.on("users",(data)=>{
-      console.log(data);
-    });
-    socketRef.current.on("groupBlast", (data) => {
-      console.log(" recive chat message");
-      let x = [];
-      messages.forEach((mes)=>x.push(mes));
-      x.push(data);
+      messages.forEach((arr)=>x.push(arr));
+      console.log(x);
+      let y = {name,text};
+      x.push(y);
       setMessage(x);
       renderChat();
     });
@@ -63,29 +57,25 @@ function ChatWindow(props) {
   function handleButtonSubmit(e) {
     e.preventDefault();
     let outgoingmessage = sendMessage;
-    //emits message to the server
-    socketRef.current.emit("chatMessage", outgoingmessage, currentPodName);
+    socketRef.current.emit("chatMessage", outgoingmessage, currentPodName, name);
     // renderChat();
     setSendMessage("");
     console.log(sendMessage+"_send msg reset");
   }
 
   const renderChat = () => {
-    return messages.map((message, index) => (
-      <div key={index}>
-        <p>{message}</p>
-      </div>
-    ));
+    return messages.map((messageOBJ) => (
+       <div ><p>{messageOBJ.name}: {messageOBJ.text}</p></div>));
   };
 
   return (
-    <div className="chatWindow">
+    <div className="chatWindow col-12">
       <form className="" onSubmit={handleButtonSubmit}>
-        <div className="chatmessages">{renderChat()}</div>
+        <div className="chatmessages overFlow-auto">{renderChat()}</div>
         <input
           className="messageTextArea"
-          id="chatFeild"
-          name="chatFeild"
+          id="chatField"
+          name="chatField"
           placeholder="Type Here"
           type="text"
           onChange={(e) => {

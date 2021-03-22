@@ -3,6 +3,8 @@ import API from "../../utils/API";
 import UserContext from "../../utils/UserContext";
 import AcceptInviteModal from "../AcceptInviteModal/"
 import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
+import Container from "react-bootstrap/Container";
 import "./style.css";
 
 
@@ -14,7 +16,6 @@ function GroupInvites() {
     const [modalData, setModalData] = useState({ userID: "" });
 
     const getInvites = async () => {
-        console.log("get invites");
         try {
             if (activeInvites.length >= 1) {
                 let newGroupsArr = [];
@@ -54,8 +55,6 @@ function GroupInvites() {
                     }
                     API.saveUserToGroup(data)
                         .then((res) => {
-                            console.log("user saved to group");
-
                             let newInvites = activeInvites;
                             const index = newInvites.indexOf(event.target.value);
                             if (index > -1) {
@@ -65,10 +64,8 @@ function GroupInvites() {
 
                             API.userUpdate(id, { invites: newInvites })
                                 .then((res) => {
-                                    console.log("invites updated");
                                     getInvites();
                                 });
-
                         });
                 };
             });
@@ -76,7 +73,6 @@ function GroupInvites() {
 
 
     const decline = (event) => {
-        console.log("decline");
         let newInvites = activeInvites;
         const index = newInvites.indexOf(event.target.value);
         if (index > -1) {
@@ -100,9 +96,10 @@ function GroupInvites() {
     }, []);
 
     return (
-        <div className="inviteContainer">
+        <Container fluid>
             <h1 className="inviteHeader">Pod Invites</h1>
-            <table className="table">
+            <div className="row">
+            <Table striped bordered hover size="sm" className="col-12">
                 <thead>
                     <tr className="tableHead">
                         <th>Name</th>
@@ -124,7 +121,7 @@ function GroupInvites() {
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </Table>
             <Button className="dashboardButton" onClick={redirect}>Dashboard</Button>
 
             <AcceptInviteModal
@@ -134,7 +131,8 @@ function GroupInvites() {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
-        </div>
+            </div>
+        </Container>
     );
 };
 

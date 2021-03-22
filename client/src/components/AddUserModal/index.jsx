@@ -11,7 +11,6 @@ function AddUserModal(props) {
 
         API.getUsername(user)
             .then((res) => {
-                console.log("before if", res);
                 if (res.data) {
                     if(res.data.invites.indexOf(props.currentGroup._id) !== -1){
                         alert("User is already invited");
