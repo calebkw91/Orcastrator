@@ -20,8 +20,8 @@ function Login() {
 
     return (
         <div className="mx-auto row justify-content-center align-self-center">
-            <h1 className="title-header">Orcastrate</h1>
-            <h2 className="title-subheader">Market your group</h2>
+            <h1 className="title-header">Orcastrator</h1>
+            <h2 className="title-subheader">Organize Your Orcas</h2>
             <div className="col-12">
                 <div className="justify-content-center">
                     <div className="card card-position">

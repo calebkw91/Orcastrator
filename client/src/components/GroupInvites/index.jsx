@@ -3,6 +3,8 @@ import API from "../../utils/API";
 import UserContext from "../../utils/UserContext";
 import AcceptInviteModal from "../AcceptInviteModal/"
 import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
+import Container from "react-bootstrap/Container";
 import "./style.css";
 
 
@@ -94,9 +96,10 @@ function GroupInvites() {
     }, []);
 
     return (
-        <div className="inviteContainer">
+        <Container fluid>
             <h1 className="inviteHeader">Pod Invites</h1>
-            <table className="table">
+            <div className="row">
+            <Table striped bordered hover size="sm" className="col-12">
                 <thead>
                     <tr className="tableHead">
                         <th>Name</th>
@@ -118,7 +121,7 @@ function GroupInvites() {
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </Table>
             <Button className="dashboardButton" onClick={redirect}>Dashboard</Button>
 
             <AcceptInviteModal
@@ -128,7 +131,8 @@ function GroupInvites() {
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
-        </div>
+            </div>
+        </Container>
     );
 };
 
