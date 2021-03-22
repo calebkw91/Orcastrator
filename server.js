@@ -25,36 +25,31 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 8080;
 //create socket server to listen on our http server
 const io = socketio(server, { cors: corsOptions });
-//crun socket connections through middleware to authenticate
+//run socket connections through middleware to authenticate
 io.use(async (socket, next) => {
-  console.log(" io.use entry");
-  // console.log(socket);
   let credential = socket.handshake.auth.userID;
-  console.log(credential);
+  //check to see userid is not empty
   if (!credential) {
+    //if empty return eror to font end
     return next(new Error("invalid username"));
   }
+  // if user name exists use async function to await the databases responce
   const socketAuth = await socketAuthorization(socket);
   if (socketAuth === false) {
-    console.log("calling socket disconnect");
+    //if username is invalid halt connection and return error to front end
     socket.disconnect(true);
   }
   next();
 });
 // what socketio should do once connected
 io.on("connection", (socket) => {
-
+  // join a room specific to group
   socket.on("join group", (pod) => {
-    console.log("inside join pod");
     socket.join(pod);
     io.to(pod).emit("chatMessage", "you are in room_" + pod);
   });
+  // set listener for "chatMessage"
   socket.on("chatMessage", (message, pod, name) => {
-    console.log("recived a message now logging");
-    console.log(name);
-    console.log(message);
-    console.log(pod);
-    // callback({status:"ok"});
     io.to(pod).emit("groupBlast", message, name);
   }); 
 });
@@ -96,25 +91,6 @@ app.use(PASSPORTroutes);
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
-
-// const namespace = io.of()
-
-// const users = [];
-// for (let [id, socket] of io.of("/").sockets) {
-//   users.push({
-//     userID: id,
-//     username: socket.username,
-//   });
-// }
-// socket.emit("users", users);
-
-// io.on("connection", (socket) => {
-//     // notify existing users
-//     socket.broadcast.emit("user connected", {
-//       userID: socket.id,
-//       username: socket.username,
-//     });
-//   });
 
 // start the http server
 server.listen(PORT, () => {
