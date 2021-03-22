@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import UserContext from "../../utils/UserContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import {Container, Row, Col} from "react-bootstrap";
 import "./style.css";
 const io = require("socket.io-client");
 
@@ -55,18 +57,21 @@ function ChatWindow(props) {
     let outgoingmessage = sendMessage;
     socketRef.current.emit("chatMessage", outgoingmessage, currentPod, name);
     // renderChat();
-    setSendMessage("")
+    setSendMessage("");
   }
 
   const renderChat = () => {
     return messages.map((messageOBJ) => (
-       <div ><p>{messageOBJ.name}: {messageOBJ.text}</p></div>));
+       <div >{messageOBJ.name}: {messageOBJ.text}</div>));
   };
 
   return (
-    <div className="chatWindow col-12">
-      <form className="" onSubmit={handleButtonSubmit}>
-        <div className="chatmessages">{renderChat()}</div>
+    <Container>
+    <div className="col-12" id="chatWindow">
+      <Row>
+      <form  onSubmit={handleButtonSubmit}>
+        <Col className="overflow-auto" id="chatmessages">{renderChat()}</Col>
+        <Row>
         <input
           className="messageTextArea"
           id="chatField"
@@ -79,8 +84,11 @@ function ChatWindow(props) {
           value = {sendMessage}
         />
         <button onClick={handleButtonSubmit}>SEND</button>
+        </Row>
       </form>
+      </Row>
     </div>
+    </Container>
   );
 }
 export default ChatWindow;
