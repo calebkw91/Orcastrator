@@ -14,7 +14,6 @@ function GroupInvites() {
     const [modalData, setModalData] = useState({ userID: "" });
 
     const getInvites = async () => {
-        console.log("get invites");
         try {
             if (activeInvites.length >= 1) {
                 let newGroupsArr = [];
@@ -54,8 +53,6 @@ function GroupInvites() {
                     }
                     API.saveUserToGroup(data)
                         .then((res) => {
-                            console.log("user saved to group");
-
                             let newInvites = activeInvites;
                             const index = newInvites.indexOf(event.target.value);
                             if (index > -1) {
@@ -65,10 +62,8 @@ function GroupInvites() {
 
                             API.userUpdate(id, { invites: newInvites })
                                 .then((res) => {
-                                    console.log("invites updated");
                                     getInvites();
                                 });
-
                         });
                 };
             });
@@ -76,7 +71,6 @@ function GroupInvites() {
 
 
     const decline = (event) => {
-        console.log("decline");
         let newInvites = activeInvites;
         const index = newInvites.indexOf(event.target.value);
         if (index > -1) {
