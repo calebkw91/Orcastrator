@@ -1,11 +1,10 @@
-import { set } from "mongoose";
-import { useContext, useEffect, useState, setState, useRef } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import UserContext from "../../utils/UserContext";
 import "./style.css";
 const io = require("socket.io-client");
 
 function ChatWindow(props) {
-  const { id } = useContext(UserContext);
+  const { id, name } = useContext(UserContext);
   const [messages, setMessage] = useState([]);
   const [sendMessage,setSendMessage] = useState("");
   const socketRef = useRef();
@@ -32,13 +31,14 @@ function ChatWindow(props) {
       console.log(reason);
     });
 
-    socketRef.current.on("groupBlast", (data) => {
+    socketRef.current.on("groupBlast", (text,name) => {
       console.log("socket.on,chatMessage");
-      console.log(data);
+      console.log(text);
       let x = [];
-      messages.forEach((mes)=>x.push(mes));
+      messages.forEach((arr)=>x.push(arr));
       console.log(x);
-      x.push(data);
+      let y = {name,text}
+      x.push(y);
       setMessage(x);
       renderChat();
       console.log(messages);
@@ -53,27 +53,24 @@ function ChatWindow(props) {
     e.preventDefault();
     console.log("calling emit function");
     let outgoingmessage = sendMessage;
-    socketRef.current.emit("chatMessage", outgoingmessage, currentPod);
+    socketRef.current.emit("chatMessage", outgoingmessage, currentPod, name);
     // renderChat();
     setSendMessage("")
   }
 
   const renderChat = () => {
-    return messages.map((message, index) => (
-      <div key={index}>
-        <p>{message}</p>
-      </div>
-    ));
+    return messages.map((messageOBJ) => (
+       <div ><p>{messageOBJ.name}: {messageOBJ.text}</p></div>));
   };
 
   return (
-    <div className="chatWindow">
+    <div className="chatWindow col-12">
       <form className="" onSubmit={handleButtonSubmit}>
         <div className="chatmessages">{renderChat()}</div>
         <input
           className="messageTextArea"
-          id="chatFeild"
-          name="chatFeild"
+          id="chatField"
+          name="chatField"
           placeholder="Type Here"
           type="text"
           onChange={(e) => {

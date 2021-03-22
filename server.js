@@ -49,12 +49,13 @@ io.on("connection", (socket) => {
     socket.join(pod);
     io.to(pod).emit("chatMessage", "you are in room_" + pod);
   });
-  socket.on("chatMessage", (message, pod) => {
+  socket.on("chatMessage", (message, pod, name) => {
     console.log("recived a message now logging");
+    console.log(name);
     console.log(message);
     console.log(pod);
     // callback({status:"ok"});
-    io.to(pod).emit("groupBlast", message);
+    io.to(pod).emit("groupBlast", message, name);
   }); 
 });
 
