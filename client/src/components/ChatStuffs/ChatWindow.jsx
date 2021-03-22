@@ -9,7 +9,9 @@ function ChatWindow(props) {
   const [sendMessage,setSendMessage] = useState("");
   const socketRef = useRef();
   let currentPodName = props.currentGroup.name;
-  socketRef.current = io({
+
+  useEffect(() => {
+       socketRef.current = io({
       auth: {
         userID: id,
         podID: props.currentGroup.id,
@@ -17,14 +19,13 @@ function ChatWindow(props) {
         groupName:props.currentGroup.name
       },
     });
-  useEffect(() => { 
-      socketRef.current.offAny();
-      socketRef.current.close();
+      console.log(" socket open");
     //set a ref of the socket instance with auth information to be used in server side middleware
     
     //register listeners for socket connection
     socketRef.current.on("connect", () => {
       // socketRef.current.emit("join group", currentPodName);
+      console.log("emit group join");
     });
     socketRef.current.on("connection_error", (error) => {
       console.log(error);
@@ -43,6 +44,7 @@ function ChatWindow(props) {
       console.log(data);
     });
     socketRef.current.on("groupBlast", (data) => {
+      console.log(" recive chat message");
       let x = [];
       messages.forEach((mes)=>x.push(mes));
       x.push(data);
@@ -52,7 +54,9 @@ function ChatWindow(props) {
     //the return takes place at the end of the component lifecycle(similiar to componentWillUnmount)
     return () => {
       //cleanup listeners and close underlying connection
-     
+      console.log("socket close/disconnnect");
+        socketRef.current.offAny();
+        socketRef.current.close();
     };
   }, [messages,currentPodName]);
 
@@ -62,7 +66,8 @@ function ChatWindow(props) {
     //emits message to the server
     socketRef.current.emit("chatMessage", outgoingmessage, currentPodName);
     // renderChat();
-    setSendMessage("")
+    setSendMessage("");
+    console.log(sendMessage+"_send msg reset");
   }
 
   const renderChat = () => {

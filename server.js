@@ -44,8 +44,8 @@ io.use(async (socket, next) => {
 
 // what socketio should do once connected
 io.on("connection", (socket) => {
-
-  socket.on("join group", (pod) => {
+console.log("connection")
+  socket.once("join group", (pod) => {
     console.log("inside join pod");
     socket.join(pod);
     io.to(pod).emit("roomMessage", "you are in room_" + pod);

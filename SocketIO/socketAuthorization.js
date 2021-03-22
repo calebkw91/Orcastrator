@@ -3,7 +3,7 @@ const Group = require("../models/group");
 
 function socketAuthorization(socket) {
   idNum = socket.handshake.auth.userID;
-  podID = socket.handshake.auth.podID;
+  podID = socket.handshake.auth.groupName;
   console.log(idNum+"_:_"+podID);
     return User.findOne({ userId: idNum })// remove return
           .then((dbModel,err) => {
