@@ -1,5 +1,24 @@
 th,
-td {
-  color: aliceblue;
+td{
+  color: blue;
   font-family: "Didact Gothic", sans-serif;
+  background-color: rgb(204, 207, 226);
+  font-size: x-large;
+}
+.inviteContainer{
+  width:80%;
+  margin-right: auto;
+  margin-left:auto;
+}
+.inviteHeader{
+  color:rgb(204, 207, 226);
+  text-align: center;
+  font-family: "Didact Gothic", sans-serif;
+}
+.dashboardButton{
+  position:absolute;
+  top:1%;
+}
+.responseButtons{
+  margin-right:10px;
 }

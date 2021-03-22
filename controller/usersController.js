@@ -34,9 +34,6 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     userUpdate: function (req, res) {
-        console.log("update route");
-        console.log(req.body);
-        console.log(req.params.id);
         db.User
             .findOneAndUpdate({ _id: req.params.id }, req.body)
             .then(dbModel => res.json(dbModel))

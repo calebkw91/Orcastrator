@@ -1,4 +1,15 @@
-.right {
-  position: fixed;
-  right: 5%;
+.gotInvites{
+    animation: gotInvites 5s infinite linear;
 }
+
+@keyframes gotInvites {
+    0%{
+      transform: rotate(-15deg)
+    }
+    50% {
+      transform: rotate(15deg)
+    }
+    100% {
+      transform: rotate(-15deg)
+    }
+  }

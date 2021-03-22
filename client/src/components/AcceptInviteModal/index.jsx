@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import API from "../../utils/API"
+import UserContext from "../../utils/UserContext";
 
 function AcceptInviteModal(props) {
-    const userID = props.data.userID;
     const groupID = props.data.groupID;
     const invites = props.invites;
     const [groupProperties,setGroupProperties] = useState([]);
+    const { id, name, portrait } = useContext(UserContext);
 
     const handleInputChange = (event) => {
-        console.log(event);
         const prop = event.target.attributes[0].value;
         const tempProps = groupProperties;
         const index = tempProps.findIndex(property => Object.keys(property)[0] === prop);
         tempProps[index] = {[prop]:event.target.value};
     };
 
-    const user = {id:userID, properties:groupProperties};
+    const user = {id:id, properties:groupProperties, portrait:portrait, name:name};
     
     const data = {
-        userID: userID,
+        userID: id,
         groupID: groupID,
         fullUsers: user
     }
@@ -29,15 +29,13 @@ function AcceptInviteModal(props) {
             event.preventDefault();
             await API.newSaveUserToGroup(data);
             const newInvites = await invites.filter(invite => invite !== groupID);
-            await API.userUpdate(userID, { invites: newInvites })
-            console.log("user saved");
+            await API.userUpdate(id, { invites: newInvites })
             props.onHide();
+            window.location.assign("/");
         } catch (err) {
             throw err;
         }
-        
-        
-    }
+    };
 
     useEffect(() => {
         API.getGroup(groupID)
@@ -45,7 +43,6 @@ function AcceptInviteModal(props) {
             if(res.data.properties.length > 0){
                 const properties = res.data.properties;
                 setGroupProperties([...properties,]);
-                console.log(groupProperties);
             }
             else{
                 console.log("no properties")
@@ -55,8 +52,6 @@ function AcceptInviteModal(props) {
     },[props.show])
 
     return (
-
-
         <Modal
             {...props}
             size="lg"

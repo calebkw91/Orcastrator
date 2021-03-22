@@ -1,0 +1,18 @@
+.groupProperty{
+    margin:10px;
+    width:20%
+}
+#colon{
+    margin-top:12px;
+}
+#propButton{
+    height:38px;
+    margin-top:10px;
+}
+.propertyList{
+    font-size: larger;
+    margin-top:10px;
+}
+.deleteButton{
+    margin-left:10px;
+}
