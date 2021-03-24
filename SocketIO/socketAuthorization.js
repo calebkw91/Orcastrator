@@ -2,20 +2,17 @@
 const User = require("../models/user");
 
 function socketAuthorization(socket) {
+  //set userId passed in from socket auth to variable
   idNum = socket.handshake.auth.userID;
-  console.log("SWEAR WORDS", idNum);
-  
+  //look for that variable in database
     return User.findOne({ userId: idNum })
       .then((dbModel,err) => {
-          console.log("RETURN VALS!!!");
-          console.log("ERR", err);
-          console.log("OTHER THING", dbModel);
-        console.log(dbModel + " ____this is the model from mongoose in SA");
         if (err) {
+          //if not found return error to front end
           console.log("UnAuthorized #SA1");
           return false;
         }
-        console.log("found a match on socket Authorization");
+        //if found return true
         return true;
       })
       .catch((err) => console.log(err));

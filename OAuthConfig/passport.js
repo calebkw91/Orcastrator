@@ -18,7 +18,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.GoogleID,
     clientSecret: process.env.GoogleSecret,
-    callbackURL: "/auth/google/callback"
+    callbackURL: "https://orcastrator.herokuapp.com/auth/google/callback"
 },
     function (accessToken, refreshToken, profile, cb) {
         User.findOne({ userId: profile.id })
@@ -43,7 +43,7 @@ passport.use(new GoogleStrategy({
 passport.use(new GithubStrategy({
     clientID: process.env.GithubID,
     clientSecret: process.env.GithubSecret,
-    callbackUrl: "/auth/github/callback"
+    callbackUrl: "https://orcastrator.herokuapp.com/auth/github/callback"
 },
     function (accessToken, refreshToken, profile, cb) {
         User.findOne({ userId: profile.id })
