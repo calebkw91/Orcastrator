@@ -2,19 +2,19 @@ const User = require("../models/user");
 const Group = require("../models/group");
 
 function socketAuthorization(socket) {
+  //set userId passed in from socket auth to variable
   idNum = socket.handshake.auth.userID;
-  podID = socket.handshake.auth.groupName;
-  console.log(idNum+"_:_"+podID);
-    return User.findOne({ userId: idNum })// remove return
-          .then((dbModel,err) => {
-            if (err) {
-              console.log("Unauthorized not a valid account");
-              return false;
-            }
-            return true;// remove return
-            // Group.findone({/*what to find:what to match*/})
-            // .then((db)=>{/*do stuff with it .. if this returns true then ok the connectio/join*/})
-          })
+  //look for that variable in database
+    return User.findOne({ userId: idNum })
+      .then((dbModel,err) => {
+        if (err) {
+          //if not found return error to front end
+          console.log("UnAuthorized #SA1");
+          return false;
+        }
+        //if found return true
+        return true;
+      })
       .catch((err) => console.log(err));
   }
 

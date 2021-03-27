@@ -1,17 +1,30 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import UserContext from "../../utils/UserContext";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import "./style.css";
 const io = require("socket.io-client");
 
+// start of react functional component
 function ChatWindow(props) {
+  // pulling in user context, using props for group context
   const { id, name } = useContext(UserContext);
+  //setting two states one for incommin messages and one for outgoing
   const [messages, setMessage] = useState([]);
-  const [sendMessage,setSendMessage] = useState("");
+  const [sendMessage, setSendMessage] = useState("");
+  //set two refs one for the socket connection and the other for a dummy div in chat box for scrollto()
   const socketRef = useRef();
-  let currentPodName = props.currentGroup.name;
-
+  const chatBottomRef = useRef();
+  //create variable for group passed from props
+  let currentPod = props.currentGroup;
+  // function to auto scroll to bottom of message pannel in chat box
+  const scrollToBottom = () => {
+    chatBottomRef.current.scrollIntoView();
+  };
+  // component life cycle methods
   useEffect(() => {
-       socketRef.current = io({
+    // create socket instance and request connection from back end
+    socketRef.current = io({
       auth: {
         userID: id,
         podID: props.currentGroup.id,
@@ -19,73 +32,86 @@ function ChatWindow(props) {
         groupName:props.currentGroup.name
       },
     });
-      console.log(" socket open");
-    //set a ref of the socket instance with auth information to be used in server side middleware
-    
-    //register listeners for socket connection
+    //set up listeners for socket connection
     socketRef.current.on("connect", () => {
       // socketRef.current.emit("join group", currentPodName);
       console.log("emit group join");
     });
+
     socketRef.current.on("connection_error", (error) => {
       console.log(error);
     });
     socketRef.current.on("disconnect", (reason) => {
       console.log(reason);
     });
-
-    socketRef.current.on("groupBlast", (text,name) => {
+    // listener and methoud for incomming chat message
+    socketRef.current.on("groupBlast", (text, name) => {
       console.log("socket.on,chatMessage");
       console.log(text);
       let x = [];
-      messages.forEach((arr)=>x.push(arr));
+      messages.forEach((arr) => x.push(arr));
       console.log(x);
-      let y = {name,text};
+      let y = { name, text };
       x.push(y);
       setMessage(x);
       renderChat();
     });
-    //the return takes place at the end of the component lifecycle(similiar to componentWillUnmount)
+    // call for scroll to bottom of chat pannel
+    scrollToBottom();
+    // the return of use effect is similiar to commponent will unmount
     return () => {
-      //cleanup listeners and close underlying connection
-      console.log("socket close/disconnnect");
-        socketRef.current.offAny();
-        socketRef.current.close();
+      //clean up listeners and close socket connection before re render
+      socketRef.current.offAny();
+      socketRef.current.close();
     };
-  }, [messages,currentPodName]);
-
+  }, [messages]);
+  // this use effect is to clear message pannel when a new pod is joined
+  useEffect(() => {
+    setMessage([]);
+  }, [currentPod]);
+  // this function handles sending messages
   function handleButtonSubmit(e) {
     e.preventDefault();
     let outgoingmessage = sendMessage;
-    socketRef.current.emit("chatMessage", outgoingmessage, currentPodName, name);
-    // renderChat();
+    socketRef.current.emit("chatMessage", outgoingmessage, currentPod, name);
     setSendMessage("");
-    console.log(sendMessage+"_send msg reset");
   }
-
+  //this function is used to render the chat messages
   const renderChat = () => {
     return messages.map((messageOBJ) => (
-       <div ><p>{messageOBJ.name}: {messageOBJ.text}</p></div>));
+      <div>
+        {messageOBJ.name}: {messageOBJ.text}
+      </div>
+    ));
   };
 
   return (
-    <div className="chatWindow col-12">
-      <form className="" onSubmit={handleButtonSubmit}>
-        <div className="chatmessages overFlow-auto">{renderChat()}</div>
-        <input
-          className="messageTextArea"
-          id="chatField"
-          name="chatField"
-          placeholder="Type Here"
-          type="text"
-          onChange={(e) => {
-            setSendMessage(e.target.value);
-          }}
-          value = {sendMessage}
-        />
-        <button onClick={handleButtonSubmit}>SEND</button>
-      </form>
-    </div>
+    <Container>
+      <div className="col-12" id="chatWindow">
+        <Form onSubmit={handleButtonSubmit}>
+          <Row className="overflow-auto">
+            <Col className="overflow-auto" id="chatmessages">
+              {renderChat()}
+              <div ref={chatBottomRef}></div>
+            </Col>
+          </Row>
+          <Row>
+            <Form.Control
+              className="messageTextArea"
+              type="text"
+              id="chatField"
+              name="chatField"
+              placeholder="Type Here"
+              onChange={(e) => {
+                setSendMessage(e.target.value);
+              }}
+              value={sendMessage}
+            />
+            <Button onClick={handleButtonSubmit}>SEND</Button>
+          </Row>
+        </Form>
+      </div>
+    </Container>
   );
 }
 export default ChatWindow;

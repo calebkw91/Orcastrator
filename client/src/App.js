@@ -67,7 +67,7 @@ function App() {
             loggedIn: false
         });
         window.open(
-            process.env.LOGOUT_URL || "http://localhost:8080/logout",
+            process.env.LOGOUT_URL || "https://orcastrator.herokuapp.com/logout",
             "_self"
         );
     };

@@ -13,13 +13,19 @@ Want a one-stop-shop for creating and building your team for a project? Manage y
 
 ## Code
 
+Homepage:
+
+![image](https://user-images.githubusercontent.com/45397514/112721507-187c2e80-8ed2-11eb-8902-966165f96c2a.png)
+
 Dashboard page:
 
-![image](https://user-images.githubusercontent.com/70075341/111876820-84a8e080-896e-11eb-9ba5-1847e5ef2d0a.JPG)
+![image](https://user-images.githubusercontent.com/45397514/112721527-45304600-8ed2-11eb-8d33-f126cad9d320.png)
+<!-- ![image](https://user-images.githubusercontent.com/70075341/111876820-84a8e080-896e-11eb-9ba5-1847e5ef2d0a.JPG) -->
 
-Add User modal:
+Add Pod modal:
 
-![image](https://user-images.githubusercontent.com/70075341/111876822-85417700-896e-11eb-9c52-ed2ea78738e1.JPG)
+![image](https://user-images.githubusercontent.com/45397514/112721533-524d3500-8ed2-11eb-82ba-8a4337a8c713.png)
+<!-- ![image](https://user-images.githubusercontent.com/70075341/111876822-85417700-896e-11eb-9c52-ed2ea78738e1.JPG) -->
 
 ## Installation
 
